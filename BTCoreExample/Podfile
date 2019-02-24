@@ -6,5 +6,10 @@ target 'BTCoreExample' do
   # use_frameworks!
 
   # Pods for BTCoreExample
+  pod 'RTRootNavigationController'
+  pod 'AFNetworking'
+  pod 'MJRefresh'
+  pod 'BTLoading'
+  pod 'BTHelp'
 
 end

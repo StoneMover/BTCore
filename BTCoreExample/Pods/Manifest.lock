@@ -1,0 +1,48 @@
+PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
+  - BTHelp (0.0.4)
+  - BTLoading (0.0.4)
+  - MJRefresh (3.1.15.7)
+  - RTRootNavigationController (0.7.1):
+    - RTRootNavigationController/Core (= 0.7.1)
+  - RTRootNavigationController/Core (0.7.1)
+
+DEPENDENCIES:
+  - AFNetworking
+  - BTHelp
+  - BTLoading
+  - MJRefresh
+  - RTRootNavigationController
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - BTHelp
+    - BTLoading
+    - MJRefresh
+    - RTRootNavigationController
+
+SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  BTHelp: 125ca25481f3a4dfcb5b143a3f963209d5112063
+  BTLoading: a698cf8745ac1f75a0befc959e3c18915f21ce23
+  MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
+  RTRootNavigationController: afa6913402be26f8326f7f37fc1550aa67baddcc
+
+PODFILE CHECKSUM: 4ee1abbc5c2e8a2ab8245c5932e83b3553d27782
+
+COCOAPODS: 1.6.0

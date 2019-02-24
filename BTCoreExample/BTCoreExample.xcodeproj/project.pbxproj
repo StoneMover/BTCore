@@ -7,15 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180123D32162FAD458116056 /* libPods-BTCoreExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B8A88E02FA20F869509236C /* libPods-BTCoreExample.a */; };
 		9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B22222C2DD007A02C1 /* AppDelegate.m */; };
 		9B78C6B62222C2DD007A02C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B52222C2DD007A02C1 /* ViewController.m */; };
 		9B78C6B92222C2DD007A02C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B78C6B72222C2DD007A02C1 /* Main.storyboard */; };
 		9B78C6BB2222C2DE007A02C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B78C6BA2222C2DE007A02C1 /* Assets.xcassets */; };
 		9B78C6BE2222C2DE007A02C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B78C6BC2222C2DE007A02C1 /* LaunchScreen.storyboard */; };
 		9B78C6C12222C2DE007A02C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6C02222C2DE007A02C1 /* main.m */; };
+		9B78C6DA2222C87B007A02C1 /* BTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6CA2222C87B007A02C1 /* BTViewController.m */; };
+		9B78C6DB2222C87B007A02C1 /* BTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6CE2222C87B007A02C1 /* BTWebViewController.m */; };
+		9B78C6DC2222C87B007A02C1 /* BTHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D22222C87B007A02C1 /* BTHttp.m */; };
+		9B78C6DD2222C87B007A02C1 /* BTNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D52222C87B007A02C1 /* BTNet.m */; };
+		9B78C6DE2222C87B007A02C1 /* BTPageLoadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D62222C87B007A02C1 /* BTPageLoadViewController.m */; };
+		9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */; };
+		9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */; };
+		9B78C6E12222C87B007A02C1 /* BTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D92222C87B007A02C1 /* BTNavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5B8A88E02FA20F869509236C /* libPods-BTCoreExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BTCoreExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A614AA6110376E8AE8FEFAC /* Pods-BTCoreExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTCoreExample.release.xcconfig"; path = "Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample.release.xcconfig"; sourceTree = "<group>"; };
 		9B78C6AE2222C2DD007A02C1 /* BTCoreExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTCoreExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B78C6B12222C2DD007A02C1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9B78C6B22222C2DD007A02C1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -26,6 +37,24 @@
 		9B78C6BD2222C2DE007A02C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B78C6BF2222C2DE007A02C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B78C6C02222C2DE007A02C1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9B78C6CA2222C87B007A02C1 /* BTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTViewController.m; sourceTree = "<group>"; };
+		9B78C6CB2222C87B007A02C1 /* BTHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTHttp.h; sourceTree = "<group>"; };
+		9B78C6CC2222C87B007A02C1 /* BTPageLoadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPageLoadViewController.h; sourceTree = "<group>"; };
+		9B78C6CD2222C87B007A02C1 /* BTNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNet.h; sourceTree = "<group>"; };
+		9B78C6CE2222C87B007A02C1 /* BTWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTWebViewController.m; sourceTree = "<group>"; };
+		9B78C6CF2222C87B007A02C1 /* UIViewController+BTNavSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BTNavSet.h"; sourceTree = "<group>"; };
+		9B78C6D02222C87B007A02C1 /* BTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNavigationController.h; sourceTree = "<group>"; };
+		9B78C6D12222C87B007A02C1 /* UIViewController+BTDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BTDialog.h"; sourceTree = "<group>"; };
+		9B78C6D22222C87B007A02C1 /* BTHttp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTHttp.m; sourceTree = "<group>"; };
+		9B78C6D32222C87B007A02C1 /* BTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTViewController.h; sourceTree = "<group>"; };
+		9B78C6D42222C87B007A02C1 /* BTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTWebViewController.h; sourceTree = "<group>"; };
+		9B78C6D52222C87B007A02C1 /* BTNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNet.m; sourceTree = "<group>"; };
+		9B78C6D62222C87B007A02C1 /* BTPageLoadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTPageLoadViewController.m; sourceTree = "<group>"; };
+		9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BTNavSet.m"; sourceTree = "<group>"; };
+		9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BTDialog.m"; sourceTree = "<group>"; };
+		9B78C6D92222C87B007A02C1 /* BTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNavigationController.m; sourceTree = "<group>"; };
+		9B78C6E22222C8D3007A02C1 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
+		EF2A5DB05F0855FC9A132A49 /* Pods-BTCoreExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTCoreExample.debug.xcconfig"; path = "Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				180123D32162FAD458116056 /* libPods-BTCoreExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +74,8 @@
 			children = (
 				9B78C6B02222C2DD007A02C1 /* BTCoreExample */,
 				9B78C6AF2222C2DD007A02C1 /* Products */,
+				EC3D592582FDFE5DB006A526 /* Pods */,
+				F92F1F505581B4D1D4659C00 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +90,7 @@
 		9B78C6B02222C2DD007A02C1 /* BTCoreExample */ = {
 			isa = PBXGroup;
 			children = (
+				9B78C6C92222C87B007A02C1 /* Classes */,
 				9B78C6B12222C2DD007A02C1 /* AppDelegate.h */,
 				9B78C6B22222C2DD007A02C1 /* AppDelegate.m */,
 				9B78C6B42222C2DD007A02C1 /* ViewController.h */,
@@ -71,6 +104,48 @@
 			path = BTCoreExample;
 			sourceTree = "<group>";
 		};
+		9B78C6C92222C87B007A02C1 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9B78C6E22222C8D3007A02C1 /* Const.h */,
+				9B78C6D32222C87B007A02C1 /* BTViewController.h */,
+				9B78C6CA2222C87B007A02C1 /* BTViewController.m */,
+				9B78C6D02222C87B007A02C1 /* BTNavigationController.h */,
+				9B78C6D92222C87B007A02C1 /* BTNavigationController.m */,
+				9B78C6CB2222C87B007A02C1 /* BTHttp.h */,
+				9B78C6D22222C87B007A02C1 /* BTHttp.m */,
+				9B78C6CD2222C87B007A02C1 /* BTNet.h */,
+				9B78C6D52222C87B007A02C1 /* BTNet.m */,
+				9B78C6D42222C87B007A02C1 /* BTWebViewController.h */,
+				9B78C6CE2222C87B007A02C1 /* BTWebViewController.m */,
+				9B78C6CC2222C87B007A02C1 /* BTPageLoadViewController.h */,
+				9B78C6D62222C87B007A02C1 /* BTPageLoadViewController.m */,
+				9B78C6CF2222C87B007A02C1 /* UIViewController+BTNavSet.h */,
+				9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */,
+				9B78C6D12222C87B007A02C1 /* UIViewController+BTDialog.h */,
+				9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */,
+			);
+			name = Classes;
+			path = ../../Classes;
+			sourceTree = "<group>";
+		};
+		EC3D592582FDFE5DB006A526 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EF2A5DB05F0855FC9A132A49 /* Pods-BTCoreExample.debug.xcconfig */,
+				6A614AA6110376E8AE8FEFAC /* Pods-BTCoreExample.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F92F1F505581B4D1D4659C00 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5B8A88E02FA20F869509236C /* libPods-BTCoreExample.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,9 +153,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9B78C6C42222C2DE007A02C1 /* Build configuration list for PBXNativeTarget "BTCoreExample" */;
 			buildPhases = (
+				BD3C3D12817DBDFCB0891639 /* [CP] Check Pods Manifest.lock */,
 				9B78C6AA2222C2DD007A02C1 /* Sources */,
 				9B78C6AB2222C2DD007A02C1 /* Frameworks */,
 				9B78C6AC2222C2DD007A02C1 /* Resources */,
+				9A5CD00EF284FF40A564EFFA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -136,14 +213,71 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9A5CD00EF284FF40A564EFFA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample-resources.sh",
+				"${PODS_ROOT}/BTLoading/Assets/BTLoadingBundle.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BTLoadingBundle.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BD3C3D12817DBDFCB0891639 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BTCoreExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9B78C6AA2222C2DD007A02C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B78C6DD2222C87B007A02C1 /* BTNet.m in Sources */,
 				9B78C6B62222C2DD007A02C1 /* ViewController.m in Sources */,
 				9B78C6C12222C2DE007A02C1 /* main.m in Sources */,
+				9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */,
+				9B78C6DA2222C87B007A02C1 /* BTViewController.m in Sources */,
+				9B78C6DC2222C87B007A02C1 /* BTHttp.m in Sources */,
 				9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */,
+				9B78C6DB2222C87B007A02C1 /* BTWebViewController.m in Sources */,
+				9B78C6E12222C87B007A02C1 /* BTNavigationController.m in Sources */,
+				9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */,
+				9B78C6DE2222C87B007A02C1 /* BTPageLoadViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,10 +417,12 @@
 		};
 		9B78C6C52222C2DE007A02C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF2A5DB05F0855FC9A132A49 /* Pods-BTCoreExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BTCoreExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,10 +435,12 @@
 		};
 		9B78C6C62222C2DE007A02C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A614AA6110376E8AE8FEFAC /* Pods-BTCoreExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = BTCoreExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
