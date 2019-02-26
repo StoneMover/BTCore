@@ -27,7 +27,6 @@
 
 #pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames{
-    self.tableView=[[UITableView alloc] init];
     self.tableView.frame=self.view.bounds;
     self.tableView.delegate=self;
     self.tableView.dataSource=self;

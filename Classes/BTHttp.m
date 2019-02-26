@@ -8,9 +8,13 @@
 
 #import "BTHttp.h"
 
+static BTHttp * http=nil;
+
 @interface BTHttp()
 
 @property (nonatomic, strong) NSMutableDictionary * dictHead;
+
+@property (nonatomic, strong) AFHTTPSessionManager * mananger;
 
 
 @end
@@ -19,7 +23,10 @@
 @implementation BTHttp
 
 +(instancetype)share{
-    return [[BTHttp alloc]init];
+    if (!http) {
+        http=[[BTHttp alloc] init];
+    }
+    return http;
 }
 
 
@@ -28,6 +35,15 @@
     self=[super init];
     self.HTTPShouldHandleCookies=YES;
     return self;
+}
+
+- (AFHTTPSessionManager*)mananger{
+    if (!_mananger) {
+        _mananger=[AFHTTPSessionManager manager];
+        [self setHttpHead:_mananger];
+    }
+    
+    return _mananger;
 }
 
 -(void)addHttpHead:(NSString*)key value:(NSString*)value{
@@ -48,16 +64,13 @@
                                success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
                                failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure{
     
-    AFHTTPSessionManager * mananger=[AFHTTPSessionManager manager];
-    [self setHttpHead:mananger];
-    return [mananger GET:URLString parameters:parameters progress:downloadProgress success:success failure:failure];
+    return [self.mananger GET:URLString parameters:parameters progress:downloadProgress success:success failure:failure];
 }
 
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
                             parameters:(nullable id)parameters
                                success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
                                failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure{
-    
     return [self GET:URLString parameters:parameters progress:nil success:success failure:failure];
 }
 
@@ -71,10 +84,7 @@
 {
     NSLog(@"url:%@",URLString);
     NSLog(@"parameters:%@",parameters);
-    
-    AFHTTPSessionManager * mananger=[AFHTTPSessionManager manager];
-    [self setHttpHead:mananger];
-    return [mananger POST:URLString parameters:parameters progress:uploadProgress success:success failure:failure];
+    return [self.mananger POST:URLString parameters:parameters progress:uploadProgress success:success failure:failure];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -94,9 +104,7 @@
                        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
-    AFHTTPSessionManager * mananger=[AFHTTPSessionManager manager];
-    [self setHttpHead:mananger];
-    return [mananger POST:URLString parameters:parameters constructingBodyWithBlock:block progress:uploadProgress success:success failure:failure];
+    return [self.mananger POST:URLString parameters:parameters constructingBodyWithBlock:block progress:uploadProgress success:success failure:failure];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
