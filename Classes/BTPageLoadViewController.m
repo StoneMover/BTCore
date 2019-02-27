@@ -28,6 +28,9 @@
 #pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames{
     self.tableView.frame=self.view.bounds;
+    self.tableView.estimatedRowHeight = 0;
+    self.tableView.estimatedSectionHeaderHeight = 0;
+    self.tableView.estimatedSectionFooterHeight = 0;
     self.tableView.delegate=self;
     self.tableView.dataSource=self;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
