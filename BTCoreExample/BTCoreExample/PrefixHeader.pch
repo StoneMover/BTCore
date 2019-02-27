@@ -1,0 +1,28 @@
+//
+//  PrefixHeader.pch
+//  BTCoreExample
+//
+//  Created by stonemover on 2019/2/27.
+//  Copyright © 2019 stonemover. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
+
+
+#ifdef __OBJC__
+
+#import "BTLoadingView.h"
+#import "BTProgress.h"
+#import "BTToast.h"
+#import "Const.h"
+#import "BTUtils.h"
+#import "UIView+BTToolView.h"
+#import "BTUserMananger.h"
+
+#endif

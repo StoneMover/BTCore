@@ -1,0 +1,6 @@
+framework module Pods_BTCoreExample {
+  umbrella header "Pods-BTCoreExample-umbrella.h"
+
+  export *
+  module * { export * }
+}
