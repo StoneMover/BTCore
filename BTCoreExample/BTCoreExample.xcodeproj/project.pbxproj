@@ -26,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		6A614AA6110376E8AE8FEFAC /* Pods-BTCoreExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTCoreExample.release.xcconfig"; path = "Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample.release.xcconfig"; sourceTree = "<group>"; };
+		9B61A266223A551A00A209A5 /* BTCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTCore.h; sourceTree = "<group>"; };
 		9B78C6AE2222C2DD007A02C1 /* BTCoreExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTCoreExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B78C6B12222C2DD007A02C1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9B78C6B22222C2DD007A02C1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 				9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */,
 				9B78C6D12222C87B007A02C1 /* UIViewController+BTDialog.h */,
 				9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */,
+				9B61A266223A551A00A209A5 /* BTCore.h */,
 			);
 			name = Classes;
 			path = ../../Classes;
