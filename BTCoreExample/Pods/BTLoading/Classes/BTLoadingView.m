@@ -8,6 +8,8 @@
 
 #import "BTLoadingView.h"
 #import "UIImage+BTGIF.h"
+#import "BTLoadingHelp.h"
+
 @interface BTLoadingView()
 
 @property(nonatomic,assign)int w;
@@ -45,12 +47,12 @@
     self.backgroundColor=[UIColor whiteColor];
     self.w=self.frame.size.width;
     self.h=self.frame.size.height;
-    self.loadingGif=[UIImage animatedGIFNamed:@"bt_loading_icon"];
-    self.emptyImg=[self imageBundleName:@"bt_loading_empty"];
-    self.errorImg=[self imageBundleName:@"bt_loading_error"];
-    self.loadingStr=@"玩命加载中...";
-    self.emptyStr=@"貌似这里什么都没有";
-    self.errorInfo=@"似乎断开了与互联网的连接";
+    self.loadingGif=[UIImage animatedGIFNamed:[BTLoadingHelp share].loadingGif bundle:[NSBundle bundleForClass:[self class]]];
+    self.emptyImg=[[BTLoadingHelp share]imageBundleName:[BTLoadingHelp share].emptyImg];
+    self.errorImg=[[BTLoadingHelp share] imageBundleName:[BTLoadingHelp share].errorImg];
+    self.loadingStr=[BTLoadingHelp share].loadingStr;
+    self.emptyStr=[BTLoadingHelp share].emptyStr;
+    self.errorInfo=[BTLoadingHelp share].errorInfo;
     [self crateLabel];
     [self createImg];
     [self createBtn];
@@ -206,13 +208,6 @@
 }
 
 
-- (UIImage*)imageBundleName:(NSString*)name{
-    NSString * resourcePath=[[NSBundle mainBundle] resourcePath];
-    NSString * bundlePath=[resourcePath stringByAppendingPathComponent:@"BTLoadingBundle.bundle"];
-    NSString * imgPath=[bundlePath stringByAppendingPathComponent:name];
-    UIImage * img=[[UIImage alloc] initWithContentsOfFile:imgPath];
-    return img;
-}
 
     
 @end

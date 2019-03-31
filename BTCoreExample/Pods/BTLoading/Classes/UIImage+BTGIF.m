@@ -83,9 +83,9 @@
     return frameDuration;
 }
 
-+ (UIImage *)animatedGIFNamed:(NSString *)name {
++ (UIImage *)animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b{
     CGFloat scale = [UIScreen mainScreen].scale;
-    NSString * resourcePath=[[NSBundle mainBundle] resourcePath];
+    NSString * resourcePath=[b resourcePath];
     NSString * bundlePath=[resourcePath stringByAppendingPathComponent:@"BTLoadingBundle.bundle"];
     NSBundle * bundle=[NSBundle bundleWithPath:bundlePath];
     if (scale > 1.0f) {
@@ -93,30 +93,30 @@
         
         NSString * retinaPath = [bundle pathForResource:[name stringByAppendingString:@"@2x"] ofType:@"gif"];
         NSData *data = [NSData dataWithContentsOfFile:retinaPath];
-
+        
         if (data) {
             return [UIImage animatedGIFWithData:data];
         }
-
+        
         NSString *path = [bundle pathForResource:name ofType:@"gif"];
-
+        
         data = [NSData dataWithContentsOfFile:path];
-
+        
         if (data) {
             return [UIImage animatedGIFWithData:data];
         }
-
+        
         return [UIImage imageNamed:name];
     }
     else {
         NSString *path = [bundle pathForResource:name ofType:@"gif"];
-
+        
         NSData *data = [NSData dataWithContentsOfFile:path];
-
+        
         if (data) {
             return [UIImage animatedGIFWithData:data];
         }
-
+        
         return [UIImage imageNamed:name];
     }
 }

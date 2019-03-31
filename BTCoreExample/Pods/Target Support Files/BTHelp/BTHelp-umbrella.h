@@ -15,17 +15,20 @@
 #import "BTModel.h"
 #import "BTModelAnalisys.h"
 #import "BTModelProperty.h"
-#import "BTBtnAutoLayout.h"
 #import "BTButton.h"
 #import "BTHelp.h"
 #import "BTIconHelp.h"
+#import "BTKeyboardHelp.h"
 #import "BTLineView.h"
 #import "BTLocation.h"
+#import "BTMacro.h"
 #import "BTPermission.h"
 #import "BTTimerHelp.h"
 #import "BTUtils.h"
 #import "UIImage+BTImage.h"
 #import "UIView+BTViewTool.h"
+#import "BTTextInputView.h"
+#import "BTTextView.h"
 
 FOUNDATION_EXPORT double BTHelpVersionNumber;
 FOUNDATION_EXPORT const unsigned char BTHelpVersionString[];

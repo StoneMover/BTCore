@@ -36,6 +36,12 @@ static BTLoadingHelp * help=nil;
 - (instancetype)init{
     self=[super init];
     self.delegates=[NSMutableArray new];
+    self.loadingStr=@"玩命加载中...";
+    self.emptyStr=@"貌似这里什么都没有";
+    self.errorInfo=@"似乎断开了与互联网的连接";
+    self.loadingGif=@"bt_loading_icon";
+    self.errorImg=@"bt_loading_empty";
+    self.emptyImg=@"bt_loading_error";
     [self initNotification];
     return self;
 }
@@ -86,6 +92,12 @@ static BTLoadingHelp * help=nil;
             [del keyBoradHeightChange];
         }
     }
+}
+
+- (UIImage*)imageBundleName:(NSString*)name{
+    NSBundle * bundle = [NSBundle bundleForClass:[self class]];
+    UIImage * img = [UIImage imageNamed:[NSString stringWithFormat:@"BTLoadingBundle.bundle/%@",name] inBundle:bundle compatibleWithTraitCollection:nil];
+    return img;
 }
 
 

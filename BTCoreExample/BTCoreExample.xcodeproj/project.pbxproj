@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		51D9127065DFF82B77C5BE7A /* libPods-BTCoreExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F8053E8BD146DD58FAF06184 /* libPods-BTCoreExample.a */; };
 		9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B22222C2DD007A02C1 /* AppDelegate.m */; };
 		9B78C6B62222C2DD007A02C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B52222C2DD007A02C1 /* ViewController.m */; };
 		9B78C6B92222C2DD007A02C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B78C6B72222C2DD007A02C1 /* Main.storyboard */; };
@@ -22,6 +21,7 @@
 		9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */; };
 		9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */; };
 		9B78C6E12222C87B007A02C1 /* BTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D92222C87B007A02C1 /* BTNavigationController.m */; };
+		E5D9C3B2723B7699AEEE4CE7 /* Pods_BTCoreExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C9B10C47BD8BD79DAB8C93 /* Pods_BTCoreExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,10 +53,9 @@
 		9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BTNavSet.m"; sourceTree = "<group>"; };
 		9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BTDialog.m"; sourceTree = "<group>"; };
 		9B78C6D92222C87B007A02C1 /* BTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNavigationController.m; sourceTree = "<group>"; };
-		9B78C6E22222C8D3007A02C1 /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		9BE4A66D222678820025FD36 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		A5C9B10C47BD8BD79DAB8C93 /* Pods_BTCoreExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BTCoreExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF2A5DB05F0855FC9A132A49 /* Pods-BTCoreExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTCoreExample.debug.xcconfig"; path = "Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample.debug.xcconfig"; sourceTree = "<group>"; };
-		F8053E8BD146DD58FAF06184 /* libPods-BTCoreExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BTCoreExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51D9127065DFF82B77C5BE7A /* libPods-BTCoreExample.a in Frameworks */,
+				E5D9C3B2723B7699AEEE4CE7 /* Pods_BTCoreExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +109,6 @@
 		9B78C6C92222C87B007A02C1 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				9B78C6E22222C8D3007A02C1 /* Const.h */,
 				9B78C6D32222C87B007A02C1 /* BTViewController.h */,
 				9B78C6CA2222C87B007A02C1 /* BTViewController.m */,
 				9B78C6D02222C87B007A02C1 /* BTNavigationController.h */,
@@ -145,7 +143,7 @@
 		F92F1F505581B4D1D4659C00 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F8053E8BD146DD58FAF06184 /* libPods-BTCoreExample.a */,
+				A5C9B10C47BD8BD79DAB8C93 /* Pods_BTCoreExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,7 +159,7 @@
 				9B78C6AA2222C2DD007A02C1 /* Sources */,
 				9B78C6AB2222C2DD007A02C1 /* Frameworks */,
 				9B78C6AC2222C2DD007A02C1 /* Resources */,
-				968A07BB386B9720CCD28F17 /* [CP] Copy Pods Resources */,
+				87FE2108468EE48BFC964584 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,7 +216,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		968A07BB386B9720CCD28F17 /* [CP] Copy Pods Resources */ = {
+		87FE2108468EE48BFC964584 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -226,20 +224,26 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample-resources.sh",
-				"${PODS_ROOT}/BTLoading/Assets/BTLoadingBundle.bundle",
-				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/BTHelp/BTHelp.framework",
+				"${BUILT_PRODUCTS_DIR}/BTLoading/BTLoading.framework",
+				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BTLoadingBundle.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BTHelp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BTLoading.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RTRootNavigationController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BD3C3D12817DBDFCB0891639 /* [CP] Check Pods Manifest.lock */ = {

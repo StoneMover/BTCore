@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "BTLoading.h"
 #import "BTLoadingHelp.h"
 #import "BTLoadingView.h"
 #import "BTProgress.h"

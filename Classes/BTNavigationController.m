@@ -7,7 +7,7 @@
 //
 
 #import "BTNavigationController.h"
-#import "Const.h"
+#import "BTMacro.h"
 
 @interface BTNavigationController ()
 
@@ -20,8 +20,8 @@
     self.useSystemBackBarButtonItem = false;
     [super viewDidLoad];
     self.navigationBar.translucent = false;
-    self.navigationBar.tintColor=KBlackColor;
-    self.navigationBar.barTintColor = KWhiteColor;
+    self.navigationBar.tintColor=BT_BLACK_COLOR;
+    self.navigationBar.barTintColor = BT_WHITE_COLOR;
 }
 
 /*

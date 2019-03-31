@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+BTNavSet.h"
-#import "Const.h"
+#import "BTMacro.h"
 #import <BTHelp/UIImage+BTImage.h>
 
 @implementation UIViewController (BTNavSet)
@@ -121,10 +121,10 @@
 
 - (void)setNavTrans{
     self.navigationController.navigationBar.translucent = true;
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:KClearColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:BT_CLEAR_COLOR] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setClipsToBounds:YES];
-    self.navigationController.navigationBar.backgroundColor=KClearColor;
+    self.navigationController.navigationBar.backgroundColor=BT_CLEAR_COLOR;
 }
 
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action{
@@ -135,7 +135,7 @@
 }
 
 - (UIBarButtonItem*)getLeftBarItem{
-    return [self createItemImg:IMAGE(@"nav_back") action:@selector(leftBarClick)];
+    return [self createItemImg:BT_IMAGE(@"nav_back") action:@selector(leftBarClick)];
 }
 
 - (void)updateNavItem{
