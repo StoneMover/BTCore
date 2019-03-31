@@ -266,7 +266,7 @@
                 [weakSelf footRefreshLoad];
             }];
             if (BT_UI_IS_IPHONEX) {
-                self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=BT_HOME_INDICATOR_HEIGHT;
+                self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=34;
             }
             
         }else{
