@@ -34,8 +34,12 @@
     self.tableView.delegate=self;
     self.tableView.dataSource=self;
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.dataArrayCellId=[NSMutableArray new];
     for (NSString * cellName in cellNames) {
-        [self.tableView registerNib:[UINib nibWithNibName:cellName bundle:nil] forCellReuseIdentifier:[NSString stringWithFormat:@"%@Id",cellName]];
+        UINib * nib = [UINib nibWithNibName:cellName bundle:nil];
+        NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
+        [self.dataArrayCellId addObject:cellId];
+        [self.tableView registerNib:nib forCellReuseIdentifier:cellId];
     }
     
     [self.view addSubview:self.tableView];
@@ -215,6 +219,18 @@
     return array;
 }
 
+
+- (NSString*)cellId:(NSInteger)index{
+    if (self.dataArrayCellId&&index<self.dataArrayCellId.count) {
+        return self.dataArrayCellId[index];
+    }
+    
+    return nil;
+}
+
+- (NSString*)cellId{
+    return [self cellId:0];
+}
 
 - (void)setIsLoadFinish:(BOOL)isLoadFinish{
     if (isLoadFinish==_isLoadFinish) {
