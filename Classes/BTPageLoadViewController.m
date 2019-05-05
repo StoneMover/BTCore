@@ -7,9 +7,10 @@
 //
 
 #import "BTPageLoadViewController.h"
-#import "BTModel.h"
 #import "MJRefresh.h"
-#import "BTMacro.h"
+#import <BTHelp/BTUtils.h>
+#import "BTModel.h"
+
 
 @interface BTPageLoadViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -281,7 +282,7 @@
                                        footerWithRefreshingBlock:^{
                 [weakSelf footRefreshLoad];
             }];
-            if (BT_UI_IS_IPHONEX) {
+            if (BTUtils.UI_IS_IPHONEX) {
                 self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=34;
             }
             

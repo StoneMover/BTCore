@@ -7,7 +7,7 @@
 //
 
 #import "BTViewController.h"
-#import "BTMacro.h"
+#import <BTHelp/BTUtils.h>
 
 
 @interface BTViewController ()
@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor=BT_RGB(247, 247, 247);
+    self.view.backgroundColor=[BTUtils RGB:247 G:247 B:247];
 }
 
 #pragma mark 生命周期

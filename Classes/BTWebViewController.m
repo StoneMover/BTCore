@@ -8,7 +8,7 @@
 
 #import "BTWebViewController.h"
 #import <WebKit/WebKit.h>
-#import "BTMacro.h"
+#import <BTHelp/BTUtils.h>
 
 @interface BTWebViewController ()<WKNavigationDelegate>
 
@@ -28,7 +28,7 @@
 
 
 - (void)initWebView{
-    self.webView=[[WKWebView alloc] initWithFrame:CGRectMake(0, 0, BT_SCREEN_W, BT_SCREEN_H)];
+    self.webView=[[WKWebView alloc] initWithFrame:CGRectMake(0, 0, BTUtils.SCREEN_W, BTUtils.SCREEN_H)];
     [self.view insertSubview:self.webView atIndex:0];
     self.webView.navigationDelegate=self;
     [self addSelfObserver];

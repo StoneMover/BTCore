@@ -7,7 +7,8 @@
 //
 
 #import "UIViewController+BTDialog.h"
-#import "BTMacro.h"
+
+
 
 @implementation UIViewController (BTDialog)
 
@@ -125,7 +126,7 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction *action) {
         
     }];
-    [cancelAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
+//    [cancelAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
     [alertController addAction:cancelAction];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction *action) {
@@ -134,7 +135,7 @@
         NSString * text=field.text;
         block(text);
     }];
-    [okAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
+//    [okAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
