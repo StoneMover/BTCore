@@ -42,9 +42,10 @@ typedef void(^BTDialogBlock)(NSInteger index);
                   block:(BTDialogBlock _Nonnull)block;
 
 //显示编辑框类型
-- (void)showAlertEdit:(NSString* _Nonnull)value
-          placeHolder:(NSString* _Nonnull)placeHolder
-                block:(void(^_Nonnull)(NSString * _Nonnull result))block;
+- (void)showAlertEdit:(NSString*_Nullable)title
+         defaultValue:(NSString*_Nullable)value
+          placeHolder:(NSString*_Nullable)placeHolder
+                block:(void(^_Nullable)(NSString * _Nullable result))block;
 
 
 @end

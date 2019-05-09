@@ -10,7 +10,7 @@
 #import "MJRefresh.h"
 #import <BTHelp/BTUtils.h>
 #import "BTModel.h"
-
+#import "BTCoreConfig.h"
 
 @interface BTPageLoadViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -84,7 +84,7 @@
                 codeKey:(NSString*)codeKey
                   class:(Class)cla{
     if ([dict.allKeys containsObject:infoKey]&&[dict.allKeys containsObject:codeKey]) {
-        NSArray * array=[[dict objectForKey:dataKey] objectForKey:@"list"];
+        NSArray * array=[[dict objectForKey:dataKey] objectForKey:[BTCoreConfig share].keyPageList];
         NSString * info=[NSString stringWithFormat:@"%@",[dict objectForKey:infoKey]];
         NSString * code=[NSString stringWithFormat:@"%@",[dict objectForKey:codeKey]];
         [self autoLoadSuccess:code.integerValue info:info dataDict:array class:cla];
@@ -96,7 +96,7 @@
 }
 
 - (void)autoLoadSuccess:(NSDictionary*)dict class:(Class)cla{
-    [self autoLoadSuccess:dict dataKey:@"data" infoKey:@"description" codeKey:@"succeed" class:cla];
+    [self autoLoadSuccess:dict dataKey:[BTCoreConfig share].netKeyData infoKey:[BTCoreConfig share].netKeyInfo codeKey:[BTCoreConfig share].netKeyCode class:cla];
 }
 
 - (void)autoLoadSuccess:(NSInteger)code
@@ -105,53 +105,44 @@
                   class:(Class)cls{
     [self endHeadRefresh];
     [self endFootRefresh];
-    switch (code) {
-        case 1:
-        {
-            if (self.isRefresh) {
-                [self.dataArray removeAllObjects];
-                self.isRefresh=NO;
-            }
-            
-            [self autoAnalyses:dataDict class:cls];
-            if (self.pageNumber==1) {
-                if (self.loadingHelp) {
-                    if(dataDict.count==0){
-                        [self showEmpty];
-                        self.pageNumber--;
-                    }else{
-                        [self dismiss];
-                    }
+    if (code==[BTCoreConfig share].netSuccessCode) {
+        if (self.isRefresh) {
+            [self.dataArray removeAllObjects];
+            self.isRefresh=NO;
+        }
+        
+        [self autoAnalyses:dataDict class:cls];
+        if (self.pageNumber==1) {
+            if (self.loadingHelp) {
+                if(dataDict.count==0){
+                    [self showEmpty];
+                    self.pageNumber--;
                 }else{
-                    if(dataDict.count==0){
-                        self.pageNumber--;
-                        [BTToast show:@"暂无数据"];
-                    }
+                    [self dismiss];
+                }
+            }else{
+                if(dataDict.count==0){
+                    self.pageNumber--;
+                    [BTToast show:@"暂无数据"];
                 }
             }
-            self.isLoadFinish=[self autoCheckDataLoadFinish:dataDict];
-            self.pageNumber++;
-            if (self.tableView) {
-                [self.tableView reloadData];
-            }
-            if (self.collectionView) {
-                [self.collectionView reloadData];
-            }
-            
         }
-            break;
-        case 0:
-        {
-            
-            if (self.pageNumber==1&&self.loadingHelp&&!self.isRefresh) {
-                //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
-                [self.loadingHelp showError:info];
-                return;
-            }
-            self.isRefresh=NO;
-            [BTToast showError:info];
+        self.isLoadFinish=[self autoCheckDataLoadFinish:dataDict];
+        self.pageNumber++;
+        if (self.tableView) {
+            [self.tableView reloadData];
         }
-            break;
+        if (self.collectionView) {
+            [self.collectionView reloadData];
+        }
+    }else{
+        if (self.pageNumber==1&&self.loadingHelp&&!self.isRefresh) {
+            //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
+            [self.loadingHelp showError:info];
+            return;
+        }
+        self.isRefresh=NO;
+        [BTToast showError:info];
     }
 }
 
@@ -208,7 +199,7 @@
 }
 
 - (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict{
-    return [self pageLoadData:dict dataKey:@"data"];
+    return [self pageLoadData:dict dataKey:[BTCoreConfig share].keyPageList];
 }
 
 - (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict dataKey:(NSString*)dataKey{
@@ -252,6 +243,7 @@
 - (void)createModel:(NSObject*)model dict:(NSDictionary*)dict index:(NSInteger)index{
     
 }
+
 
 
 #pragma mark 刷新相关

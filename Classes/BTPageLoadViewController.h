@@ -87,8 +87,7 @@
 #pragma mark 相关回调
 //当进行自动解析创建modeld时候的回调，此时已经add进入数组
 - (void)createModel:(NSObject*)model dict:(NSDictionary*)dict index:(NSInteger)index;
-//所有逻辑进行完成
-- (void)autoLoadFinish;
+
 
 #pragma mark 刷新相关
 - (void)startHeadRefresh;

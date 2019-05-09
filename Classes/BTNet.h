@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "BTHttp.h"
 
-#define ROOT_URL @"http://120.78.83.132:3308"
-#define RESULT_IMG_URL(url) [BTNet getImgResultUrl:url]
 
 typedef void(^BTNetSuccessBlcok)(id obj);
 typedef void(^BTNetFailBlock)(NSError * error);
@@ -29,7 +27,13 @@ typedef void(^BTNetFailBlock)(NSError * error);
       functionName:(NSString*)functionName;
 
 //传入方法名,rootUrl默认为ROOT_URL
-+(NSString*)getUrl:(NSString*)functionName;
++(NSString*)getUrlModule:(NSString*)moduleName;
+
+//在重写了moduleName方法的情况下，直接传入方法名称即可
++ (NSString*)getUrlFunction:(NSString*)functionName;
+
+//默认的模块名称，为空，需要自己重写，然后调用getUrlFunction方法
++ (NSString*)moduleName;
 
 
 //获取默认的字典

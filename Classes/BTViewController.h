@@ -31,6 +31,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BTViewController : UIViewController
 
+//是否在触摸结束后关闭键盘，默认true
+@property (nonatomic, assign) BOOL isTouceViewEndCloseKeyBoard;
+
+//界面调用viewWillAppear的次数
+@property (nonatomic, assign) NSInteger viewWillAppearIndex;
+
+//界面调用viewDidAppear的次数
+@property (nonatomic, assign) NSInteger viewDidAppearIndex;
+
 - (void)getData;
 - (void)reload;
 @end

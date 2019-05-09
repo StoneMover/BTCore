@@ -18,6 +18,6 @@
 #import "BTPageLoadViewController.h"
 #import "UIViewController+BTNavSet.h"
 #import "UIViewController+BTDialog.h"
-
+#import "BTCoreConfig.h"
 
 #endif /* BTCore_h */

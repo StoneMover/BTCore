@@ -8,6 +8,7 @@
 
 #import "BTNet.h"
 #import <BTHelp/BTUserMananger.h>
+#import "BTCoreConfig.h"
 
 @implementation BTNet
 
@@ -22,12 +23,20 @@
 
 //传入module名称和方法名称
 +(NSString*)getUrl:(NSString*)moduleName functionName:(NSString*)functionName{
-    return [self getUrl:ROOT_URL moduleName:moduleName functionName:functionName];
+    return [self getUrl:[BTCoreConfig share].rootUrl moduleName:moduleName functionName:functionName];
 }
 
 //只有module名称,没有方法名称
-+(NSString*)getUrl:(NSString*)moduleName{
++(NSString*)getUrlModule:(NSString*)moduleName{
     return [self getUrl:moduleName functionName:nil];
+}
+
++ (NSString*)getUrlFunction:(NSString*)functionName{
+    return [self getUrl:[self moduleName] functionName:functionName];
+}
+
++ (NSString*)moduleName{
+    return @"";
 }
 
 //获取默认的字典
@@ -43,19 +52,26 @@
         dictResult=[[NSMutableDictionary alloc] init];
     }
     NSString * version=[[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    NSString * os=@"iOS";
+    NSString * os=[BTCoreConfig share].keyOs;
     NSString * osVersion=[UIDevice currentDevice].systemVersion;
-    [dictResult setValue:version forKey:@"version"];
-    [dictResult setValue:os forKey:@"os"];
-    [dictResult setValue:osVersion forKey:@"os_version"];
+    [dictResult setValue:version forKey:[BTCoreConfig share].keyVersion];
+    [dictResult setValue:os forKey:[BTCoreConfig share].keyOs];
+    [dictResult setValue:osVersion forKey:[BTCoreConfig share].keyOsVersion];
     if (UserMan.isLogin) {
-        [dictResult setValue:UserManModel.userId forKey:@"userId"];
+        if (UserManModel.userId) {
+            [dictResult setValue:UserManModel.userId forKey:[BTCoreConfig share].keyUid];
+        }
+        
+        if (UserManModel.userToken) {
+            [dictResult setValue:UserManModel.userToken forKey:[BTCoreConfig share].keyToken];
+        }
+        
     }
     return dictResult;
 }
 
 +(BOOL)isSuccess:(NSDictionary*)dict{
-    NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:@"succeed"]];
+    NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
     if (code.integerValue==1) {
         return YES;
     }
@@ -63,11 +79,11 @@
 }
 
 +(NSString*)errorInfo:(NSDictionary*)dict{
-    return [dict objectForKey:@"description"];
+    return [dict objectForKey:[BTCoreConfig share].netKeyInfo];
 }
 
 +(NSURL*)getImgResultUrl:(NSString*)url{
-   return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",ROOT_URL,url]];
+   return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",[BTCoreConfig share].imgRootUrl,url]];
 }
 
 @end
