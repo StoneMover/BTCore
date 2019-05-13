@@ -78,16 +78,21 @@
 }
 
 #pragma mark 自动加载逻辑
-- (void)autoLoadSuccess:(NSDictionary*)dict
-                dataKey:(NSString*)dataKey
-                infoKey:(NSString*)infoKey
-                codeKey:(NSString*)codeKey
-                  class:(Class)cla{
+- (void)autoLoad:(NSDictionary*)dict
+         dataKey:(NSString*)dataKey
+         infoKey:(NSString*)infoKey
+         codeKey:(NSString*)codeKey
+           class:(Class)cla{
     if ([dict.allKeys containsObject:infoKey]&&[dict.allKeys containsObject:codeKey]) {
-        NSArray * array=[[dict objectForKey:dataKey] objectForKey:[BTCoreConfig share].keyPageList];
+        
         NSString * info=[NSString stringWithFormat:@"%@",[dict objectForKey:infoKey]];
         NSString * code=[NSString stringWithFormat:@"%@",[dict objectForKey:codeKey]];
-        [self autoLoadSuccess:code.integerValue info:info dataDict:array class:cla];
+        if (code.integerValue==[BTCoreConfig share].netSuccessCode) {
+            NSArray * array=[self pageLoadData:dict];
+            [self autoLoadSuccess:array class:cla];
+        }else{
+            [self autoLoadSeverError:info];
+        }
         
     }else{
         NSLog(@"字典中应该包含info和code字段");
@@ -95,56 +100,69 @@
     
 }
 
-- (void)autoLoadSuccess:(NSDictionary*)dict class:(Class)cla{
-    [self autoLoadSuccess:dict dataKey:[BTCoreConfig share].netKeyData infoKey:[BTCoreConfig share].netKeyInfo codeKey:[BTCoreConfig share].netKeyCode class:cla];
+- (void)autoLoad:(NSDictionary*)dict class:(Class)cla{
+    [self autoLoad:dict
+           dataKey:[BTCoreConfig share].netKeyData
+           infoKey:[BTCoreConfig share].netKeyInfo
+           codeKey:[BTCoreConfig share].netKeyCode
+             class:cla];
 }
 
-- (void)autoLoadSuccess:(NSInteger)code
-                   info:(NSString*)info
-               dataDict:(NSArray*)dataDict
-                  class:(Class)cls{
+- (void)autoLoadSuccess:(NSArray*)dataDict class:(Class)cls{
     [self endHeadRefresh];
     [self endFootRefresh];
-    if (code==[BTCoreConfig share].netSuccessCode) {
-        if (self.isRefresh) {
-            [self.dataArray removeAllObjects];
-            self.isRefresh=NO;
-        }
-        
-        [self autoAnalyses:dataDict class:cls];
-        if (self.pageNumber==1) {
-            if (self.loadingHelp) {
-                if(dataDict.count==0){
-                    [self showEmpty];
-                    self.pageNumber--;
-                }else{
-                    [self dismiss];
-                }
+    if (self.isRefresh) {
+        [self.dataArray removeAllObjects];
+        self.isRefresh=NO;
+    }
+    
+    [self autoAnalyses:dataDict class:cls];
+    if (self.pageNumber==1) {
+        if (self.loadingHelp) {
+            if(dataDict.count==0){
+                [self showEmpty];
+                self.pageNumber--;
             }else{
-                if(dataDict.count==0){
-                    self.pageNumber--;
-                    [BTToast show:@"暂无数据"];
-                }
+                [self dismiss];
+            }
+        }else{
+            if(dataDict.count==0){
+                self.pageNumber--;
+                [BTToast show:@"暂无数据"];
             }
         }
-        self.isLoadFinish=[self autoCheckDataLoadFinish:dataDict];
-        self.pageNumber++;
-        if (self.tableView) {
-            [self.tableView reloadData];
-        }
-        if (self.collectionView) {
-            [self.collectionView reloadData];
-        }
-    }else{
-        if (self.pageNumber==1&&self.loadingHelp&&!self.isRefresh) {
-            //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
-            [self.loadingHelp showError:info];
-            return;
-        }
-        self.isRefresh=NO;
-        [BTToast showError:info];
+    }
+    self.isLoadFinish=[self autoCheckDataLoadFinish:dataDict];
+    self.pageNumber++;
+    if (self.tableView) {
+        [self.tableView reloadData];
+    }
+    if (self.collectionView) {
+        [self.collectionView reloadData];
     }
 }
+
+- (void)autoLoadError:(NSError*)error errorInfo:(NSString*)errorInfo{
+    if (error) {
+        [self autoLoadNetError:error];
+    }else{
+        [self autoLoadSeverError:errorInfo];
+    }
+}
+
+
+- (void)autoLoadSeverError:(NSString*)errorInfo{
+    [self endHeadRefresh];
+    [self endFootRefresh];
+    if (self.pageNumber==1&&self.loadingHelp&&!self.isRefresh) {
+        //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
+        [self.loadingHelp showError:errorInfo];
+        return;
+    }
+    self.isRefresh=NO;
+    [BTToast showError:errorInfo];
+}
+
 
 - (void)autoLoadNetError:(NSError*)error{
     [self endHeadRefresh];
@@ -206,7 +224,7 @@
     if (![dict.allKeys containsObject:dataKey]) {
         return nil;
     }
-    //可以根据项目需要自己调整data数组位置，如果结构复杂就自己解析出数组使用
+    
     NSArray * array=[dict objectForKey:dataKey];
     return array;
 }
@@ -272,8 +290,8 @@
             __weak BTPageLoadViewController * weakSelf=self;
             self.scrollView.mj_footer=[MJRefreshBackNormalFooter
                                        footerWithRefreshingBlock:^{
-                [weakSelf footRefreshLoad];
-            }];
+                                           [weakSelf footRefreshLoad];
+                                       }];
             if (BTUtils.UI_IS_IPHONEX) {
                 self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=34;
             }

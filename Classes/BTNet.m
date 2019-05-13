@@ -83,7 +83,15 @@
 }
 
 +(NSURL*)getImgResultUrl:(NSString*)url{
-   return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",[BTCoreConfig share].imgRootUrl,url]];
+    if([BTCoreConfig share].imgRootUrl){
+        return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",[BTCoreConfig share].imgRootUrl,url]];
+    }else{
+        return [NSURL URLWithString:url];
+    }
+}
+
++(NSMutableArray*)defaultDictArray:(NSDictionary*)dict{
+    return [dict objectForKey:[BTCoreConfig share].netKeyData];
 }
 
 @end

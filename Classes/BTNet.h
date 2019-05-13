@@ -36,13 +36,21 @@ typedef void(^BTNetFailBlock)(NSError * error,NSString * errorInfo);
 + (NSString*)moduleName;
 
 
-//获取默认的字典
+//获取默认的数据请求字典
 +(NSMutableDictionary*)defaultDict;
 +(NSMutableDictionary*)defaultDict:(NSDictionary*)dict;
 
+//判断网络是否请求成功
 +(BOOL)isSuccess:(NSDictionary*)dict;
+
+//获取请求json中的错误信息
 +(NSString*)errorInfo:(NSDictionary*)dict;
+
+//获取图片拼接地址的完整url，传入拼接的url，如果不需要拼接则[BTCoreConfig share].imgRootUrl不设置即可
 +(NSURL*)getImgResultUrl:(NSString*)url;
+
+//获取数据列表请求中的json列表数组字典
++(NSMutableArray*)defaultDictArray:(NSDictionary*)dict;
 
 @end
 
