@@ -72,7 +72,7 @@
 
 +(BOOL)isSuccess:(NSDictionary*)dict{
     NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
-    if (code.integerValue==1) {
+    if (code.integerValue==[BTCoreConfig share].netSuccessCode) {
         return YES;
     }
     return NO;

@@ -46,6 +46,13 @@
 @property (nonatomic, strong) UIColor * mainColor;
 
 
+//分页加载的起始页，默认的是1
+@property (nonatomic, assign) NSInteger pageLoadStartPage;
+
+//分页加载的默认每页数据，默认的是每页20条数据
+@property (nonatomic, assign) NSInteger pageLoadSizePage;
+
+
 + (instancetype)share;
 
 @end

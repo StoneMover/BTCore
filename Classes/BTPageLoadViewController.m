@@ -12,7 +12,7 @@
 #import "BTModel.h"
 #import "BTCoreConfig.h"
 
-@interface BTPageLoadViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface BTPageLoadViewController ()
 
 @property (nonatomic, weak) UIScrollView * scrollView;
 
@@ -22,8 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.loadFinishDataNum=15;
-    self.pageNumber=1;
+    self.loadFinishDataNum=[BTCoreConfig share].pageLoadSizePage;
+    self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
 }
 
 #pragma mark 初始化相关操作

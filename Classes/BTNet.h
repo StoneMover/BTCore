@@ -11,7 +11,7 @@
 
 
 typedef void(^BTNetSuccessBlcok)(id obj);
-typedef void(^BTNetFailBlock)(NSError * error);
+typedef void(^BTNetFailBlock)(NSError * error,NSString * errorInfo);
 
 
 

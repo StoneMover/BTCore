@@ -38,6 +38,9 @@ static BTCoreConfig * config=nil;
     
     
     self.mainColor=[UIColor redColor];
+    
+    self.pageLoadSizePage=20;
+    self.pageLoadStartPage=1;
     return self;
 }
 
