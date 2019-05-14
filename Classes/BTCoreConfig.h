@@ -38,7 +38,7 @@
 @property (nonatomic, strong) NSString * keyToken;
 
 
-//pageLoad 相关参数key
+//pageLoad 获取列表的key，默认为list
 @property (nonatomic, strong) NSString * keyPageList;
 
 

@@ -117,7 +117,7 @@
     }
     
     [self autoAnalyses:dataDict class:cls];
-    if (self.pageNumber==1) {
+    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
         if (self.loadingHelp) {
             if(dataDict.count==0){
                 [self showEmpty];

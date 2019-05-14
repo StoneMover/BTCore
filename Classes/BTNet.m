@@ -91,7 +91,7 @@
 }
 
 +(NSMutableArray*)defaultDictArray:(NSDictionary*)dict{
-    return [dict objectForKey:[BTCoreConfig share].netKeyData];
+    return [dict objectForKey:[BTCoreConfig share].keyPageList];
 }
 
 @end
