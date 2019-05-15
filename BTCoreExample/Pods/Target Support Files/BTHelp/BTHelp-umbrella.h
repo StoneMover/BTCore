@@ -10,8 +10,6 @@
 #endif
 #endif
 
-#import "BTUserMananger.h"
-#import "BTUserModel.h"
 #import "BTModel.h"
 #import "BTModelAnalisys.h"
 #import "BTModelProperty.h"

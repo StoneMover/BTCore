@@ -52,6 +52,9 @@
 //分页加载的默认每页数据，默认的是每页20条数据
 @property (nonatomic, assign) NSInteger pageLoadSizePage;
 
+//继承于BTUserModel 的用户模型
+@property (nonatomic, strong) Class userModelClass;
+
 
 + (instancetype)share;
 

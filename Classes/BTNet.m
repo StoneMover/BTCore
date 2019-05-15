@@ -7,7 +7,7 @@
 //
 
 #import "BTNet.h"
-#import <BTHelp/BTUserMananger.h>
+#import "BTUserMananger.h"
 #import "BTCoreConfig.h"
 
 @implementation BTNet
@@ -57,13 +57,13 @@
     [dictResult setValue:version forKey:[BTCoreConfig share].keyVersion];
     [dictResult setValue:os forKey:[BTCoreConfig share].keyOs];
     [dictResult setValue:osVersion forKey:[BTCoreConfig share].keyOsVersion];
-    if (UserMan.isLogin) {
-        if (UserManModel.userId) {
-            [dictResult setValue:UserManModel.userId forKey:[BTCoreConfig share].keyUid];
+    if ([BTUserMananger share].isLogin) {
+        if ([BTUserMananger share].model.userId) {
+            [dictResult setValue:[BTUserMananger share].model.userId forKey:[BTCoreConfig share].keyUid];
         }
         
-        if (UserManModel.userToken) {
-            [dictResult setValue:UserManModel.userToken forKey:[BTCoreConfig share].keyToken];
+        if ([BTUserMananger share].model.userToken) {
+            [dictResult setValue:[BTUserMananger share].model.userToken forKey:[BTCoreConfig share].keyToken];
         }
         
     }
