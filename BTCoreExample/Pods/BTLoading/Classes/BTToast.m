@@ -7,7 +7,7 @@
 //
 
 #import "BTToast.h"
-#import "BTLoadingHelp.h"
+#import "BTLoadingConfig.h"
 
 
 static const CGFloat BT_TOAST_PADDING=12;
@@ -48,15 +48,15 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 }
 
 + (BTToast*)showSuccess:(NSString*)str{
-    return [self show:str img:[[BTLoadingHelp share]imageBundleName:@"bt_toast_success"]];
+    return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_success"]];
 }
 
 + (BTToast*)showWarning:(NSString*)str{
-    return [self show:str img:[[BTLoadingHelp share]imageBundleName:@"bt_toast_warning"]];
+    return [self show:str img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_warning"]];
 }
 
-+ (BTToast*)showError:(NSString*)str{
-    return [self show:str img:[[BTLoadingHelp share]imageBundleName:@"bt_toast_error"]];
++ (BTToast*)showErrorInfo:(NSString*)info{
+    return [self show:info img:[[BTLoadingConfig share]imageBundleName:@"bt_toast_error"]];
 }
 
 + (BTToast*)showErrorObj:(NSError*)error{
@@ -66,7 +66,15 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
     }else {
         info=error.domain;
     }
-    return [self showError:info];
+    return [self showErrorInfo:info];
+}
+
++ (BTToast*)showErrorObj:(NSError *)error errorInfo:(NSString*)errorInfo{
+    if (error) {
+        return [self showErrorObj:error];
+    }else{
+        return [self showErrorInfo:errorInfo];
+    }
 }
 
 #pragma mark init
@@ -81,7 +89,7 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 }
 
 - (void)initSelf{
-    [[BTLoadingHelp share]addDelegate:self];
+    [[BTLoadingConfig share]addDelegate:self];
     self.isClickInToast=YES;
     self.delayDismissTime=1.5;
     [self initRootView];
@@ -138,7 +146,7 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
     }
     
     self.rootView.frame=CGRectMake(0,0,totalW,totalH);
-    self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingHelp share].keyboardHeight)/2);
+    self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingConfig share].keyboardHeight)/2);
     
     if (self.imgViewType) {
         self.imgViewType.frame=CGRectMake(totalW/2-self.imgViewType.frame.size.width/2,
@@ -177,16 +185,16 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
             [UIView animateWithDuration:.2 animations:^{
                 self.rootView.alpha=0;
             } completion:^(BOOL finished) {
-                [[BTLoadingHelp share]removeDelegate:self];
+                [[BTLoadingConfig share]removeDelegate:self];
                 [self removeFromSuperview];
             }];
         });
     }];
-//    [UIView animateWithDuration:.5 animations:^{
-//
-//    } completion:^(BOOL finished) {
-//
-//    }];
+    //    [UIView animateWithDuration:.5 animations:^{
+    //
+    //    } completion:^(BOOL finished) {
+    //
+    //    }];
     
     
 }
@@ -207,7 +215,7 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
 
 - (void)keyBoradHeightChange{
     [UIView animateWithDuration:.25 animations:^{
-        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingHelp share].keyboardHeight)/2);
+        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingConfig share].keyboardHeight)/2);
     }];
 }
 

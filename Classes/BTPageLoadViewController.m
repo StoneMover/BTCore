@@ -160,7 +160,7 @@
         return;
     }
     self.isRefresh=NO;
-    [BTToast showError:errorInfo];
+    [BTToast showErrorInfo:errorInfo];
 }
 
 
@@ -180,7 +180,7 @@
         return;
     }
     
-    [BTToast showError:info];
+    [BTToast showErrorInfo:info];
 }
 
 - (void)autoAnalyses:(NSArray<NSDictionary*>*)dataDict class:(Class)cla{

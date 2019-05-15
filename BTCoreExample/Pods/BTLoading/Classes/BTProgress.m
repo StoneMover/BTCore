@@ -7,7 +7,7 @@
 //
 
 #import "BTProgress.h"
-#import "BTLoadingHelp.h"
+#import "BTLoadingConfig.h"
 
 @interface BTProgress()<BTLoadingHelpDelegate>
 
@@ -63,7 +63,7 @@
 }
 
 - (void)initSelf{
-    [[BTLoadingHelp share]addDelegate:self];
+    [[BTLoadingConfig share]addDelegate:self];
     [self initRootView];
     [self initIndicatorView];
     [self initLabel];
@@ -123,13 +123,13 @@
         }
         
         self.rootView.frame=CGRectMake(self.frame.size.width/2-width/2, self.frame.size.height/2-height, width, height);
-        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingHelp share].keyboardHeight)/2);
+        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingConfig share].keyboardHeight)/2);
         self.indicatorView.center=CGPointMake(width/2, padding+37/2);
         self.loadingLabel.frame=CGRectMake(padding, 37+padding+labelTop, self.loadingLabel.frame.size.width, self.loadingLabel.frame.size.height);
         
     }else{
         self.rootView.frame=CGRectMake(self.frame.size.width/2-width/2, self.frame.size.height/2-height, width, height);
-        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingHelp share].keyboardHeight)/2);
+        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingConfig share].keyboardHeight)/2);
         self.indicatorView.center=CGPointMake(width/2, height/2);
     }
 }
@@ -157,7 +157,7 @@
         self.rootView.alpha=0;
     } completion:^(BOOL finished) {
         [self.indicatorView stopAnimating];
-        [[BTLoadingHelp share]removeDelegate:self];
+        [[BTLoadingConfig share]removeDelegate:self];
         [self removeFromSuperview];
     }];
 }
@@ -171,7 +171,7 @@
 
 - (void)keyBoradHeightChange{
     [UIView animateWithDuration:.25 animations:^{
-        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingHelp share].keyboardHeight)/2);
+        self.rootView.center=CGPointMake(self.frame.size.width/2, (self.frame.size.height-[BTLoadingConfig share].keyboardHeight)/2);
     }];
 }
 

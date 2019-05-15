@@ -15,7 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - BTHelp (0.1.1)
-  - BTLoading (0.0.7)
+  - BTLoading (0.1.0)
   - MJRefresh (3.1.16)
   - RTRootNavigationController (0.7.1):
     - RTRootNavigationController/Core (= 0.7.1)
@@ -39,7 +39,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   BTHelp: 47d2547f89d53eac648b57ca395311c540a63c9e
-  BTLoading: b8098be0bd14e117db913c2d730c39512279a6fc
+  BTLoading: d544565cb2c8be66c84a52ce3b492c165ba95eb7
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
   RTRootNavigationController: afa6913402be26f8326f7f37fc1550aa67baddcc
 

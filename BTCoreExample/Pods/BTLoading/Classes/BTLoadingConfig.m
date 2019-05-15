@@ -6,11 +6,11 @@
 //  Copyright © 2019 stonemover. All rights reserved.
 //
 
-#import "BTLoadingHelp.h"
+#import "BTLoadingConfig.h"
 
-static BTLoadingHelp * help=nil;
+static BTLoadingConfig * help=nil;
 
-@interface BTLoadingHelp()
+@interface BTLoadingConfig()
 
 @property (nonatomic, strong) NSMutableArray * delegates;
 
@@ -18,16 +18,16 @@ static BTLoadingHelp * help=nil;
 
 
 
-@implementation BTLoadingHelp
+@implementation BTLoadingConfig
 
 +(void)load
 {
     [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
 }
 
-+ (BTLoadingHelp*)share{
++ (BTLoadingConfig*)share{
     if (!help) {
-        help=[BTLoadingHelp new];
+        help=[BTLoadingConfig new];
     }
     
     return help;

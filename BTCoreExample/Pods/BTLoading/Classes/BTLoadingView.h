@@ -43,6 +43,9 @@ typedef void(^BTLoadingBlock)(void);
 
 - (void)showErrorObj:(NSError*)error;
 
+//当error不为空，显示errorObj类型，当error为空显示str类型
+- (void)showError:(NSError*)error errorStr:(NSString*)errorStr;
+
 #pragma mark 消失
 //这里消失以后loading的view仍然在parentView中，如果需要可自己移除
 -(void)dismiss;

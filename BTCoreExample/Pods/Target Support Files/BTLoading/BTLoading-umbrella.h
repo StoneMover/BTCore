@@ -11,7 +11,7 @@
 #endif
 
 #import "BTLoading.h"
-#import "BTLoadingHelp.h"
+#import "BTLoadingConfig.h"
 #import "BTLoadingView.h"
 #import "BTProgress.h"
 #import "BTToast.h"

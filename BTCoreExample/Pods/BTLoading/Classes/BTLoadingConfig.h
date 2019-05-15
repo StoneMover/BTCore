@@ -17,9 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface BTLoadingHelp : NSObject
+@interface BTLoadingConfig : NSObject
 
-+ (BTLoadingHelp*)share;
++ (BTLoadingConfig*)share;
 
 @property (nonatomic, assign) CGFloat keyboardHeight;
 

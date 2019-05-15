@@ -8,7 +8,7 @@
 
 #import "BTLoadingView.h"
 #import "UIImage+BTGIF.h"
-#import "BTLoadingHelp.h"
+#import "BTLoadingConfig.h"
 
 @interface BTLoadingView()
 
@@ -47,12 +47,12 @@
     self.backgroundColor=[UIColor whiteColor];
     self.w=self.frame.size.width;
     self.h=self.frame.size.height;
-    self.loadingGif=[UIImage animatedGIFNamed:[BTLoadingHelp share].loadingGif bundle:[NSBundle bundleForClass:[self class]]];
-    self.emptyImg=[[BTLoadingHelp share]imageBundleName:[BTLoadingHelp share].emptyImg];
-    self.errorImg=[[BTLoadingHelp share] imageBundleName:[BTLoadingHelp share].errorImg];
-    self.loadingStr=[BTLoadingHelp share].loadingStr;
-    self.emptyStr=[BTLoadingHelp share].emptyStr;
-    self.errorInfo=[BTLoadingHelp share].errorInfo;
+    self.loadingGif=[UIImage animatedGIFNamed:[BTLoadingConfig share].loadingGif bundle:[NSBundle bundleForClass:[self class]]];
+    self.emptyImg=[[BTLoadingConfig share]imageBundleName:[BTLoadingConfig share].emptyImg];
+    self.errorImg=[[BTLoadingConfig share] imageBundleName:[BTLoadingConfig share].errorImg];
+    self.loadingStr=[BTLoadingConfig share].loadingStr;
+    self.emptyStr=[BTLoadingConfig share].emptyStr;
+    self.errorInfo=[BTLoadingConfig share].errorInfo;
     [self crateLabel];
     [self createImg];
     [self createBtn];
@@ -187,6 +187,13 @@
     [self showErrorObj:error withImg:self.errorImg];
 }
 
+- (void)showError:(NSError*)error errorStr:(NSString*)errorStr{
+    if (error) {
+        [self showErrorObj:error];
+    }else{
+        [self showError:errorStr];
+    }
+}
 
 -(void)dismiss{
     [self dismiss:YES];
