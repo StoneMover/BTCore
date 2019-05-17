@@ -34,7 +34,13 @@ NSUserDefaults * defaults;
     self=[super init];
     defaults = [NSUserDefaults standardUserDefaults];
     //设置默认值
-    NSDictionary *defaultValues = @{KEY_IS_FIRST_OPEN_APP:@YES};
+    NSMutableDictionary *defaultValues = nil;
+    if ([BTCoreConfig share].userManDefaultDict) {
+        defaultValues = [[NSMutableDictionary alloc] initWithDictionary:[BTCoreConfig share].userManDefaultDict];
+    }else{
+        defaultValues = [[NSMutableDictionary alloc] init];
+    }
+    [defaultValues setValue:@YES forKey:KEY_IS_FIRST_OPEN_APP];
     [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
     
     self.isFirstOpenApp=[defaults boolForKey:KEY_IS_FIRST_OPEN_APP];
@@ -113,6 +119,10 @@ NSUserDefaults * defaults;
         }
     }
     return islogin;
+}
+
+- (NSUserDefaults*)defaults{
+    return defaults;
 }
 
 @end

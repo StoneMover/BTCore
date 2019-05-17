@@ -56,6 +56,9 @@
 @property (nonatomic, strong) Class userModelClass;
 
 
+//BTUserMananger 初始化的时候注册的默认字典值
+@property (nonatomic, strong) NSDictionary * userManDefaultDict;
+
 + (instancetype)share;
 
 @end

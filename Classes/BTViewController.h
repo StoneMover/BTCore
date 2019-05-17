@@ -27,7 +27,9 @@
 //#import "BTToast.h"
 //#import "BTProgress.h"
 
-NS_ASSUME_NONNULL_BEGIN
+typedef void(^BTVcSuccessBlock)(NSObject * obj);
+
+
 
 @interface BTViewController : UIViewController
 
@@ -40,8 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 //界面调用viewDidAppear的次数
 @property (nonatomic, assign) NSInteger viewDidAppearIndex;
 
+//前后页面的简单回调
+@property (nonatomic, copy) BTVcSuccessBlock blockSuccess;
+
+- (void)viewDidAppearFirst;
+
 - (void)getData;
 - (void)reload;
 @end
 
-NS_ASSUME_NONNULL_END
+

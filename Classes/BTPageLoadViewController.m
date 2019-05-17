@@ -324,7 +324,7 @@
 }
 
 - (void)headRefreshLoad{
-    self.pageNumber=1;
+    self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
     self.isLoadFinish=NO;
     self.isRefresh=YES;
     [self getData];

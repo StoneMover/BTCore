@@ -34,6 +34,9 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    if (self.viewDidAppearIndex==0) {
+        [self viewDidAppearFirst];
+    }
     self.viewDidAppearIndex++;
 }
 
@@ -41,6 +44,9 @@
     [self.view endEditing:YES];
 }
 
+- (void)viewDidAppearFirst{
+    
+}
 
 #pragma mark loading
 - (void)getData{
@@ -50,6 +56,7 @@
     [super reload];
     [self getData];
 }
+
 
 
 @end

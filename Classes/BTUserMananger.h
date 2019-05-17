@@ -18,6 +18,8 @@
 
 #define BT_IS_LOGIN_PUSH(rootVc) [UserMan isLoginPush:rootVc]
 
+#define BT_USER_MAN_DEFAULTS [BTUserMananger share].defaults
+
 @interface BTUserMananger : NSObject
 
 +(BTUserMananger*)share;
@@ -58,7 +60,8 @@
 //是否登录，未登录跳转到登录界面
 - (BOOL)isLoginPush:(UIViewController*)rootVc;
 
-
+//获取存储对象
+- (NSUserDefaults*)defaults;
 
 
 #pragma mark 各项目自行添加

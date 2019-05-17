@@ -56,6 +56,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setNavTrans;
 
+- (void)setNavLineHide;
+
 
 @end
 
