@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+BTDialog.h"
-
+#import "BTCoreConfig.h"
 
 
 @implementation UIViewController (BTDialog)
@@ -33,9 +33,9 @@
 
 
 - (void)showAlert:(NSString*)title
-                              msg:(NSString*)msg
-                             btns:(NSArray*)btns
-                            block:(BTDialogBlock)block{
+              msg:(NSString*)msg
+             btns:(NSArray*)btns
+            block:(BTDialogBlock)block{
     NSMutableArray * actions=[NSMutableArray new];
     for (int i=0; i<btns.count; i++) {
         NSString * str=btns[i];
@@ -88,6 +88,7 @@
 }
 
 - (void)showActionSheet:(NSString*)title
+                    msg:(NSString*)msg
                    btns:(NSArray*)btns
                   block:(BTDialogBlock)block{
     NSMutableArray * dataArray=[NSMutableArray new];
@@ -95,14 +96,23 @@
         UIAlertAction * action=[self action:btn style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             block([dataArray indexOfObject:action]);
         }];
+        if ([BTCoreConfig share].actionColor) {
+            [action setValue:[BTCoreConfig share].actionColor forKey:@"titleTextColor"];
+        }
+        
         [dataArray addObject:action];
     }
     
     UIAlertAction * action=[self action:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         block(dataArray.count-1);
     }];
+    
+    if ([BTCoreConfig share].actionCancelColor) {
+        [action setValue:[BTCoreConfig share].actionCancelColor forKey:@"titleTextColor"];
+    }
+    
     [dataArray addObject:action];
-    UIAlertController * alertController=[self createAlert:title msg:@"" action:dataArray style:UIAlertControllerStyleActionSheet];
+    UIAlertController * alertController=[self createAlert:title msg:msg action:dataArray style:UIAlertControllerStyleActionSheet];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -126,7 +136,7 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction *action) {
         
     }];
-//    [cancelAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
+    //    [cancelAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
     [alertController addAction:cancelAction];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction *action) {
@@ -135,7 +145,7 @@
         NSString * text=field.text;
         block(text);
     }];
-//    [okAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
+    //    [okAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }

@@ -45,6 +45,12 @@
 //默认的主题颜色,默认为红色
 @property (nonatomic, strong) UIColor * mainColor;
 
+//action文字颜色，用于弹出默认action的文字颜色
+@property (nonatomic, strong) UIColor * actionColor;
+
+//默认取消颜色,用于弹框中的取消action
+@property (nonatomic, strong) UIColor * actionCancelColor;
+
 
 //分页加载的起始页，默认的是1
 @property (nonatomic, assign) NSInteger pageLoadStartPage;

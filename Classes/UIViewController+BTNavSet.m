@@ -131,6 +131,14 @@
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
+- (void)setNavLineColor:(UIColor*)color{
+    [self setNavLineColor:color height:.5];
+}
+
+- (void)setNavLineColor:(UIColor*)color height:(CGFloat)height{
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:color size:CGSizeMake([UIScreen mainScreen].bounds.size.width, height)]];
+}
+
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self updateNavItem];

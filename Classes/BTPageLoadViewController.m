@@ -174,7 +174,7 @@
         info=error.domain;
     }
     self.isRefresh=NO;
-    if (self.pageNumber==1&&self.loadingHelp&&!self.isRefresh) {
+    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage&&self.loadingHelp&&!self.isRefresh) {
         //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
         [self.loadingHelp showError:info];
         return;

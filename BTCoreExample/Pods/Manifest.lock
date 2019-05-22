@@ -14,7 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
-  - BTHelp (0.1.3)
+  - BTHelp (0.1.4)
   - BTLoading (0.1.0)
   - MJRefresh (3.1.16)
   - RTRootNavigationController (0.7.1):
@@ -23,7 +23,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
-  - BTHelp
+  - BTHelp (~> 0.1.4)
   - BTLoading
   - MJRefresh
   - RTRootNavigationController
@@ -38,11 +38,11 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
-  BTHelp: 0bba620bbf17fadc2d3f144a4a763aec7af0d5a1
+  BTHelp: 517e5fbcd540feb6e0718ab7f086f58ae98d13c6
   BTLoading: d544565cb2c8be66c84a52ce3b492c165ba95eb7
   MJRefresh: 7798e16e53a5ef7f332dd05b27664db4e29530fd
   RTRootNavigationController: afa6913402be26f8326f7f37fc1550aa67baddcc
 
-PODFILE CHECKSUM: 488f93238383d39d3728faddc8c8bde83e285d24
+PODFILE CHECKSUM: 10d522341c431b361823de318b84db52b4df2765
 
 COCOAPODS: 1.6.0

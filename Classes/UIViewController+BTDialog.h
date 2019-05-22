@@ -14,32 +14,33 @@ typedef void(^BTDialogBlock)(NSInteger index);
 @interface UIViewController (BTDialog)
 
 //创建一个alertController
-- (UIAlertController*_Nonnull)createAlert:(NSString*_Nonnull)title
-                                       msg:(NSString*_Nonnull)msg
-                                    action:(NSArray*_Nonnull)action
-                            style:(UIAlertControllerStyle)style;
+- (UIAlertController*_Nonnull)createAlert:(NSString*_Nullable)title
+                                      msg:(NSString*_Nullable)msg
+                                   action:(NSArray*_Nullable)action
+                                    style:(UIAlertControllerStyle)style;
 
 //创建action
-- (UIAlertAction*_Nonnull)action:(NSString*_Nonnull)str
-                   style:(UIAlertActionStyle)style
-                         handler:(void (^ __nullable)(UIAlertAction * _Nonnull action))handler;
+- (UIAlertAction*_Nonnull)action:(NSString*_Nullable)str
+                           style:(UIAlertActionStyle)style
+                         handler:(void (^ __nullable)(UIAlertAction * _Nullable action))handler;
 
 //显示对话框,如果是两个选项,第一个使用取消类型,第二个使用默认类型,如果大于两个选项最后一个会被默认为取消类型
 - (void)showAlert:(NSString*_Nonnull)title
-                              msg:(NSString*_Nonnull)msg
-                             btns:(NSArray*_Nonnull)btns
-            block:(BTDialogBlock _Nonnull )block;
+              msg:(NSString*_Nullable)msg
+             btns:(NSArray*_Nullable)btns
+            block:(BTDialogBlock _Nullable )block;
 
 
 //显示确定取消类型
-- (void)showAlertDefault:(NSString*_Nonnull)title
-                     msg:(NSString*_Nonnull)msg
-                   block:(BTDialogBlock _Nonnull)block;
+- (void)showAlertDefault:(NSString*_Nullable)title
+                     msg:(NSString*_Nullable)msg
+                   block:(BTDialogBlock _Nullable)block;
 
 //显示底部弹框,最后一个为取消类型
-- (void)showActionSheet:(NSString*_Nonnull)title
-                   btns:(NSArray*_Nonnull)btns
-                  block:(BTDialogBlock _Nonnull)block;
+- (void)showActionSheet:(NSString*_Nullable)title
+                    msg:(NSString*_Nullable)msg
+                   btns:(NSArray*_Nullable)btns
+                  block:(BTDialogBlock _Nullable )block;
 
 //显示编辑框类型
 - (void)showAlertEdit:(NSString*_Nullable)title

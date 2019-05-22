@@ -58,6 +58,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setNavLineHide;
 
+- (void)setNavLineColor:(UIColor*)color;
+
+- (void)setNavLineColor:(UIColor*)color height:(CGFloat)height;
+
 
 @end
 

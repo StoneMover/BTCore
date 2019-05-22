@@ -10,6 +10,6 @@ target 'BTCoreExample' do
   pod 'AFNetworking'
   pod 'MJRefresh'
   pod 'BTLoading'
-  pod 'BTHelp'
+  pod 'BTHelp','~> 0.1.4'
 
 end
