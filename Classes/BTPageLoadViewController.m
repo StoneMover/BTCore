@@ -11,6 +11,7 @@
 #import <BTHelp/BTUtils.h>
 #import "BTModel.h"
 #import "BTCoreConfig.h"
+#import "BTNet.h"
 
 @interface BTPageLoadViewController ()
 
@@ -61,9 +62,12 @@
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    self.dataArrayCellId=[NSMutableArray new];
     for (NSString * cellName in cellNames) {
-        [self.collectionView registerNib:[UINib nibWithNibName:cellName bundle:nil]
-              forCellWithReuseIdentifier:[NSString stringWithFormat:@"%@Id",cellName]];
+        UINib * nib = [UINib nibWithNibName:cellName bundle:nil];
+        NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
+        [self.dataArrayCellId addObject:cellId];
+        [self.collectionView registerNib:nib forCellWithReuseIdentifier:cellId];
     }
     
     
@@ -84,18 +88,14 @@
          codeKey:(NSString*)codeKey
            class:(Class)cla{
     if ([dict.allKeys containsObject:infoKey]&&[dict.allKeys containsObject:codeKey]) {
-        
-        NSString * info=[NSString stringWithFormat:@"%@",[dict objectForKey:infoKey]];
-        NSString * code=[NSString stringWithFormat:@"%@",[dict objectForKey:codeKey]];
-        if (code.integerValue==[BTCoreConfig share].netSuccessCode) {
+        if ([BTNet isSuccess:dict]) {
             NSArray * array=[self pageLoadData:dict];
             [self autoLoadSuccess:array class:cla];
         }else{
-            [self autoLoadSeverError:info];
+            [self autoLoadSeverError:[BTNet errorInfo:dict]];
         }
-        
     }else{
-        NSLog(@"字典中应该包含info和code字段");
+        [self autoLoadSeverError:@"字典中应该包含info和code字段"];
     }
     
 }
@@ -217,17 +217,10 @@
 }
 
 - (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict{
-    return [self pageLoadData:dict dataKey:[BTCoreConfig share].keyPageList];
+    return [BTNet defaultDictArray:dict];
 }
 
-- (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict dataKey:(NSString*)dataKey{
-    if (![dict.allKeys containsObject:dataKey]) {
-        return nil;
-    }
-    
-    NSArray * array=[dict objectForKey:dataKey];
-    return array;
-}
+
 
 
 - (NSString*)cellId:(NSInteger)index{

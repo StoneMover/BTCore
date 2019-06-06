@@ -65,6 +65,12 @@
 //BTUserMananger 初始化的时候注册的默认字典值
 @property (nonatomic, strong) NSDictionary * userManDefaultDict;
 
+//当网络请求到该数组中包含的code码的时候会发送相应的通知，通知名称BTCoreCodeNotification
+@property (nonatomic, strong) NSArray * arrayNetCodeNotification;
+
+//是否打印请求数据
+@property (nonatomic, assign) BOOL isLogHttpParameters;
+
 + (instancetype)share;
 
 @end

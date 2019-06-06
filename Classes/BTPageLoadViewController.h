@@ -90,7 +90,6 @@
 //获取array数组的方法回调，如果结构复杂则重写该方法然后返回数组字典即可
 - (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict;
 
-- (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict dataKey:(NSString*)dataKey;
 
 //获取cell的Id
 - (NSString*)cellId:(NSInteger)index;

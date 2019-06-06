@@ -7,6 +7,7 @@
 //
 
 #import "BTHttp.h"
+#import "BTCoreConfig.h"
 
 static BTHttp * http=nil;
 
@@ -63,8 +64,11 @@ static BTHttp * http=nil;
                               progress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
                                success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
                                failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure{
-    
-    return [self.mananger GET:URLString parameters:parameters progress:downloadProgress success:success failure:failure];
+    [self autoLogParameters:YES url:URLString parameters:parameters];
+    return [self.mananger GET:URLString parameters:parameters progress:downloadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self autoSpecialCode:responseObject];
+        success(task,responseObject);
+    } failure:failure];
 }
 
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
@@ -82,9 +86,11 @@ static BTHttp * http=nil;
                        success:(void (^)(NSURLSessionDataTask * task , id _Nullable responseObject))success
                        failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure
 {
-    NSLog(@"url:%@",URLString);
-    NSLog(@"parameters:%@",parameters);
-    return [self.mananger POST:URLString parameters:parameters progress:uploadProgress success:success failure:failure];
+    [self autoLogParameters:NO url:URLString parameters:parameters];
+    return [self.mananger POST:URLString parameters:parameters progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self autoSpecialCode:responseObject];
+        success(task,responseObject);
+    } failure:failure];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -104,7 +110,10 @@ static BTHttp * http=nil;
                        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
-    return [self.mananger POST:URLString parameters:parameters constructingBodyWithBlock:block progress:uploadProgress success:success failure:failure];
+    return [self.mananger POST:URLString parameters:parameters constructingBodyWithBlock:block progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self autoSpecialCode:responseObject];
+        success(task,responseObject);
+    } failure:failure];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -130,9 +139,45 @@ static BTHttp * http=nil;
     
     mananger.requestSerializer.HTTPShouldHandleCookies=self.HTTPShouldHandleCookies;
     mananger.requestSerializer.timeoutInterval=10;
-    mananger.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    mananger.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
 }
 
+- (void)autoSpecialCode:(NSDictionary*)dict{
+    NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
+    NSArray * array =[BTCoreConfig share].arrayNetCodeNotification;
+    if (!array||array.count==0||![array containsObject:code]) {
+        return;
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BTCoreCodeNotification" object:code];
+}
 
+- (void)autoLogParameters:(BOOL)isGet url:(NSString*)url parameters:(NSDictionary*)parameters{
+    if (![BTCoreConfig share].isLogHttpParameters) {
+        return;
+    }
+    
+    if (isGet) {
+        NSArray * parametersKey =[parameters allKeys];
+        if (parametersKey.count!=0) {
+            url=[url stringByAppendingString:@"?"];
+            for (int i=0; i<parametersKey.count; i++) {
+                NSString * key =parametersKey[i];
+                NSString * value =[parameters valueForKey:key];
+                NSString * result=nil;
+                if (i==parametersKey.count-1) {
+                    result=[NSString stringWithFormat:@"%@=%@",key,value];
+                }else{
+                    result =[NSString stringWithFormat:@"%@=%@&",key,value];
+                }
+                url=[url stringByAppendingString:result];
+            }
+        }
+        
+        NSLog(@"url:%@",url);
+    }else{
+        NSLog(@"url:%@",url);
+        NSLog(@"parameters:%@",parameters);
+    }
+}
 
 @end

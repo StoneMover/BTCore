@@ -52,7 +52,7 @@
         dictResult=[[NSMutableDictionary alloc] init];
     }
     NSString * version=[[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    NSString * os=[BTCoreConfig share].keyOs;
+    NSString * os=@"ios";
     NSString * osVersion=[UIDevice currentDevice].systemVersion;
     [dictResult setValue:version forKey:[BTCoreConfig share].keyVersion];
     [dictResult setValue:os forKey:[BTCoreConfig share].keyOs];
