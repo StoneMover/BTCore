@@ -110,6 +110,7 @@ static BTHttp * http=nil;
                        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
 {
+    [self autoLogParameters:NO url:URLString parameters:parameters];
     return [self.mananger POST:URLString parameters:parameters constructingBodyWithBlock:block progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [self autoSpecialCode:responseObject];
         success(task,responseObject);

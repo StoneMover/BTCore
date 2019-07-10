@@ -154,7 +154,7 @@
 - (void)autoLoadSeverError:(NSString*)errorInfo{
     [self endHeadRefresh];
     [self endFootRefresh];
-    if (self.pageNumber==1&&self.loadingHelp&&!self.isRefresh) {
+    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage&&self.loadingHelp&&!self.isRefresh) {
         //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
         [self.loadingHelp showError:errorInfo];
         return;
@@ -202,38 +202,6 @@
     return NO;
 }
 
-
-#pragma mark 相关辅助方法
-- (NSMutableArray*)dataArray{
-    if (_dataArray==nil) {
-        _dataArray=[NSMutableArray new];
-    }
-    
-    return _dataArray;
-}
-
-- (NSString*)pageNumStr{
-    return [NSString stringWithFormat:@"%ld",self.pageNumber];
-}
-
-- (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict{
-    return [BTNet defaultDictArray:dict];
-}
-
-
-
-
-- (NSString*)cellId:(NSInteger)index{
-    if (self.dataArrayCellId&&index<self.dataArrayCellId.count) {
-        return self.dataArrayCellId[index];
-    }
-    
-    return nil;
-}
-
-- (NSString*)cellId{
-    return [self cellId:0];
-}
 
 - (void)setIsLoadFinish:(BOOL)isLoadFinish{
     if (isLoadFinish==_isLoadFinish) {
@@ -323,6 +291,57 @@
     [self getData];
 }
 - (void)footRefreshLoad{
+    [self getData];
+}
+
+#pragma mark 相关辅助方法
+- (NSMutableArray*)dataArray{
+    if (_dataArray==nil) {
+        _dataArray=[NSMutableArray new];
+    }
+    
+    return _dataArray;
+}
+
+- (NSString*)pageNumStr{
+    return [NSString stringWithFormat:@"%ld",self.pageNumber];
+}
+
+- (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict{
+    return [BTNet defaultDictArray:dict];
+}
+
+
+
+
+- (NSString*)cellId:(NSInteger)index{
+    if (self.dataArrayCellId&&index<self.dataArrayCellId.count) {
+        return self.dataArrayCellId[index];
+    }
+    
+    return nil;
+}
+
+- (NSString*)cellId{
+    return [self cellId:0];
+}
+
+- (void)emptyGetData{
+    if (self.dataArray.count==0) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            self.isLoadFinish=NO;
+            self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
+            [self.loadingHelp showLoading];
+            [self getData];
+        });
+    }
+}
+
+- (void)resetValueAndGetData{
+    self.isLoadFinish=NO;
+    self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    [self.dataArray removeAllObjects];
+    [self.loadingHelp showLoading];
     [self getData];
 }
 

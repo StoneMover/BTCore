@@ -101,7 +101,7 @@
 }
 
 + (CGFloat)SCALE_6_H:(CGFloat)height{
-    return (height)*(BTUtils.SCREEN_H/375.0f);
+    return (height)*(BTUtils.SCREEN_H/667.0f);
 }
 
 + (UIFont*)SYS_FONT_SIZE:(CGFloat)size weight:(UIFontWeight)weight{

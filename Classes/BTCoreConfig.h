@@ -71,6 +71,24 @@
 //是否打印请求数据
 @property (nonatomic, assign) BOOL isLogHttpParameters;
 
+//导航器标题默认文字字体
+@property (nonatomic, strong) UIFont * defaultNavTitleFont;
+
+//导航器标题默认文字颜色
+@property (nonatomic, strong) UIColor * defaultNavTitleColor;
+
+//导航器leftBarItem标题默认字体
+@property (nonatomic, strong) UIFont * defaultNavLeftBarItemFont;
+
+//导航器leftBarItem标题默认颜色
+@property (nonatomic, strong) UIColor * defaultNavLeftBarItemColor;
+
+//导航器rightBarItem标题默认字体
+@property (nonatomic, strong) UIFont * defaultNavRightBarItemFont;
+
+//导航器rightBarItem标题默认颜色
+@property (nonatomic, strong) UIColor * defaultNavRightBarItemColor;
+
 + (instancetype)share;
 
 @end

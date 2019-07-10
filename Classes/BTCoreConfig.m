@@ -41,6 +41,15 @@ static BTCoreConfig * config=nil;
     
     self.pageLoadSizePage=20;
     self.pageLoadStartPage=1;
+    
+    
+    self.defaultNavTitleFont=[UIFont systemFontOfSize:18 weight:UIFontWeightBold];
+    self.defaultNavTitleColor=UIColor.blackColor;
+    self.defaultNavLeftBarItemFont=[UIFont systemFontOfSize:15 weight:UIFontWeightBold];
+    self.defaultNavLeftBarItemColor=UIColor.blackColor;
+    self.defaultNavRightBarItemFont=[UIFont systemFontOfSize:15 weight:UIFontWeightBold];
+    self.defaultNavRightBarItemColor=UIColor.blackColor;
+    
     return self;
 }
 

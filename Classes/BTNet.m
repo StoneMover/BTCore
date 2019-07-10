@@ -13,7 +13,7 @@
 @implementation BTNet
 
 //传入rootUrl,module名称,方法名称
-+(NSString*)getUrl:(NSString*)rootUrl moduleName:(NSString*)moduleName functionName:(NSString*)functionName{
++ (NSString*)getUrl:(NSString*)rootUrl moduleName:(NSString*)moduleName functionName:(NSString*)functionName{
     if (functionName) {
         return [NSString stringWithFormat:@"%@/%@/%@",rootUrl,moduleName,functionName];
     }else{
@@ -22,12 +22,12 @@
 }
 
 //传入module名称和方法名称
-+(NSString*)getUrl:(NSString*)moduleName functionName:(NSString*)functionName{
++ (NSString*)getUrl:(NSString*)moduleName functionName:(NSString*)functionName{
     return [self getUrl:[BTCoreConfig share].rootUrl moduleName:moduleName functionName:functionName];
 }
 
 //只有module名称,没有方法名称
-+(NSString*)getUrlModule:(NSString*)moduleName{
++ (NSString*)getUrlModule:(NSString*)moduleName{
     return [self getUrl:moduleName functionName:nil];
 }
 
@@ -40,11 +40,11 @@
 }
 
 //获取默认的字典
-+(NSMutableDictionary*)defaultDict{
++ (NSMutableDictionary*)defaultDict{
     return [self defaultDict:nil];
 }
 
-+(NSMutableDictionary*)defaultDict:(NSDictionary*)dict{
++ (NSMutableDictionary*)defaultDict:(NSDictionary*)dict{
     NSMutableDictionary * dictResult=nil;
     if (dict) {
         dictResult=[[NSMutableDictionary alloc] initWithDictionary:dict];
@@ -70,7 +70,7 @@
     return dictResult;
 }
 
-+(BOOL)isSuccess:(NSDictionary*)dict{
++ (BOOL)isSuccess:(NSDictionary*)dict{
     NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
     if (code.integerValue==[BTCoreConfig share].netSuccessCode) {
         return YES;
@@ -78,11 +78,16 @@
     return NO;
 }
 
-+(NSString*)errorInfo:(NSDictionary*)dict{
++ (int)errorCode:(NSDictionary*)dict{
+    NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
+    return code.intValue;
+}
+
++ (NSString*)errorInfo:(NSDictionary*)dict{
     return [dict objectForKey:[BTCoreConfig share].netKeyInfo];
 }
 
-+(NSURL*)getImgResultUrl:(NSString*)url{
++ (NSURL*)getImgResultUrl:(NSString*)url{
     if([BTCoreConfig share].imgRootUrl){
         return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",[BTCoreConfig share].imgRootUrl,url]];
     }else{
@@ -90,7 +95,7 @@
     }
 }
 
-+(NSMutableArray*)defaultDictArray:(NSDictionary*)dict{
++ (NSMutableArray*)defaultDictArray:(NSDictionary*)dict{
     return [dict objectForKey:[BTCoreConfig share].keyPageList];
 }
 
