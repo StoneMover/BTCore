@@ -1,3 +1,15 @@
+//
+//  BTNet.h
+//  moneyMaker
+//
+//  Created by stonemover on 2019/1/22.
+//  Copyright © 2019 stonemover. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "BTHttp.h"
+
+
 typedef void(^BTNetSuccessBlcok)(id obj);
 
 typedef void(^BTNetFailBlock)(NSError * error,NSString * errorInfo);
@@ -44,3 +56,7 @@ typedef void(^BTNetFailFullBlock)(NSError * error,int code,NSString * errorInfo)
 
 //获取数据列表请求中的json列表数组字典
 + (NSMutableArray*)defaultDictArray:(NSDictionary*)dict;
+
+@end
+
+

@@ -114,6 +114,10 @@
 
 //恢复所有值到默认状态，然后请求数据
 - (void)resetValueAndGetData;
+
+//设置MJ刷新头部的主题颜色
+- (void)setRefreshHeadThemeColor:(UIColor *)color;
+
 @end
 
 
