@@ -12,6 +12,7 @@
 
 #import "BTLoading.h"
 #import "BTLoadingConfig.h"
+#import "BTLoadingSubView.h"
 #import "BTLoadingView.h"
 #import "BTProgress.h"
 #import "BTToast.h"

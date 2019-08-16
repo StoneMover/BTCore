@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "BTLoadingSubView.h"
 
-NS_ASSUME_NONNULL_BEGIN
+
 
 @protocol BTLoadingHelpDelegate <NSObject>
 
@@ -23,25 +24,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) CGFloat keyboardHeight;
 
-- (void)addDelegate:(id)delegate;
-- (void)removeDelegate:(id)delegate;
-
 @property (nonatomic, weak) id<BTLoadingHelpDelegate> delegate;
 
+//默认加载中的文字
 @property (nonatomic, strong) NSString * loadingStr;
 
+//默认空数据的提示文字
 @property (nonatomic, strong) NSString * emptyStr;
 
+//默认界面错误的提示文字
 @property (nonatomic, strong) NSString * errorInfo;
 
-@property (nonatomic, strong) NSString * loadingGif;
+//默认加载中的图片，为gif
+@property (nonatomic, strong) UIImage * loadingGif;
 
-@property (nonatomic, strong) NSString * emptyImg;
+//空数据显示的图片
+@property (nonatomic, strong) UIImage * emptyImg;
 
-@property (nonatomic, strong) NSString * errorImg;
+//错误界面现实的图片
+@property (nonatomic, strong) UIImage * errorImg;
+
+//自定义加载中的界面,需要每次都生成一个新的对象，默认为BTLoadingSubView
+@property (nonatomic, copy) BTLoadingSubView * (^customLoadingViewBlock)(void);
+
+//自定义空界面,需要每次都生成一个新的对象，默认为BTLoadingSubView
+@property (nonatomic, copy) BTLoadingSubView * (^customEmptyViewBlock)(void);
+
+//自定义错误的界面,需要每次都生成一个新的对象，默认为BTLoadingSubView
+@property (nonatomic, copy) BTLoadingSubView * (^customErrorViewBlock)(void);
+
+
+- (void)addDelegate:(id)delegate;
+
+- (void)removeDelegate:(id)delegate;
 
 - (UIImage*)imageBundleName:(NSString*)name;
 
 @end
 
-NS_ASSUME_NONNULL_END
+

@@ -1,0 +1,6 @@
+${PODS_ROOT}/Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample-frameworks.sh
+${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
+${BUILT_PRODUCTS_DIR}/BTHelp/BTHelp.framework
+${BUILT_PRODUCTS_DIR}/BTLoading/BTLoading.framework
+${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework
+${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework

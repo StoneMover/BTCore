@@ -7,6 +7,7 @@
 //
 
 #import "BTLoadingConfig.h"
+#import "UIImage+BTGIF.m"
 
 static BTLoadingConfig * help=nil;
 
@@ -39,10 +40,11 @@ static BTLoadingConfig * help=nil;
     self.loadingStr=@"玩命加载中...";
     self.emptyStr=@"貌似这里什么都没有";
     self.errorInfo=@"似乎断开了与互联网的连接";
-    self.loadingGif=@"bt_loading_icon";
-    self.errorImg=@"bt_loading_empty";
-    self.emptyImg=@"bt_loading_error";
+    self.loadingGif=[UIImage animatedGIFNamed:@"bt_loading_icon" bundle:[NSBundle bundleForClass:[self class]]];
+    self.errorImg=[self imageBundleName:@"bt_loading_empty"];
+    self.emptyImg=[self imageBundleName:@"bt_loading_error"];
     [self initNotification];
+    [self initDefaultView];
     return self;
 }
 
@@ -57,6 +59,23 @@ static BTLoadingConfig * help=nil;
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
 }
+
+- (void)initDefaultView{
+    self.customLoadingViewBlock = ^BTLoadingSubView * _Nonnull{
+        return [[BTLoadingSubView alloc] init];
+    };
+    
+    self.customEmptyViewBlock = ^BTLoadingSubView * _Nonnull{
+        return [[BTLoadingSubView alloc] init];
+    };
+    
+    self.customErrorViewBlock = ^BTLoadingSubView * _Nonnull{
+        return [[BTLoadingSubView alloc] init];
+    };
+    
+}
+
+
 
 - (void)addDelegate:(id)delegate{
     [self.delegates addObject:delegate];

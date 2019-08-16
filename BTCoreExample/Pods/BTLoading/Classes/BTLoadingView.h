@@ -7,21 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BTLoadingConfig.h"
+#import "BTLoadingSubView.h"
+#import "UIImage+BTGIF.h"
 
 typedef void(^BTLoadingBlock)(void);
 
 @interface BTLoadingView : UIView
 
-//重新加载按钮控件
-@property (strong, nonatomic) UIButton *btnReload;
+@property (nonatomic, strong) BTLoadingSubView * viewLoading;
 
-//中间文字控件
-@property (strong, nonatomic) UILabel *labelText;
+@property (nonatomic, strong) BTLoadingSubView * viewEmpty;
 
-//加载中图片控件
-@property (strong, nonatomic) UIImageView *imgViewLoading;
-
-
+@property (nonatomic, strong) BTLoadingSubView * viewError;
 
 #pragma mark 显示加载中界面
 -(void)showLoading;

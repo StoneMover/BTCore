@@ -7,8 +7,8 @@
 //
 
 #import "BTLoadingView.h"
-#import "UIImage+BTGIF.h"
-#import "BTLoadingConfig.h"
+
+
 
 @interface BTLoadingView()
 
@@ -16,26 +16,6 @@
 
 @property(nonatomic,assign)int h;
 
-//加载中图片，最好是个gif
-@property (nonatomic, strong) UIImage * loadingGif;
-
-//加载中文字
-@property (nonatomic, strong) NSString * loadingStr;
-
-//空数据图片
-@property (nonatomic, strong) UIImage * emptyImg;
-
-//空数据文字提示
-@property (nonatomic, strong) NSString * emptyStr;
-
-
-//数据错误图片
-@property (nonatomic, strong) UIImage * errorImg;
-
-//错误提示
-@property (nonatomic, strong) NSString * errorInfo;
-
-//是否正在显示中
 @property (nonatomic, assign) BOOL isShow;
 
 @end
@@ -47,70 +27,45 @@
     self.backgroundColor=[UIColor whiteColor];
     self.w=self.frame.size.width;
     self.h=self.frame.size.height;
-    self.loadingGif=[UIImage animatedGIFNamed:[BTLoadingConfig share].loadingGif bundle:[NSBundle bundleForClass:[self class]]];
-    self.emptyImg=[[BTLoadingConfig share]imageBundleName:[BTLoadingConfig share].emptyImg];
-    self.errorImg=[[BTLoadingConfig share] imageBundleName:[BTLoadingConfig share].errorImg];
-    self.loadingStr=[BTLoadingConfig share].loadingStr;
-    self.emptyStr=[BTLoadingConfig share].emptyStr;
-    self.errorInfo=[BTLoadingConfig share].errorInfo;
-    [self crateLabel];
-    [self createImg];
-    [self createBtn];
+    [self initSelf];
     return self;
 }
 
-- (void)crateLabel{
-    self.labelText=[[UILabel alloc]init];
-    self.labelText.textAlignment=NSTextAlignmentCenter;
-    self.labelText.numberOfLines=0;
-    self.labelText.text=self.loadingStr;
-    self.labelText.translatesAutoresizingMaskIntoConstraints=NO;
-    self.labelText.font=[UIFont systemFontOfSize:17 weight:UIFontWeightMedium];
-    self.labelText.textColor=[UIColor colorWithRed:120/255.0 green:121/255.0 blue:122/255.0 alpha:1];
-    [self addSubview:self.labelText];
-    NSLayoutConstraint * centerY=[NSLayoutConstraint constraintWithItem:self.labelText attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:-20];
-    NSLayoutConstraint * left=[NSLayoutConstraint constraintWithItem:self.labelText attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:40];
-    NSLayoutConstraint * right=[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self.labelText attribute:NSLayoutAttributeRight multiplier:1 constant:40];
-    [self addConstraints:@[centerY,left,right]];
-}
-
-- (void)createImg{
-    self.imgViewLoading=[[UIImageView alloc]init];
-    [self addSubview:self.imgViewLoading];
-    self.imgViewLoading.translatesAutoresizingMaskIntoConstraints=NO;
-    NSLayoutConstraint * top=[NSLayoutConstraint constraintWithItem:self.labelText attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.imgViewLoading attribute:NSLayoutAttributeBottom multiplier:1 constant:10];
+- (void)initSelf{
+    __weak BTLoadingView * weakSelf=self;
+    self.viewLoading=[BTLoadingConfig share].customLoadingViewBlock();
+    self.viewLoading.frame=self.bounds;
+    [self.viewLoading initSubView];
+    self.viewLoading.clickBlock = ^{
+        [weakSelf reloadClick];
+    };
+    self.viewLoading.label.text=[BTLoadingConfig share].loadingStr;
+    self.viewLoading.imgView.image=[BTLoadingConfig share].loadingGif;
+    self.viewLoading.btn.hidden=YES;
+    [self addSubview:self.viewLoading];
     
-    NSLayoutConstraint * centerX=[NSLayoutConstraint constraintWithItem:self.imgViewLoading attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+    self.viewEmpty=[BTLoadingConfig share].customEmptyViewBlock();
+    self.viewEmpty.frame=self.bounds;
+    [self.viewEmpty initSubView];
+    self.viewEmpty.clickBlock = ^{
+        [weakSelf reloadClick];
+    };
+    self.viewEmpty.label.text=[BTLoadingConfig share].emptyStr;
+    self.viewEmpty.imgView.image=[BTLoadingConfig share].emptyImg;
+    
+    [self addSubview:self.viewEmpty];
     
     
+    self.viewError=[BTLoadingConfig share].customErrorViewBlock();
+    self.viewError.frame=self.bounds;
+    self.viewError.clickBlock = ^{
+        [weakSelf reloadClick];
+    };
+    [self.viewError initSubView];
+    self.viewError.label.text=[BTLoadingConfig share].errorInfo;
+    self.viewError.imgView.image=[BTLoadingConfig share].errorImg;
     
-    [self addConstraint:top];
-    [self addConstraint:centerX];
-    
-}
-
-- (void)createBtn{
-    self.btnReload=[[UIButton alloc]init];
-    self.btnReload.translatesAutoresizingMaskIntoConstraints=NO;
-    self.btnReload.backgroundColor=[UIColor colorWithRed:106/255.0 green:179/255.0 blue:250/255.0 alpha:1];
-    self.btnReload.layer.cornerRadius=8;
-    self.btnReload.titleLabel.font=[UIFont systemFontOfSize:17 weight:UIFontWeightMedium];
-    [self.btnReload setTitle:@"刷新" forState:UIControlStateNormal];
-    [self.btnReload setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.btnReload addTarget:self action:@selector(reloadClick) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:self.btnReload];
-    
-    NSLayoutConstraint * top=[NSLayoutConstraint constraintWithItem:self.btnReload attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.labelText attribute:NSLayoutAttributeBottom multiplier:1 constant:35];
-    
-    NSLayoutConstraint * centerX=[NSLayoutConstraint constraintWithItem:self.btnReload attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-    
-    NSLayoutConstraint * x=[NSLayoutConstraint constraintWithItem:self.btnReload attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:110];
-    NSLayoutConstraint * y=[NSLayoutConstraint constraintWithItem:self.btnReload attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:45];
-    
-    [self addConstraint:top];
-    [self addConstraint:centerX];
-    [self.btnReload addConstraint:x];
-    [self.btnReload addConstraint:y];
+    [self addSubview:self.viewError];
 }
 
 - (void)reloadClick{
@@ -123,54 +78,60 @@
 
 #pragma mark loadingView
 -(void)showLoading{
-    [self showLoading:self.loadingStr];
+    [self showLoading:nil];
 }
 -(void)showLoading:(NSString*)loadingStr{
-    [self showLoading:loadingStr withImg:self.loadingGif];
+    [self showLoading:loadingStr withImg:nil];
 }
 -(void)showLoading:(NSString*)loadingStr withImg:(UIImage*)img{
+    self.viewLoading.hidden=NO;
+    self.viewEmpty.hidden=YES;
+    self.viewError.hidden=YES;
+    [self.viewLoading show:loadingStr img:img];
     self.isShow=YES;
     self.hidden=NO;
-    self.labelText.text=loadingStr;
-    self.btnReload.hidden=YES;
-    self.imgViewLoading.image=img;
 }
 
 #pragma mark loadingEmpty
 
 -(void)showEmpty{
-    [self showEmpty:self.emptyStr];
+    [self showEmpty:nil];
 }
 
 -(void)showEmpty:(NSString*)emptyStr{
-    [self showEmpty:emptyStr withImg:self.emptyImg];
+    [self showEmpty:emptyStr withImg:nil];
 }
 
 -(void)showEmpty:(NSString*)emptyStr withImg:(UIImage*)img{
+    self.viewEmpty.hidden=NO;
+    self.viewLoading.hidden=YES;
+    self.viewError.hidden=YES;
+    [self.viewEmpty show:emptyStr img:img];
     self.isShow=YES;
     self.hidden=NO;
-    self.labelText.text=emptyStr;
-    self.btnReload.hidden=NO;
-    self.imgViewLoading.image=img;
 }
 
 
 
 
 #pragma mark loadError
+-(void)showError{
+    [self showError:nil];
+}
+
+-(void)showError:(NSString*)errorStr{
+    [self showError:errorStr withImg:nil];
+}
+
 -(void)showError:(NSString*)errorStr withImg:(UIImage*)img{
+    self.viewError.hidden=NO;
+    self.viewLoading.hidden=YES;
+    self.viewEmpty.hidden=YES;
+    [self.viewError show:errorStr img:img];
     self.isShow=YES;
     self.hidden=NO;
-    self.labelText.text=errorStr;
-    self.btnReload.hidden=NO;
-    self.imgViewLoading.image=img;
 }
--(void)showError:(NSString*)errorStr{
-    [self showEmpty:errorStr withImg:self.errorImg];
-}
--(void)showError{
-    [self showError:self.errorInfo];
-}
+
 
 #pragma mark NSError type
 - (void)showErrorObj:(NSError*)error withImg:(UIImage*)img{
@@ -184,7 +145,7 @@
 }
 
 - (void)showErrorObj:(NSError*)error{
-    [self showErrorObj:error withImg:self.errorImg];
+    
 }
 
 - (void)showError:(NSError*)error errorStr:(NSString*)errorStr{

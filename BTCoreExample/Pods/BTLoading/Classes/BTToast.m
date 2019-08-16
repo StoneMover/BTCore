@@ -129,6 +129,11 @@ static const CGFloat BT_TOAST_IMG_LABEL_TOP=5;
         CGFloat h=[self calculateStrHeight:self.contentStr withWidth:labelMaxW withFont:self.labelContent.font];
         self.labelContent.frame=CGRectMake(0, 0, labelMaxW, h);
     }
+    
+    if (self.labelContent.frame.size.width<80) {
+        self.labelContent.frame=CGRectMake(self.labelContent.frame.origin.x, self.labelContent.frame.origin.x, 80, self.labelContent.frame.size.height);
+    }
+    
     [self.rootView addSubview:self.labelContent];
 }
 
