@@ -12,14 +12,16 @@
 
 @interface BTCoreConfig : NSObject
 
-//请求返回后的key名称设置
-@property (nonatomic, strong) NSString * netKeyInfo;
+@property (nonatomic, copy) NSString *  (^netInfoBlock) (NSDictionary * dict);
 
-@property (nonatomic, strong) NSString * netKeyData;
+@property (nonatomic, copy) NSDictionary *  (^netDataBlock) (NSDictionary * dict);
 
-@property (nonatomic, strong) NSString * netKeyCode;
+@property (nonatomic, copy) NSInteger  (^netCodeBlock) (NSDictionary * dict);
 
-@property (nonatomic, assign) NSInteger netSuccessCode;
+@property (nonatomic, copy) NSArray *  (^netDataArrayBlock) (NSDictionary * dict);
+
+@property (nonatomic, copy) BOOL  (^netSuccessBlock) (NSDictionary * dict);
+
 
 //请求的root url和img url
 @property (nonatomic, strong) NSString * rootUrl;
@@ -37,9 +39,6 @@
 
 @property (nonatomic, strong) NSString * keyToken;
 
-
-//pageLoad 获取列表的key，默认为list
-@property (nonatomic, strong) NSString * keyPageList;
 
 
 //默认的主题颜色,默认为红色

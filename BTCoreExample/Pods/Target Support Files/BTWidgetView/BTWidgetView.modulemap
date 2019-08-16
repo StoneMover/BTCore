@@ -1,0 +1,6 @@
+framework module BTWidgetView {
+  umbrella header "BTWidgetView-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -98,8 +98,9 @@ NSUserDefaults * defaults;
     
     NSDictionary * dic=[[NSDictionary alloc]init];
     [defaults setObject:dic forKey:KEY_USER_INFO];
-    self.model=[BTUserModel modelWithDict:dic];
+    self.model=[[BTCoreConfig share].userModelClass modelWithDict:dic];
 }
+
 
 -(BOOL)isLogin{
     if (self.model&&self.model.userId&&self.model.userId.length>0) {

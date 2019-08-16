@@ -11,6 +11,6 @@ target 'BTCoreExample' do
   pod 'MJRefresh'
   pod 'BTLoading'
   pod 'BTHelp'
-
+  pod 'BTWidgetView'
 
 end

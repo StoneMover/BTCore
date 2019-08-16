@@ -71,20 +71,23 @@
 }
 
 + (BOOL)isSuccess:(NSDictionary*)dict{
-    NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
-    if (code.integerValue==[BTCoreConfig share].netSuccessCode) {
-        return YES;
-    }
-    return NO;
+    return [BTCoreConfig share].netSuccessBlock(dict);
 }
 
-+ (int)errorCode:(NSDictionary*)dict{
-    NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
-    return code.intValue;
++ (NSInteger)errorCode:(NSDictionary*)dict{
+    return [BTCoreConfig share].netCodeBlock(dict);
 }
 
 + (NSString*)errorInfo:(NSDictionary*)dict{
-    return [dict objectForKey:[BTCoreConfig share].netKeyInfo];
+    return [BTCoreConfig share].netInfoBlock(dict);
+}
+
++ (NSArray*)defaultDictArray:(NSDictionary*)dict{
+    return [BTCoreConfig share].netDataArrayBlock(dict);
+}
+
++ (NSDictionary*)defaultDictData:(NSDictionary*)dict{
+    return [BTCoreConfig share].netDataBlock(dict);
 }
 
 + (NSURL*)getImgResultUrl:(NSString*)url{
@@ -95,8 +98,6 @@
     }
 }
 
-+ (NSMutableArray*)defaultDictArray:(NSDictionary*)dict{
-    return [dict objectForKey:[BTCoreConfig share].keyPageList];
-}
+
 
 @end

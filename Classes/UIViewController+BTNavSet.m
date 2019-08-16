@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+BTNavSet.h"
-#import <BTHelp/UIImage+BTImage.h>
+#import <BTWidgetView/UIImage+BTImage.h>
 #import "BTCoreConfig.h"
 
 @implementation UIViewController (BTNavSet)

@@ -118,6 +118,9 @@
 //设置MJ刷新头部的主题颜色
 - (void)setRefreshHeadThemeColor:(UIColor *)color;
 
+//MJFoot刷新距离底部的距离，适配iphonex,普通手机不会用到
+- (CGFloat)mjFootIgnoredScrollViewContentInsetBottom;
+
 @end
 
 

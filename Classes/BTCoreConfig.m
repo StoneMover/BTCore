@@ -23,10 +23,27 @@ static BTCoreConfig * config=nil;
 
 - (instancetype)init{
     self=[super init];
-    self.netKeyInfo=@"info";
-    self.netKeyCode=@"code";
-    self.netKeyData=@"data";
-    self.netSuccessCode=1;
+    
+    self.netInfoBlock = ^NSString *(NSDictionary *dict) {
+        return [dict objectForKey:@"info"];
+    };
+    
+    self.netCodeBlock = ^NSInteger(NSDictionary *dict) {
+        return [NSString stringWithFormat:@"%@",[dict objectForKey:@"code"]].integerValue;
+    };
+    
+    self.netDataBlock = ^NSDictionary *(NSDictionary *dict) {
+        return [dict objectForKey:@"data"];
+    };
+    
+    self.netDataArrayBlock = ^NSArray *(NSDictionary *dict) {
+        return [dict objectForKey:@"list"];
+    };
+    
+    self.netSuccessBlock = ^BOOL(NSDictionary *dict) {
+        return self.netCodeBlock(dict)==0;
+    };
+    
     
     self.keyUid=@"uid";
     self.keyOs=@"os";
@@ -34,7 +51,6 @@ static BTCoreConfig * config=nil;
     self.keyOsVersion=@"osVersion";
     self.keyToken=@"token";
     
-    self.keyPageList=@"list";
     
     
     self.mainColor=[UIColor redColor];

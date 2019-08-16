@@ -164,6 +164,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BTHelp/BTHelp.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BTLoading/BTLoading.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BTWidgetView/BTWidgetView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework"
 fi
@@ -171,6 +172,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BTHelp/BTHelp.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BTLoading/BTLoading.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/BTWidgetView/BTWidgetView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RTRootNavigationController/RTRootNavigationController.framework"
 fi

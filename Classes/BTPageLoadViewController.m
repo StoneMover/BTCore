@@ -82,30 +82,13 @@
 }
 
 #pragma mark 自动加载逻辑
-- (void)autoLoad:(NSDictionary*)dict
-         dataKey:(NSString*)dataKey
-         infoKey:(NSString*)infoKey
-         codeKey:(NSString*)codeKey
-           class:(Class)cla{
-    if ([dict.allKeys containsObject:infoKey]&&[dict.allKeys containsObject:codeKey]) {
-        if ([BTNet isSuccess:dict]) {
-            NSArray * array=[self pageLoadData:dict];
-            [self autoLoadSuccess:array class:cla];
-        }else{
-            [self autoLoadSeverError:[BTNet errorInfo:dict]];
-        }
-    }else{
-        [self autoLoadSeverError:@"字典中应该包含info和code字段"];
-    }
-    
-}
-
 - (void)autoLoad:(NSDictionary*)dict class:(Class)cla{
-    [self autoLoad:dict
-           dataKey:[BTCoreConfig share].netKeyData
-           infoKey:[BTCoreConfig share].netKeyInfo
-           codeKey:[BTCoreConfig share].netKeyCode
-             class:cla];
+    if ([BTNet isSuccess:dict]) {
+        NSArray * array=[self pageLoadData:dict];
+        [self autoLoadSuccess:array class:cla];
+    }else{
+        [self autoLoadSeverError:[BTNet errorInfo:dict]];
+    }
 }
 
 - (void)autoLoadSuccess:(NSArray*)dataDict class:(Class)cls{
@@ -150,7 +133,6 @@
     }
 }
 
-
 - (void)autoLoadSeverError:(NSString*)errorInfo{
     [self endHeadRefresh];
     [self endFootRefresh];
@@ -162,7 +144,6 @@
     self.isRefresh=NO;
     [BTToast showErrorInfo:errorInfo];
 }
-
 
 - (void)autoLoadNetError:(NSError*)error{
     [self endHeadRefresh];
@@ -201,7 +182,6 @@
     }
     return NO;
 }
-
 
 - (void)setIsLoadFinish:(BOOL)isLoadFinish{
     if (isLoadFinish==_isLoadFinish) {
@@ -254,7 +234,7 @@
                                            [weakSelf footRefreshLoad];
                                        }];
             if (BTUtils.UI_IS_IPHONEX) {
-                self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=34;
+                self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=[self mjFootIgnoredScrollViewContentInsetBottom];
             }
             
         }else{
@@ -354,5 +334,11 @@
     }
     
 }
+
+
+- (CGFloat)mjFootIgnoredScrollViewContentInsetBottom{
+    return 34;
+}
+
 
 @end

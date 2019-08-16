@@ -144,7 +144,7 @@ static BTHttp * http=nil;
 }
 
 - (void)autoSpecialCode:(NSDictionary*)dict{
-    NSString * code =[NSString stringWithFormat:@"%@",[dict objectForKey:[BTCoreConfig share].netKeyCode]];
+    NSString * code =[NSString stringWithFormat:@"%ld",[BTCoreConfig share].netCodeBlock(dict)];
     NSArray * array =[BTCoreConfig share].arrayNetCodeNotification;
     if (!array||array.count==0||![array containsObject:code]) {
         return;

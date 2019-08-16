@@ -45,10 +45,15 @@ typedef void(^BTVcSuccessBlock)(NSObject * obj);
 //前后页面的简单回调
 @property (nonatomic, copy) BTVcSuccessBlock blockSuccess;
 
+//当vc完全出现后的第一次调用，只会调用一次，用在一些需要在界面完全显示后才需要进行初始化的情况
 - (void)viewDidAppearFirst;
 
+//获取数据的方法
 - (void)getData;
+
+//重新加载网络数据
 - (void)reload;
+
 @end
 
 

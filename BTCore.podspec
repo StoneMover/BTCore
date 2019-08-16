@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BTCore"
-  s.version          = "0.1.5"
+  s.version          = "0.1.6"
   s.summary          = "iOS Project Basic"
   s.homepage         = "https://github.com/StoneMover/BTCore"
   s.license          = 'MIT'
@@ -14,4 +14,5 @@ Pod::Spec.new do |s|
   s.dependency 'MJRefresh'
   s.dependency 'BTLoading'
   s.dependency 'BTHelp'
+  s.dependency 'BTWidgetView'
 end

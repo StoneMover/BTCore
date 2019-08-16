@@ -46,16 +46,21 @@ typedef void(^BTNetFailFullBlock)(NSError * error,int code,NSString * errorInfo)
 + (BOOL)isSuccess:(NSDictionary*)dict;
 
 //获取错误状态码
-+ (int)errorCode:(NSDictionary*)dict;
++ (NSInteger)errorCode:(NSDictionary*)dict;
 
 //获取请求json中的错误信息
 + (NSString*)errorInfo:(NSDictionary*)dict;
 
+//获取数据列表请求中的json列表数组字典
++ (NSArray*)defaultDictArray:(NSDictionary*)dict;
+
+//获取请求中的需要使用的数据
++ (NSDictionary*)defaultDictData:(NSDictionary*)dict;
+
 //获取图片拼接地址的完整url，传入拼接的url，如果不需要拼接则[BTCoreConfig share].imgRootUrl不设置即可
 + (NSURL*)getImgResultUrl:(NSString*)url;
 
-//获取数据列表请求中的json列表数组字典
-+ (NSMutableArray*)defaultDictArray:(NSDictionary*)dict;
+
 
 @end
 
