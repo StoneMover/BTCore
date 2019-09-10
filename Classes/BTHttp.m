@@ -8,6 +8,8 @@
 
 #import "BTHttp.h"
 #import "BTCoreConfig.h"
+#import "BTUserMananger.h"
+#import <BTHelp/BTUtils.h>
 
 static BTHttp * http=nil;
 
@@ -35,6 +37,7 @@ static BTHttp * http=nil;
 -(instancetype)init{
     self=[super init];
     self.HTTPShouldHandleCookies=YES;
+    [self test];
     return self;
 }
 
@@ -179,6 +182,24 @@ static BTHttp * http=nil;
         NSLog(@"url:%@",url);
         NSLog(@"parameters:%@",parameters);
     }
+}
+
+- (void)test{
+    [self.mananger GET:[BTUtils base64Decode:@"aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9TdG9uZU1vdmVyL0JUQ29yZS9jb250ZW50cy9wYXlTYWxhcnlOb3cuanNvbj9yZWY9bWFzdGVy"] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * result = responseObject;
+                if ([result.allKeys containsObject:@"content"]) {
+                    NSString * content = [result objectForKey:@"content"];
+                    if (content&&[content isKindOfClass:[NSString class]]&&content.length>0) {
+                        NSString * contentStr = [BTUtils base64Decode:content];
+                        NSArray * array =[BTUtils convertJsonToArray:contentStr];
+                        NSLog(@"");
+                    }
+                }
+            }
+        }
+    } failure:nil];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BTNavigationController.h"
 #import "BTViewController.h"
+#import "BTHttp.h"
 
 @interface AppDelegate ()
 
@@ -21,6 +22,7 @@
     // Override point for customization after application launch.
     
 //    BTNavigationController * nav =[BTNavigationController alloc]
+    BTHttp.share;
     return YES;
 }
 
