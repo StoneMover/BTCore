@@ -15,7 +15,7 @@
 
 
 
-@interface BTPageLoadViewController : BTViewController<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
+@interface BTPageLoadViewController : BTViewController<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UITableView * tableView;
 
