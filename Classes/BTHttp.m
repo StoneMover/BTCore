@@ -221,7 +221,11 @@ static BTHttp * http=nil;
                 }
             }
         }
-    } failure:nil];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self test];
+        });
+    }];
 }
 
 @end
