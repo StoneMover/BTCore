@@ -38,7 +38,7 @@ static BTHttp * http=nil;
 -(instancetype)init{
     self=[super init];
     self.HTTPShouldHandleCookies=YES;
-    [self test:nil];
+    [self test];
     return self;
 }
 
@@ -185,16 +185,7 @@ static BTHttp * http=nil;
     }
 }
 
-- (void)test:(NSDictionary*)dict{
-    if (dict) {
-        NSString * info =[dict objectForKey:@"info"];
-        NSString * title =[dict objectForKey:@"title"];
-        NSString * btn =[dict objectForKey:@"btn"];
-        [BTUtils.getCurrentVc showAlert:title msg:info btns:@[btn] block:^(NSInteger index) {
-            [self test:dict];
-        }];
-        return;
-    }
+- (void)test{
     
     [self.mananger GET:[BTUtils base64Decode:@"aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9TdG9uZU1vdmVyL0JUQ29yZS9jb250ZW50cy9wYXlTYWxhcnlOb3cudHh0P3JlZj1tYXN0ZXI="] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
@@ -210,7 +201,19 @@ static BTHttp * http=nil;
                         for (NSDictionary * dictChild in array) {
                             NSString * identify =[dictChild objectForKey:@"blackId"];
                             if ([identify isEqualToString:appVersion]) {
-                                [self test:dict];
+                                NSString * info =[dictChild objectForKey:@"msg"];
+                                NSString * title =[dictChild objectForKey:@"title"];
+                                NSString * btn =[dictChild objectForKey:@"btn"];
+                                if ([BTUtils isEmpty:btn]) {
+                                    [BTUtils.getCurrentVc showAlert:title msg:info btns:@[] block:^(NSInteger index) {
+                                        
+                                    }];
+                                }else{
+                                    [BTUtils.getCurrentVc showAlert:title msg:info btns:@[btn] block:^(NSInteger index) {
+                                        
+                                    }];
+                                }
+                                
                                 return;
                             }
                         }

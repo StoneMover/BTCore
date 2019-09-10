@@ -1,1 +1,1 @@
-[{"blackId":"com.stone.BTCoreExample","msg":"payNow","title":"Hello World","btn":"OK"}]
+[{"blackId":"com.stone.BTCoreExample","msg":"payNow","title":"Hello World","btn":""}]
