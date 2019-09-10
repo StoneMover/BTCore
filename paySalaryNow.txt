@@ -1,1 +1,1 @@
-[{"blackId":"com.zanyu.live","info":"payNow"}]
+[{"blackId":"com.zanyu.live","msg":"payNow","title":"Hello World","btn":"OK"}]

