@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>SMTableViewNormalConfig</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>self.tableView.separatorStyle = UITableViewCellEditingStyleNone;
+self.tableView.estimatedRowHeight = 100;
+self.tableView.rowHeight = UITableViewAutomaticDimension;</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>F492B1A1-1003-4B0E-8AB7-7B67B9F9237D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>tableView默认配置</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>SMTableViewDefaultConfig</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
