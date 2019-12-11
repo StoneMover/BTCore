@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>BTNetFunction</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>public static func &lt;#String#&gt;(_ successBlock:@escaping BTNetSuccessBlcok,_ failBlock:@escaping BTNetFailFullBlock) -&gt; Void {
+        
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A182F733-804F-49A9-9121-4ABE7FB5BD0E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>网络请求方法</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>BTNetFunction</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

@@ -14,7 +14,7 @@ typedef void(^BTNetSuccessBlcok)(id obj);
 
 typedef void(^BTNetFailBlock)(NSError * error,NSString * errorInfo);
 
-typedef void(^BTNetFailFullBlock)(NSError * error,int code,NSString * errorInfo);
+typedef void(^BTNetFailFullBlock)(NSError * error,NSInteger code,NSString * errorInfo);
 
 
 @interface BTNet : NSObject

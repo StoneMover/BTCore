@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>BTNetList</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>let request = BTHttp.share()
+        let dict=defaultDict()
+        dict!.setValue(BTUtils.safe_STR("&lt;#String#&gt;"), forKey: "&lt;#String#&gt;")
+        let url = getUrlFunction("&lt;#String#&gt;")
+        request.post(url!, parameters: dict!, success: { (task, response) in
+            if isSuccess(response as? [AnyHashable : Any]){
+                successBlock(response)
+            }else{
+                failBlock(nil,errorCode(response as? [AnyHashable : Any]),errorInfo(response as? [AnyHashable : Any]))
+            }
+        },failure: { (task, error) in
+            failBlock(error,-1,nil)
+        })</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>2C54E0C8-436F-41AB-8A65-11F15BF597AE</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>列表请求</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>BTNetList</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>0</integer>
+</dict>
+</plist>

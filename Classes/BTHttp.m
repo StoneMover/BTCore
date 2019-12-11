@@ -71,6 +71,10 @@ static BTHttp * http=nil;
         NSString * value = [self.dictHead objectForKey:key];
         [requestSerializer setValue:value forHTTPHeaderField:key];
     }
+    if (self.mananger.requestSerializer) {
+        requestSerializer.HTTPShouldHandleCookies = self.mananger.requestSerializer.HTTPShouldHandleCookies;
+        requestSerializer.timeoutInterval = self.mananger.requestSerializer.timeoutInterval;
+    }
     self.mananger.requestSerializer = requestSerializer;
 }
 
