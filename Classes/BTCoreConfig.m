@@ -7,7 +7,7 @@
 //
 
 #import "BTCoreConfig.h"
-
+#import "BTUserMananger.h"
 
 static BTCoreConfig * config=nil;
 
@@ -44,12 +44,26 @@ static BTCoreConfig * config=nil;
         return self.netCodeBlock(dict)==0;
     };
     
-    
-    self.keyUid=@"uid";
-    self.keyOs=@"os";
-    self.keyVersion=@"version";
-    self.keyOsVersion=@"osVersion";
-    self.keyToken=@"token";
+    self.defaultHttpDict = ^NSDictionary *{
+        NSMutableDictionary * dict = [NSMutableDictionary new];
+        NSString * version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+        NSString * os = @"ios";
+        NSString * osVersion = [UIDevice currentDevice].systemVersion;
+        [dict setValue:version forKey:@"appVersion"];
+        [dict setValue:os forKey:@"os"];
+        [dict setValue:osVersion forKey:@"osVersion"];
+        if ([BTUserMananger share].isLogin) {
+            if ([BTUserMananger share].model.userId) {
+                [dict setValue:[BTUserMananger share].model.userId forKey:@"uid"];
+            }
+            
+            if ([BTUserMananger share].model.userToken) {
+                [dict setValue:[BTUserMananger share].model.userToken forKey:@"token"];
+            }
+            
+        }
+        return dict;
+    };
     
     
     

@@ -13,8 +13,6 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface BTHttp : NSObject
 
-@property(nonatomic,strong) NSSet <NSString *> *acceptableContentTypes;
-
 +(instancetype)share;
 
 
@@ -63,8 +61,17 @@ NS_ASSUME_NONNULL_BEGIN
 //添加头信息
 -(void)addHttpHead:(NSString*)key value:(NSString*)value;
 
+//删除头部信息
+- (void)delHttpHead:(NSString*)key;
+
 //是否携带cookie信息
 @property (nonatomic, assign) BOOL HTTPShouldHandleCookies;
+
+//设置超时时间
+- (void)setTimeoutInterval:(NSInteger)seconds;
+
+//设置接收数据类型
+- (void)setResponseAcceptableContentType:(NSSet<NSString*>*)acceptableContentTypes;
 
 @end
 

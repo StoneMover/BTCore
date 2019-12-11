@@ -37,30 +37,55 @@ static BTHttp * http=nil;
 
 -(instancetype)init{
     self=[super init];
-    self.HTTPShouldHandleCookies=YES;
+    self.mananger = [AFHTTPSessionManager manager];
+    [self initDefaultSet];
     [self test];
     return self;
 }
 
-- (AFHTTPSessionManager*)mananger{
-    if (!_mananger) {
-        _mananger=[AFHTTPSessionManager manager];
-        [self setHttpHead:_mananger];
-    }
-    
-    return _mananger;
+- (void)initDefaultSet{
+    [self setTimeoutInterval:10];
+    [self setHTTPShouldHandleCookies:YES];
+    [self setResponseAcceptableContentType:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil]];
 }
 
--(void)addHttpHead:(NSString*)key value:(NSString*)value{
+- (void)addHttpHead:(NSString*)key value:(NSString*)value{
     if (!self.dictHead) {
         self.dictHead=[[NSMutableDictionary alloc]init];
     }
     [self.dictHead setValue:value forKey:key];
+    [self setRequestSerializer];
 }
 
+- (void)delHttpHead:(NSString*)key{
+    if (self.dictHead&&[self.dictHead.allKeys containsObject:key]) {
+        [self.dictHead removeObjectForKey:key];
+        [self setRequestSerializer];
+    }
+}
 
+- (void)setRequestSerializer{
+    AFHTTPRequestSerializer * requestSerializer =  [AFJSONRequestSerializer serializer];
+    NSArray * keys = self.dictHead.allKeys;
+    for (NSString * key in keys) {
+        NSString * value = [self.dictHead objectForKey:key];
+        [requestSerializer setValue:value forHTTPHeaderField:key];
+    }
+    self.mananger.requestSerializer = requestSerializer;
+}
 
+- (void)setHTTPShouldHandleCookies:(BOOL)HTTPShouldHandleCookies{
+    _HTTPShouldHandleCookies = HTTPShouldHandleCookies;
+    self.mananger.requestSerializer.HTTPShouldHandleCookies = self.HTTPShouldHandleCookies;
+}
 
+- (void)setTimeoutInterval:(NSInteger)seconds{
+    self.mananger.requestSerializer.timeoutInterval = seconds;
+}
+
+- (void)setResponseAcceptableContentType:(NSSet<NSString*>*)acceptableContentTypes{
+    self.mananger.responseSerializer.acceptableContentTypes=acceptableContentTypes;
+}
 
 #pragma mark GET请求
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
@@ -130,22 +155,7 @@ static BTHttp * http=nil;
     return [self POST:URLString parameters:parameters constructingBodyWithBlock:block progress:nil success:success failure:failure];
 }
 
-- (void)setHttpHead:(AFHTTPSessionManager*)mananger{
-    if (self.dictHead) {
-        AFHTTPRequestSerializer *requestSerializer =  [AFJSONRequestSerializer serializer];
-        
-        NSArray * keys=self.dictHead.allKeys;
-        for (NSString *key in keys) {
-            NSString * value=[self.dictHead objectForKey:key];
-            [requestSerializer setValue:value forHTTPHeaderField:key];
-        }
-        mananger.requestSerializer=requestSerializer;
-    }
-    
-    mananger.requestSerializer.HTTPShouldHandleCookies=self.HTTPShouldHandleCookies;
-    mananger.requestSerializer.timeoutInterval=10;
-    mananger.responseSerializer.acceptableContentTypes=[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
-}
+
 
 - (void)autoSpecialCode:(NSDictionary*)dict{
     NSString * code =[NSString stringWithFormat:@"%ld",[BTCoreConfig share].netCodeBlock(dict)];

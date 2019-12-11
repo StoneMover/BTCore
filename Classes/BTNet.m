@@ -51,22 +51,8 @@
     }else{
         dictResult=[[NSMutableDictionary alloc] init];
     }
-    NSString * version=[[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    NSString * os=@"ios";
-    NSString * osVersion=[UIDevice currentDevice].systemVersion;
-    [dictResult setValue:version forKey:[BTCoreConfig share].keyVersion];
-    [dictResult setValue:os forKey:[BTCoreConfig share].keyOs];
-    [dictResult setValue:osVersion forKey:[BTCoreConfig share].keyOsVersion];
-    if ([BTUserMananger share].isLogin) {
-        if ([BTUserMananger share].model.userId) {
-            [dictResult setValue:[BTUserMananger share].model.userId forKey:[BTCoreConfig share].keyUid];
-        }
-        
-        if ([BTUserMananger share].model.userToken) {
-            [dictResult setValue:[BTUserMananger share].model.userToken forKey:[BTCoreConfig share].keyToken];
-        }
-        
-    }
+    [dict setValuesForKeysWithDictionary:BTCoreConfig.share.defaultHttpDict()];
+    
     return dictResult;
 }
 

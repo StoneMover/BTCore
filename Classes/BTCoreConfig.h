@@ -22,22 +22,13 @@
 
 @property (nonatomic, copy) BOOL  (^netSuccessBlock) (NSDictionary * dict);
 
+@property (nonatomic, copy) NSDictionary * (^defaultHttpDict)(void);
+
 
 //请求的root url和img url
 @property (nonatomic, strong) NSString * rootUrl;
 
 @property (nonatomic, strong) NSString * imgRootUrl;
-
-//发送请求的默认参数名称设置
-@property (nonatomic, strong) NSString * keyOs;
-
-@property (nonatomic, strong) NSString * keyVersion;
-
-@property (nonatomic, strong) NSString * keyOsVersion;
-
-@property (nonatomic, strong) NSString * keyUid;
-
-@property (nonatomic, strong) NSString * keyToken;
 
 
 
