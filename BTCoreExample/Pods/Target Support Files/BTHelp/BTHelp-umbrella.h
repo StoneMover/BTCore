@@ -20,6 +20,7 @@
 #import "BTPermission.h"
 #import "BTTimerHelp.h"
 #import "BTUtils.h"
+#import "NSDate+BTDate.h"
 
 FOUNDATION_EXPORT double BTHelpVersionNumber;
 FOUNDATION_EXPORT const unsigned char BTHelpVersionString[];

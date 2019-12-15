@@ -9,10 +9,6 @@
 #import "BTViewController.h"
 #import <MJRefresh/MJRefresh.h>
 
-//NSString * const BT_PAGE_LOAD_CODE=@"code";
-//const NSString * BT_PAGE_LOAD_DATA=@"data";
-//const NSString * BT_PAGE_LOAD_INFO=@"info";
-
 
 
 @interface BTPageLoadViewController : BTViewController<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
@@ -54,12 +50,6 @@
 - (void)setTableViewNoMoreEmptyLine;
 
 #pragma mark 自动加载逻辑
-//自定解析传入的model数据，dict:最外层的字典数据，dataKey:数组对应的key，infoKey:服务器状态描述key，codeKey状态码key
-- (void)autoLoad:(NSDictionary*)dict
-         dataKey:(NSString*)dataKey
-         infoKey:(NSString*)infoKey
-         codeKey:(NSString*)codeKey
-           class:(Class)cla;
 
 //自定解析传入的model数据，dict:最外层的字典数据
 - (void)autoLoad:(NSDictionary*)dict class:(Class)cla;
@@ -115,8 +105,8 @@
 //恢复所有值到默认状态，然后请求数据
 - (void)resetValueAndGetData;
 
-//设置MJ刷新头部的主题颜色
-- (void)setRefreshHeadThemeColor:(UIColor *)color;
+//设置MJ刷新头部的主题颜色为白色
+- (void)setRefreshHeadThemeWhite;
 
 //MJFoot刷新距离底部的距离，适配iphonex,普通手机不会用到
 - (CGFloat)mjFootIgnoredScrollViewContentInsetBottom;

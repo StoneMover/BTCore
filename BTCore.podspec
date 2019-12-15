@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source           = {:git => "https://github.com/StoneMover/BTCore.git", :tag => s.version }
   s.source_files     = 'Classes/**/*.{h,m}'
   s.requires_arc     = true
-  s.dependency 'RTRootNavigationController'
+  s.dependency 'RTRootNavigationController' 
   s.dependency 'AFNetworking'
   s.dependency 'MJRefresh'
   s.dependency 'BTLoading'

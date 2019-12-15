@@ -325,12 +325,12 @@
     [self getData];
 }
 
-- (void)setRefreshHeadThemeColor:(UIColor *)color{
+- (void)setRefreshHeadThemeWhite{
     if (self.tableView.mj_header&&[self.tableView.mj_header isKindOfClass:[MJRefreshNormalHeader class]]) {
         MJRefreshNormalHeader * header=(MJRefreshNormalHeader*)self.tableView.mj_header;
         header.stateLabel.textColor=UIColor.whiteColor;
         header.lastUpdatedTimeLabel.textColor=UIColor.whiteColor;
-        header.activityIndicatorViewStyle=UIActivityIndicatorViewStyleWhite;
+        header.loadingView.activityIndicatorViewStyle=UIActivityIndicatorViewStyleWhite;
     }
     
 }
