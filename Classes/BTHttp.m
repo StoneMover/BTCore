@@ -44,9 +44,10 @@ static BTHttp * http=nil;
 }
 
 - (void)initDefaultSet{
-    [self setTimeoutInterval:10];
+    self.timeInterval = 10;
     [self setHTTPShouldHandleCookies:YES];
     [self setResponseAcceptableContentType:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil]];
+    [self setRequestSerializer];
 }
 
 - (void)addHttpHead:(NSString*)key value:(NSString*)value{
@@ -71,11 +72,10 @@ static BTHttp * http=nil;
         NSString * value = [self.dictHead objectForKey:key];
         [requestSerializer setValue:value forHTTPHeaderField:key];
     }
-    if (self.mananger.requestSerializer) {
-        requestSerializer.HTTPShouldHandleCookies = self.mananger.requestSerializer.HTTPShouldHandleCookies;
-        requestSerializer.timeoutInterval = self.mananger.requestSerializer.timeoutInterval;
-    }
     self.mananger.requestSerializer = requestSerializer;
+    [self.mananger.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    self.mananger.requestSerializer.timeoutInterval = self.timeInterval;
+    self.mananger.requestSerializer.HTTPShouldHandleCookies = self.HTTPShouldHandleCookies;
 }
 
 - (void)setHTTPShouldHandleCookies:(BOOL)HTTPShouldHandleCookies{
@@ -83,8 +83,9 @@ static BTHttp * http=nil;
     self.mananger.requestSerializer.HTTPShouldHandleCookies = self.HTTPShouldHandleCookies;
 }
 
-- (void)setTimeoutInterval:(NSInteger)seconds{
-    self.mananger.requestSerializer.timeoutInterval = seconds;
+- (void)setTimeInterval:(NSInteger)timeInterval{
+    _timeInterval = timeInterval;
+    self.mananger.requestSerializer.timeoutInterval = timeInterval;
 }
 
 - (void)setResponseAcceptableContentType:(NSSet<NSString*>*)acceptableContentTypes{
@@ -99,9 +100,15 @@ static BTHttp * http=nil;
                                failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure{
     [self autoLogParameters:YES url:URLString parameters:parameters];
     return [self.mananger GET:URLString parameters:parameters progress:downloadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self autoSpecialCode:responseObject];
-        success(task,responseObject);
-    } failure:failure];
+        if ([self requestFilter:responseObject]) {
+            success(task,responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if ([self requestFilter:error]) {
+            failure(task,error);
+        }
+    }];
 }
 
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
@@ -121,9 +128,14 @@ static BTHttp * http=nil;
 {
     [self autoLogParameters:NO url:URLString parameters:parameters];
     return [self.mananger POST:URLString parameters:parameters progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self autoSpecialCode:responseObject];
-        success(task,responseObject);
-    } failure:failure];
+        if ([self requestFilter:responseObject]) {
+            success(task,responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if ([self requestFilter:error]) {
+            failure(task,error);
+        }
+    }];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -145,9 +157,14 @@ static BTHttp * http=nil;
 {
     [self autoLogParameters:NO url:URLString parameters:parameters];
     return [self.mananger POST:URLString parameters:parameters constructingBodyWithBlock:block progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self autoSpecialCode:responseObject];
-        success(task,responseObject);
-    } failure:failure];
+        if ([self requestFilter:responseObject]) {
+            success(task,responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if ([self requestFilter:error]) {
+            failure(task,error);
+        }
+    }];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
@@ -160,15 +177,10 @@ static BTHttp * http=nil;
 }
 
 
-
-- (void)autoSpecialCode:(NSDictionary*)dict{
-    NSString * code =[NSString stringWithFormat:@"%ld",[BTCoreConfig share].netCodeBlock(dict)];
-    NSArray * array =[BTCoreConfig share].arrayNetCodeNotification;
-    if (!array||array.count==0||![array containsObject:code]) {
-        return;
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"BTCoreCodeNotification" object:code];
+- (BOOL)requestFilter:(NSObject *)obj{
+    return [BTCoreConfig share].netFillterBlock(obj);
 }
+
 
 - (void)autoLogParameters:(BOOL)isGet url:(NSString*)url parameters:(NSDictionary*)parameters{
     if (![BTCoreConfig share].isLogHttpParameters) {

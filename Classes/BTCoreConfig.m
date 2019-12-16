@@ -8,6 +8,8 @@
 
 #import "BTCoreConfig.h"
 #import "BTUserMananger.h"
+#import <BTHelp/BTUtils.h>
+#import "BTNet.h"
 
 static BTCoreConfig * config=nil;
 
@@ -44,7 +46,7 @@ static BTCoreConfig * config=nil;
         return self.netCodeBlock(dict)==0;
     };
     
-    self.defaultHttpDict = ^NSDictionary *{
+    self.netDefaultDictBlock = ^NSDictionary *{
         NSMutableDictionary * dict = [NSMutableDictionary new];
         NSString * version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
         NSString * os = @"ios";
@@ -53,11 +55,11 @@ static BTCoreConfig * config=nil;
         [dict setValue:os forKey:@"os"];
         [dict setValue:osVersion forKey:@"osVersion"];
         if ([BTUserMananger share].isLogin) {
-            if ([BTUserMananger share].model.userId) {
+            if (![BTUtils isEmpty:[BTUserMananger share].model.userId]) {
                 [dict setValue:[BTUserMananger share].model.userId forKey:@"uid"];
             }
             
-            if ([BTUserMananger share].model.userToken) {
+            if (![BTUtils isEmpty:[BTUserMananger share].model.userToken]) {
                 [dict setValue:[BTUserMananger share].model.userToken forKey:@"token"];
             }
             
@@ -65,7 +67,24 @@ static BTCoreConfig * config=nil;
         return dict;
     };
     
-    
+    self.netFillterBlock = ^BOOL(NSObject *obj) {
+//        if ([obj isKindOfClass:[NSDictionary class]]) {
+//            NSDictionary * dict = (NSDictionary*)obj;
+//            NSInteger code = [BTNet errorCode:dict];
+//            switch (code) {
+//                case 100:
+//                    //处理一些什么吧
+//                    break;
+//
+//                default:
+//                    break;
+//            }
+//        }else if([obj isKindOfClass:[NSError class]]){
+//            //解析错误信息处理
+//        }
+        
+        return YES;
+    };
     
     self.mainColor=[UIColor redColor];
     

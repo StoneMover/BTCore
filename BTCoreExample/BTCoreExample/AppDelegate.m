@@ -23,6 +23,15 @@
     
 //    BTNavigationController * nav =[BTNavigationController alloc]
     BTHttp.share;
+    
+    BTHttp * request=[BTHttp share];
+    NSString * url =@"http://192.168.2.136:9803/user/isExpire";
+    [request POST:url parameters:@{@"sessionId":@"050ec85b-31cc-4956-b8eb-45cf01214ded",@"username":@"15623728016"} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        
+    }];
+    
     return YES;
 }
 

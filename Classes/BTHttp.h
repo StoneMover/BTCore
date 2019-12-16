@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL HTTPShouldHandleCookies;
 
 //设置超时时间
-- (void)setTimeoutInterval:(NSInteger)seconds;
+@property (nonatomic, assign) NSInteger timeInterval;
 
 //设置接收数据类型
 - (void)setResponseAcceptableContentType:(NSSet<NSString*>*)acceptableContentTypes;

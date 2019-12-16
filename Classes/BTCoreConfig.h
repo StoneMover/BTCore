@@ -12,17 +12,26 @@
 
 @interface BTCoreConfig : NSObject
 
+//获取请求状态中的提示信息
 @property (nonatomic, copy) NSString *  (^netInfoBlock) (NSDictionary * dict);
 
+//获取请求内容中的数据
 @property (nonatomic, copy) NSDictionary *  (^netDataBlock) (NSDictionary * dict);
 
+//获取请求结果的状态码，网络请求成功后
 @property (nonatomic, copy) NSInteger  (^netCodeBlock) (NSDictionary * dict);
 
+//获取请求内容中的数组结构体
 @property (nonatomic, copy) NSArray *  (^netDataArrayBlock) (NSDictionary * dict);
 
+//网络请求状态是否成功
 @property (nonatomic, copy) BOOL  (^netSuccessBlock) (NSDictionary * dict);
 
-@property (nonatomic, copy) NSDictionary * (^defaultHttpDict)(void);
+//默认的请求参数
+@property (nonatomic, copy) NSDictionary * (^netDefaultDictBlock)(void);
+
+//请求返回内容的过滤器，可以做一些请求状态的全局逻辑处理，success和fail回调都会用此接口，比如账号冻结，如果想继续往下执行则返回YES
+@property (nonatomic, copy) BOOL (^netFillterBlock)(NSObject * obj);
 
 
 //请求的root url和img url
@@ -55,8 +64,11 @@
 //BTUserMananger 初始化的时候注册的默认字典值
 @property (nonatomic, strong) NSDictionary * userManDefaultDict;
 
-//当网络请求到该数组中包含的code码的时候会发送相应的通知，通知名称BTCoreCodeNotification
-@property (nonatomic, strong) NSArray * arrayNetCodeNotification;
+/*
+ 当网络请求到该数组中包含的code码的时候会发送相应的通知，通知名称BTCoreCodeNotification
+ 使用netFillterBlock自己处理
+ */
+@property (nonatomic, strong) NSArray * arrayNetCodeNotification DEPRECATED_ATTRIBUTE;
 
 //是否打印请求数据
 @property (nonatomic, assign) BOOL isLogHttpParameters;

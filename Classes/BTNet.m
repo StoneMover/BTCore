@@ -51,7 +51,7 @@
     }else{
         dictResult=[[NSMutableDictionary alloc] init];
     }
-    [dict setValuesForKeysWithDictionary:BTCoreConfig.share.defaultHttpDict()];
+    [dict setValuesForKeysWithDictionary:BTCoreConfig.share.netDefaultDictBlock()];
     
     return dictResult;
 }
