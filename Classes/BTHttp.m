@@ -47,7 +47,7 @@ static BTHttp * http=nil;
     self.timeInterval = 10;
     [self setHTTPShouldHandleCookies:YES];
     [self setResponseAcceptableContentType:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil]];
-    [self setRequestSerializer];
+    [self setRequestSerializer:[AFJSONRequestSerializer serializer]];
 }
 
 - (void)addHttpHead:(NSString*)key value:(NSString*)value{
@@ -55,27 +55,27 @@ static BTHttp * http=nil;
         self.dictHead=[[NSMutableDictionary alloc]init];
     }
     [self.dictHead setValue:value forKey:key];
-    [self setRequestSerializer];
+    [self.mananger.requestSerializer setValue:value forHTTPHeaderField:key];
 }
 
-- (void)delHttpHead:(NSString*)key{
+- (void)delHttpHead:(NSString*)key {
     if (self.dictHead&&[self.dictHead.allKeys containsObject:key]) {
         [self.dictHead removeObjectForKey:key];
-        [self setRequestSerializer];
+        [self setRequestSerializer:[AFJSONRequestSerializer serializer]];
     }
 }
 
-- (void)setRequestSerializer{
-    AFHTTPRequestSerializer * requestSerializer =  [AFJSONRequestSerializer serializer];
+
+- (void)setRequestSerializer:(AFHTTPRequestSerializer<AFURLRequestSerialization> *)requestSerializer{
+    _requestSerializer = requestSerializer;
+    self.mananger.requestSerializer = requestSerializer;
+    self.mananger.requestSerializer.timeoutInterval = self.timeInterval;
+    self.mananger.requestSerializer.HTTPShouldHandleCookies = self.HTTPShouldHandleCookies;
     NSArray * keys = self.dictHead.allKeys;
     for (NSString * key in keys) {
         NSString * value = [self.dictHead objectForKey:key];
         [requestSerializer setValue:value forHTTPHeaderField:key];
     }
-    self.mananger.requestSerializer = requestSerializer;
-    [self.mananger.requestSerializer setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    self.mananger.requestSerializer.timeoutInterval = self.timeInterval;
-    self.mananger.requestSerializer.HTTPShouldHandleCookies = self.HTTPShouldHandleCookies;
 }
 
 - (void)setHTTPShouldHandleCookies:(BOOL)HTTPShouldHandleCookies{
@@ -252,6 +252,16 @@ static BTHttp * http=nil;
             [self test];
         });
     }];
+}
+
+- (void)getErrorMsg:(NSError*)error{
+
+    NSData *data=(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
+    if (data) {
+        id response=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        NSInteger code=[response[@"status"] integerValue];
+//        NSString *msg=response[@"message"];
+    }
 }
 
 @end

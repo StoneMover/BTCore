@@ -5,7 +5,7 @@
 //  Created by whbt_mac on 2016/10/18.
 //  Copyright © 2016年 StoneMover. All rights reserved.
 //  对于AFNetworking的再次封装,避免以后网络请求库的替换操作
-//
+//  
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 //添加头信息
 -(void)addHttpHead:(NSString*)key value:(NSString*)value;
 
-//删除头部信息
+//删除头部信息,会导致重新生成新的requestSerializer，AFJSONRequestSerializer类型
 - (void)delHttpHead:(NSString*)key;
 
 //是否携带cookie信息
@@ -72,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 //设置接收数据类型
 - (void)setResponseAcceptableContentType:(NSSet<NSString*>*)acceptableContentTypes;
+
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
 
 @end
 
