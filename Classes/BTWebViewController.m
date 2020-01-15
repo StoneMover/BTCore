@@ -125,6 +125,7 @@
 }
 
 - (void)dealloc{
+    [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"back"];
     [self.webView removeObserver:self forKeyPath:@"title"];
 }
 
