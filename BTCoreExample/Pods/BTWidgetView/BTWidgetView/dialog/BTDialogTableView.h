@@ -26,13 +26,20 @@ typedef BOOL (^BTDialogTableViewBlock)(NSInteger index);
 
 @property (nonatomic, copy) BTDialogTableViewBlock blockTable;
 
-
+//是否需要头部,默认为true
 @property (nonatomic, assign) BOOL isNeedHead;
 
+//rootView 最小的高度,默认300
+@property (nonatomic, assign) CGFloat miniRootHeight;
 
-//@property (nonatomic, assign) BOOL isNeedFoot;
+//rootView 的最大高度,默认300
+@property (nonatomic, assign) CGFloat maxRootHeight;
+
+//cell的高度，默认45，如果为-1则为高度自适应，如果是高度自适应的话rootView、tableView的高度会被设置为maxRootHeight
+@property (nonatomic, assign) CGFloat cellHeight;
 
 
+//初始化方法
 - (instancetype)initDialogTableView:(BTDialogLocation)location;
 
 

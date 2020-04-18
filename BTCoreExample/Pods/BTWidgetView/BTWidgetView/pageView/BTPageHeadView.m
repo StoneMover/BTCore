@@ -18,10 +18,6 @@
 
 @property (nonatomic, strong) UIScrollView * scrollView;
 
-@property (nonatomic, assign) CGFloat viewIndicatorStartCenterX;
-
-@property (nonatomic, assign) CGFloat viewIndicatorEndCenterX;
-
 @property (nonatomic, weak) BTPageView * pageView;
 
 
@@ -113,17 +109,17 @@
         [rootView addSubview:btn];
         rootView.left=startX;
         if (i==0) {
-            self.viewIndicatorStartCenterX=rootView.centerX;
-            self.viewIndicator.centerX=self.viewIndicatorStartCenterX;
+            self.viewIndicator.centerX=rootView.centerX;
             self.viewIndicator.top=self.height-self.viewIndicator.height-self.viewIndicatorBottomPadding;
-        }
-        
-        if (i==total-1) {
-            self.viewIndicatorEndCenterX=rootView.centerX;
         }
         [self.childViews addObject:rootView];
         [self.scrollView addSubview:rootView];
-        startX+=rootView.width;
+        if(self.style == BTPageHeadViewStyleDefault && i < total - 1){
+            startX+=rootView.width + self.itemMarin;
+        }else{
+            startX+=rootView.width;
+        }
+        
     }
     
     [self.scrollView setContentSize:CGSizeMake(startX, self.scrollView.height)];
@@ -134,7 +130,6 @@
     if (self.delegate&&[self.delegate respondsToSelector:@selector(pageHeadViewItemClick:)]) {
         [self.delegate pageHeadViewItemClick:btn.tag];
     }
-    
     [self.pageView selectIndex:btn.tag animated:self.isNeedClickAnim];
     
 }
@@ -148,8 +143,66 @@
 }
 
 - (void)scrollViewIndicator:(CGFloat)percent{
-    CGFloat resultCenterX=(self.viewIndicatorEndCenterX-self.viewIndicatorStartCenterX)*percent+self.viewIndicatorStartCenterX;
-    self.viewIndicator.centerX=resultCenterX;
+    
+}
+
+
+- (void)scrollViewItemPercent:(CGFloat)percent{
+    if (self.childViews.count < 2) {
+        return;
+    }
+    
+    NSNumber * number   = [self.pageView valueForKey:@"nowIndex"];
+    NSInteger nowIndex = number.integerValue;
+    
+    NSInteger needAddIndex = 0;
+    CGFloat percentAbs = fabs(percent);
+    while (percentAbs > 1) {
+        needAddIndex ++;
+        percentAbs --;
+    }
+    
+    if (percent > 0) {
+        nowIndex += needAddIndex;
+        percent = percent - needAddIndex;
+    }else{
+        nowIndex -= needAddIndex;
+        percent = percent + needAddIndex;
+    }
+    
+    CGFloat startX = 0;
+    CGFloat endX = 0;
+    if (percent > 0) {
+        //往下一个滑动
+        startX = self.childViews[nowIndex].centerX;
+        endX = self.childViews[nowIndex + 1].centerX;
+    }else if(percent < 0){
+        //往上一个滑动
+        startX = self.childViews[nowIndex].centerX;
+        endX = self.childViews[nowIndex - 1].centerX;
+    }else{
+        startX = 0;
+        endX = 0;
+    }
+    
+    
+    self.viewIndicator.centerX = (endX - startX) * fabs(percent) +self.childViews[nowIndex].centerX;
+}
+
+- (void)selectIndex:(NSInteger)index{
+    if (self.style == BTPageHeadViewStyleDefault) {
+        CGFloat result = self.childViews[index].centerX - self.width /2.0;
+        if (result > 0){
+            if (self.width + result <= self.scrollView.contentSize.width) {
+                [self.scrollView setContentOffset:CGPointMake(result, 0) animated:YES];
+            }else{
+                [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentSize.width + self.rightPadding - self.width, 0) animated:YES];
+            }
+            
+        }else{
+            [self.scrollView setContentOffset:CGPointMake(-self.leftPadding, 0) animated:YES];
+        }
+    }
 }
 
 

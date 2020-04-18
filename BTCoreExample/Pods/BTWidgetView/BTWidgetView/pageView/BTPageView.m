@@ -50,6 +50,7 @@
     [self initScrollView];
     self.isNeedLoadNextAndLast=YES;
     self.nowIndex=-1;
+    self.isCanScroll = YES;
 }
 
 - (void)initScrollView{
@@ -64,6 +65,7 @@
 }
 
 - (void)layoutSubviews{
+    //这里是不是要循环下子view让其重新layout一遍？
     if (self.headView) {
         self.scrollView.frame=CGRectMake(0, self.headView.bottom, self.width, self.height-self.headView.height);
     }else{
@@ -73,20 +75,25 @@
 
 #pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (self.headView) {
+    if (self.headView && scrollView.contentSize.width-scrollView.width!=0) {
         [self.headView scrollViewIndicator:(scrollView.contentOffset.x)/(scrollView.contentSize.width-scrollView.width)];
     }
     
+    if (self.headView) {
+        [self.headView scrollViewItemPercent:(scrollView.contentOffset.x - self.nowIndex * self.width)/self.width];
+    }
+    
+    //这里在横竖屏切换的时候可能会出现数组越界的情况
     if (self.scrollView.contentOffset.x-self.lastContentOffsetX>0) {
         //向右左滑动，加载下一个
-        if (self.scrollView.scrollEnabled) {
+        if (self.scrollView.scrollEnabled && ![self isIndexOut:self.nowIndex + 1]) {
             //不是点击滑动的情况
-            [self autoLoadSubView:self.nowIndex+1];
+            [self autoLoadSubView:self.nowIndex + 1];
         }
         
     }else if (self.scrollView.contentOffset.x-self.lastContentOffsetX<0){
         //向右边滑动，加载上一个
-        if (self.scrollView.scrollEnabled) {
+        if (self.scrollView.scrollEnabled && ![self isIndexOut:self.nowIndex - 1]) {
             //不是点击滑动的情况
             [self autoLoadSubView:self.nowIndex-1];
         }
@@ -107,14 +114,15 @@
 // called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
     [self didSelectIndex];
-    self.scrollView.scrollEnabled=YES;
+    self.scrollView.scrollEnabled = self.isCanScroll;
+    
 //    NSLog(@"scrollViewDidEndScrollingAnimation");
 }
 
 - (void)didSelectIndex{
     self.lastContentOffsetX=self.scrollView.contentOffset.x;
     NSInteger index = self.scrollView.contentOffset.x/self.scrollView.width;
-    if (self.nowIndex==index) {
+    if (self.nowIndex == index || [self isIndexOut:index]) {
         return;
     }
     
@@ -127,6 +135,9 @@
         [self.delegate pageView:self didShow:self.nowIndex];
     }
     
+    if (self.headView) {
+        [self.headView selectIndex:self.nowIndex];
+    }
 }
 
 #pragma mark 相关方法
@@ -155,6 +166,9 @@
     [self clearData];
     
     NSInteger total=[self.dataSource pageNumOfView:self];
+    if (total == 0) {
+        return;
+    }
     self.childView=[[NSMutableArray alloc] init];
     for (int i=0; i<total; i++) {
         BTPageViewModel * model =[[BTPageViewModel alloc] init:nil index:i];
@@ -197,6 +211,9 @@
     self.lastContentOffsetX=self.width*self.initSelectIndex;
     self.nowIndex=self.initSelectIndex;
     [self selectIndex:self.initSelectIndex animated:NO];
+    if (self.initSelectIndex != 0 && self.headView) {
+        [self.headView selectIndex:self.nowIndex];
+    }
     if (self.delegate&&[self.delegate respondsToSelector:@selector(pageView:didShow:)]) {
         [self.delegate pageView:self didShow:self.nowIndex];
     }
@@ -204,6 +221,9 @@
 
 //是否已经加装过view
 - (BOOL)isHasLoadView:(NSInteger)index{
+    if ([self isIndexOut:index]) {
+        return NO;
+    }
     BTPageViewModel * model =self.childView[index];
     if (model.childView) {
         return YES;
@@ -225,7 +245,8 @@
 //自动加载当前的view，如果没有加载过就加载，加载过直接跳出
 - (void)autoLoadSubView:(NSInteger)index{
     //加载当前下标的view
-    if (![self isHasLoadView:index]) {
+    
+    if (![self isHasLoadView:index]&&![self isIndexOut:index]) {
         UIView * view=[self getChildView:index];
         view.frame=CGRectMake(index*self.scrollView.width, 0, self.scrollView.width, self.scrollView.height);
         self.childView[index].childView=view;
@@ -236,14 +257,14 @@
         return;
     }
     
-    if (index!=0&&![self isHasLoadView:index-1]) {
+    if (index!=0 && ![self isHasLoadView:index-1] && ![self isIndexOut:index -1]) {
         UIView * view=[self getChildView:index-1];
         view.frame=CGRectMake((index-1)*self.scrollView.width, 0, self.scrollView.width, self.scrollView.height);
         self.childView[index-1].childView=view;
         [self.scrollView addSubview:view];
     }
     
-    if (index!=self.childView.count-1&&![self isHasLoadView:index+1]) {
+    if (index!=self.childView.count-1&&![self isHasLoadView:index+1]&& ![self isIndexOut:index +1]) {
         UIView * view=[self getChildView:index+1];
         view.frame=CGRectMake((index+1)*self.scrollView.width, 0, self.scrollView.width, self.scrollView.height);
         self.childView[index+1].childView=view;
@@ -282,7 +303,17 @@
 }
 
 - (void)setIsCanScroll:(BOOL)isCanScroll{
+    _isCanScroll = isCanScroll;
     self.scrollView.scrollEnabled=isCanScroll;
+}
+
+- (BOOL)isIndexOut:(NSInteger)index{
+    if (index < 0 && index > self.childView.count - 1) {
+        NSLog(@"数组越界：%ld",index);
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

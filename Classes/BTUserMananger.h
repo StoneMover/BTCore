@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BTUserModel.h"
 #import <UIKit/UIKit.h>
+#import <BTHelp/BTModel.h>
 
 #define BT_USER_MAN [BTUserMananger share]
 
@@ -19,6 +19,8 @@
 #define BT_IS_LOGIN_PUSH(rootVc) [UserMan isLoginPush:rootVc]
 
 #define BT_USER_MAN_DEFAULTS [BTUserMananger share].defaults
+
+@class BTUserModel;
 
 @interface BTUserMananger : NSObject
 
@@ -67,3 +69,18 @@
 #pragma mark 各项目自行添加
 
 @end
+
+@interface BTUserModel : BTModel
+
+@property(nonatomic,strong) NSString * userName;//用户名
+
+@property(nonatomic,strong) NSString * userToken;//用户token
+
+@property(nonatomic,strong) NSString * userId;//用户id
+
+
+@end
+
+
+
+

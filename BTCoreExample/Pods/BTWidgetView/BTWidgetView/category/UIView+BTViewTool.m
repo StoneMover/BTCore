@@ -209,7 +209,11 @@
 +(instancetype)loadInstanceFromNib
 {
     UIView *result = nil;
-    NSArray* elements = [[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:nil options:nil];
+    NSString * name = NSStringFromClass([self class]);
+    if ([name containsString:@"."]) {
+        name = [name componentsSeparatedByString:@"."].lastObject;
+    }
+    NSArray* elements = [[NSBundle mainBundle] loadNibNamed:name owner:nil options:nil];
     for (id object in elements)
     {
         if ([object isKindOfClass:[self class]])
@@ -227,4 +231,16 @@
     }
 }
 
+- (UIImage*)selfImg{
+    CGFloat scale =[UIScreen mainScreen].scale;
+    UIImage *imageRet = [[UIImage alloc]init];
+    //UIGraphicsBeginImageContextWithOptions(区域大小, 是否是非透明的, 屏幕密度);
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, YES, scale);
+    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+    imageRet = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    
+    return imageRet;
+}
 @end

@@ -12,12 +12,17 @@
 
 @implementation BTLineView
 
-
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    self.color = [UIColor colorWithRed:0.24 green:0.24 blue:0.26 alpha:0.29];
+    self.lineWidth = .5;
+    return self;
+}
 
 -(void)drawRect:(CGRect)rect{
-    
-    CGFloat lineWidth=self.lineWidth==0?0.5:self.lineWidth;
-    CGColorRef strokeColor=self.color?self.color.CGColor:[UIColor lightGrayColor].CGColor;
+    self.backgroundColor = UIColor.clearColor;
+    CGFloat lineWidth=self.lineWidth;
+    CGColorRef strokeColor=self.color.CGColor;
     
     CGContextRef ctx=UIGraphicsGetCurrentContext();
     CGContextSetStrokeColorWithColor(ctx, strokeColor);

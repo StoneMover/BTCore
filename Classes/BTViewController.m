@@ -60,3 +60,54 @@
 
 
 @end
+
+
+@implementation BTNavigationController
+
+- (void)viewDidLoad {
+    self.transferNavigationBarAttributes = true;
+    self.useSystemBackBarButtonItem = false;
+    [super viewDidLoad];
+    self.navigationBar.translucent = false;
+    self.navigationBar.tintColor=UIColor.blackColor;
+    self.navigationBar.barTintColor = UIColor.whiteColor;
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (self.childViewControllers.count > 0) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
+    [super pushViewController:viewController animated:animated];
+    
+    
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    
+}
+
+//- (void)_layoutViewController:(NSObject*)obj{
+//    //    [super layoutViewController];
+//}
+
+
+
+
+
+@end

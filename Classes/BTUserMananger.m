@@ -127,3 +127,11 @@ NSUserDefaults * defaults;
 }
 
 @end
+
+@implementation BTUserModel
+
+-(void)initSelf{
+    [super initSelf];
+}
+
+@end

@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "BTNavigationController.h"
 #import "BTViewController.h"
 #import "BTHttp.h"
 
@@ -22,7 +21,7 @@
     // Override point for customization after application launch.
     
 //    BTNavigationController * nav =[BTNavigationController alloc]
-    BTHttp.share;
+    
     
     BTHttp * request=[BTHttp share];
     NSString * url =@"http://192.168.2.136:9803/user/isExpire";

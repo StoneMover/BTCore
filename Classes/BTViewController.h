@@ -22,6 +22,7 @@
 #import <BTLoading/UIViewController+BTLoading.h>
 #import <BTLoading/BTToast.h>
 #import <BTLoading/BTProgress.h>
+#import <RTRootNavigationController/RTRootNavigationController.h>
 
 //#import "UIViewController+BTLoading.h"
 //#import "BTToast.h"
@@ -53,6 +54,10 @@ typedef void(^BTVcSuccessBlock)(NSObject * obj);
 
 //重新加载网络数据
 - (void)reload;
+
+@end
+
+@interface BTNavigationController : RTRootNavigationController
 
 @end
 

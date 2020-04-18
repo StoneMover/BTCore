@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 //添加头信息
 -(void)addHttpHead:(NSString*)key value:(NSString*)value;
 
-//删除头部信息,会导致重新生成新的requestSerializer，AFJSONRequestSerializer类型
+//删除头部信息
 - (void)delHttpHead:(NSString*)key;
 
 //是否携带cookie信息
