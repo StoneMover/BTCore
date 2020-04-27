@@ -68,6 +68,12 @@
     [self addSubview:self.viewError];
 }
 
+- (void)layoutSubviews{
+    self.viewLoading.frame=self.bounds;
+    self.viewEmpty.frame=self.bounds;
+    self.viewError.frame=self.bounds;
+}
+
 - (void)reloadClick{
     if (self.block) {
         self.block();
@@ -87,7 +93,7 @@
     self.viewLoading.hidden=NO;
     self.viewEmpty.hidden=YES;
     self.viewError.hidden=YES;
-    [self.viewLoading show:loadingStr img:img];
+    [self.viewLoading show:loadingStr img:img btnStr:nil];
     self.isShow=YES;
     self.hidden=NO;
 }
@@ -103,15 +109,17 @@
 }
 
 -(void)showEmpty:(NSString*)emptyStr withImg:(UIImage*)img{
+    [self showEmpty:emptyStr withImg:img btnStr:nil];
+}
+
+-(void)showEmpty:(NSString*)emptyStr withImg:(UIImage*)img btnStr:(NSString*)btnStr{
     self.viewEmpty.hidden=NO;
     self.viewLoading.hidden=YES;
     self.viewError.hidden=YES;
-    [self.viewEmpty show:emptyStr img:img];
+    [self.viewEmpty show:emptyStr img:img btnStr:btnStr];
     self.isShow=YES;
     self.hidden=NO;
 }
-
-
 
 
 #pragma mark loadError
@@ -124,10 +132,14 @@
 }
 
 -(void)showError:(NSString*)errorStr withImg:(UIImage*)img{
+    [self showError:errorStr withImg:img btnStr:nil];
+}
+
+-(void)showError:(NSString*)errorStr withImg:(UIImage*)img btnStr:(NSString*)btnStr{
     self.viewError.hidden=NO;
     self.viewLoading.hidden=YES;
     self.viewEmpty.hidden=YES;
-    [self.viewError show:errorStr img:img];
+    [self.viewError show:errorStr img:img btnStr:btnStr];
     self.isShow=YES;
     self.hidden=NO;
 }
@@ -145,7 +157,7 @@
 }
 
 - (void)showErrorObj:(NSError*)error{
-    
+    [self showErrorObj:error withImg:nil];
 }
 
 - (void)showError:(NSError*)error errorStr:(NSString*)errorStr{
@@ -177,5 +189,5 @@
 
 
 
-    
+
 @end
