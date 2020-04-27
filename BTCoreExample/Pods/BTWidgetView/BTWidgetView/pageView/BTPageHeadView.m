@@ -20,6 +20,8 @@
 
 @property (nonatomic, weak) BTPageView * pageView;
 
+@property (nonatomic, assign) CGFloat viewIndicatorOriWidth;
+
 
 @end
 
@@ -49,6 +51,7 @@
     }
     self.viewIndicator=[[UIView alloc] initWithSize:size];
     self.viewIndicator.corner=corner;
+    self.viewIndicatorOriWidth = size.width;
     self.viewIndicator.backgroundColor=color;
     [self.scrollView addSubview:self.viewIndicator];
 }
@@ -173,24 +176,68 @@
     CGFloat startX = 0;
     CGFloat endX = 0;
     if (percent > 0) {
-        //往下一个滑动
-        startX = self.childViews[nowIndex].centerX;
-        endX = self.childViews[nowIndex + 1].centerX;
+        //往下一个滑动，加一层判断防止在全面屏，设置全屏的时候出现越界
+        if (nowIndex<self.childViews.count && nowIndex >= 0) {
+            startX = self.childViews[nowIndex].centerX;
+        }
+        if (nowIndex + 1 < self.childViews.count && nowIndex +1 >= 0) {
+            endX = self.childViews[nowIndex + 1].centerX;
+        }
+        
     }else if(percent < 0){
-        //往上一个滑动
-        startX = self.childViews[nowIndex].centerX;
-        endX = self.childViews[nowIndex - 1].centerX;
+        //往上一个滑动,加一层判断防止在全面屏，设置全屏的时候出现越界
+        if (nowIndex<self.childViews.count && nowIndex >= 0) {
+            startX = self.childViews[nowIndex].centerX;
+        }
+        if (nowIndex - 1 < self.childViews.count && nowIndex -1 >=0) {
+            endX = self.childViews[nowIndex - 1].centerX;
+        }
+        
     }else{
         startX = 0;
         endX = 0;
     }
+    if (self.isViewIndicatorBounce) {
+        CGFloat maxWidth = fabs(endX - startX) + self.viewIndicatorOriWidth;
+        
+        if (percent > 0) {
+            
+            CGFloat maxRight = endX + self.viewIndicatorOriWidth / 2.0;
+            if (percent < 0.5) {
+                self.viewIndicator.width = maxWidth * (percent * 2 ) < self.viewIndicatorOriWidth? self.viewIndicatorOriWidth :  maxWidth * (percent * 2 );
+                if (self.viewIndicator.right > maxRight) {
+                    self.viewIndicator.width = maxWidth;
+                    self.viewIndicator.right = maxRight;
+                }
+            }else{
+                self.viewIndicator.width = maxWidth * ((1 - percent) * 2) < self.viewIndicatorOriWidth? self.viewIndicatorOriWidth : maxWidth * ((1 - percent) * 2);
+                self.viewIndicator.right = maxRight;
+                
+            }
+        }else if(percent < 0){
+            CGFloat minLeft = endX - self.viewIndicatorOriWidth / 2.0;
+            CGFloat maxRight = startX + self.viewIndicatorOriWidth / 2.0;
+            if (fabs(percent) < 0.5) {
+                self.viewIndicator.width = maxWidth * (fabs(percent) * 2 ) < self.viewIndicatorOriWidth? self.viewIndicatorOriWidth :  maxWidth * (fabs(percent) * 2 );
+                self.viewIndicator.right = maxRight;
+                if (self.viewIndicator.left < minLeft) {
+                    self.viewIndicator.width = maxWidth;
+                    self.viewIndicator.left = minLeft;
+                }
+            }else{
+                self.viewIndicator.width = maxWidth * ((1 - fabs(percent)) * 2) < self.viewIndicatorOriWidth? self.viewIndicatorOriWidth : maxWidth * ((1 - fabs(percent)) * 2);
+                self.viewIndicator.left = minLeft;
+            }
+        }
+    }else{
+        self.viewIndicator.centerX = (endX - startX) * fabs(percent) +self.childViews[nowIndex].centerX;
+    }
     
     
-    self.viewIndicator.centerX = (endX - startX) * fabs(percent) +self.childViews[nowIndex].centerX;
 }
 
 - (void)selectIndex:(NSInteger)index{
-    if (self.style == BTPageHeadViewStyleDefault) {
+    if (self.style == BTPageHeadViewStyleDefault && self.scrollView.contentSize.width > self.width) {
         CGFloat result = self.childViews[index].centerX - self.width /2.0;
         if (result > 0){
             if (self.width + result <= self.scrollView.contentSize.width) {
