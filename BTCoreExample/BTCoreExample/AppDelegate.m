@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BTViewController.h"
 #import "BTHttp.h"
+#import <BTHelp/BTModel.h>
 
 @interface AppDelegate ()
 

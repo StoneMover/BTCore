@@ -12,6 +12,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, copy) NSMutableArray *  array;
+
+@property (nonatomic, copy) NSMutableString  * str;
+
 
 @end
 
