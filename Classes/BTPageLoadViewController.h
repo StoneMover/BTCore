@@ -57,6 +57,9 @@
 //成功传入数据自动解析
 - (void)autoLoadSuccess:(NSArray*)dataDict class:(Class)cls;
 
+//成功传入已经解析好的数组
+- (void)autoLoadSuccess:(NSArray *)dataArray;
+
 //服务器错误与网络错误提示，如果error不空则进入autoLoadNetError方法，反之进入autoLoadSeverError方法
 - (void)autoLoadError:(NSError*)error errorInfo:(NSString*)errorInfo;
 

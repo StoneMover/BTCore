@@ -125,6 +125,40 @@
     }
 }
 
+- (void)autoLoadSuccess:(NSArray *)dataArray{
+    [self endHeadRefresh];
+    [self endFootRefresh];
+    if (self.isRefresh) {
+        [self.dataArray removeAllObjects];
+        self.isRefresh=NO;
+    }
+    
+    [self.dataArray addObjectsFromArray:dataArray];
+    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
+        if (self.loadingHelp) {
+            if(dataArray.count==0){
+                [self showEmpty];
+                self.pageNumber--;
+            }else{
+                [self dismiss];
+            }
+        }else{
+            if(dataArray.count==0){
+                self.pageNumber--;
+                [BTToast show:@"暂无数据"];
+            }
+        }
+    }
+    self.isLoadFinish=[self autoCheckDataLoadFinish:dataArray];
+    self.pageNumber++;
+    if (self.tableView) {
+        [self.tableView reloadData];
+    }
+    if (self.collectionView) {
+        [self.collectionView reloadData];
+    }
+}
+
 - (void)autoLoadError:(NSError*)error errorInfo:(NSString*)errorInfo{
     if (error) {
         [self autoLoadNetError:error];
