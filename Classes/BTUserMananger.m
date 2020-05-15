@@ -92,9 +92,9 @@ NSUserDefaults * defaults;
 
 
 -(void)clearUserData{
-    self.isAllowNoWifiDownload=NO;
-    self.isAutoLogin=NO;
-    self.isRemerberPwd=NO;
+//    self.isAllowNoWifiDownload=NO;
+//    self.isAutoLogin=NO;
+//    self.isRemerberPwd=NO;
     
     NSDictionary * dic=[[NSDictionary alloc]init];
     [defaults setObject:dic forKey:KEY_USER_INFO];
