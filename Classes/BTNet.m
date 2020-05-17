@@ -9,6 +9,7 @@
 #import "BTNet.h"
 #import "BTUserMananger.h"
 #import "BTCoreConfig.h"
+#import <BTHelp/BTUtils.h>
 
 @implementation BTNet
 
@@ -77,11 +78,23 @@
 }
 
 + (NSURL*)getImgResultUrl:(NSString*)url{
-    if([BTCoreConfig share].imgRootUrl){
-        return [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",[BTCoreConfig share].imgRootUrl,url]];
-    }else{
-        return [NSURL URLWithString:url];
+    if ([BTUtils isEmpty:url]) {
+        url = @"";
     }
+    
+    NSURL * result = nil;
+    
+    if([BTCoreConfig share].imgRootUrl){
+        result = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",[BTCoreConfig share].imgRootUrl,url]];
+    }else{
+        result = [NSURL URLWithString:url];
+    }
+    
+    if (result == nil) {
+        result = [NSURL URLWithString:@""];
+    }
+    
+    return result;
 }
 
 
