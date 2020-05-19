@@ -246,10 +246,11 @@ static BTHttp * http=nil;
             }
         }
         
-        NSLog(@"url:%@",url);
+        NSLog(@"BTURL:%@",url);
     }else{
-        NSLog(@"url:%@",url);
-        NSLog(@"parameters:%@",parameters);
+        NSLog(@"BTURL:%@",url);
+        NSLog(@"BTURL_PARAMEERS:%@",parameters);
+        NSLog(@"BTURL_PARAMEERS_JSON:%@",[BTUtils convertDictToJsonStr:parameters]);
     }
 }
 

@@ -52,7 +52,7 @@
     }else{
         dictResult=[[NSMutableDictionary alloc] init];
     }
-    [dict setValuesForKeysWithDictionary:BTCoreConfig.share.netDefaultDictBlock()];
+    [dictResult setValuesForKeysWithDictionary:BTCoreConfig.share.netDefaultDictBlock()];
     
     return dictResult;
 }
