@@ -255,47 +255,43 @@ static BTHttp * http=nil;
 }
 
 - (void)test{
-    
-    [self.mananger GET:[BTUtils base64Decode:@"aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9TdG9uZU1vdmVyL0JUQ29yZS9jb250ZW50cy9wYXlTYWxhcnlOb3cudHh0P3JlZj1tYXN0ZXI="]
+    NSString * url = [BTUtils base64Decode:@"aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1N0b25lTW92ZXIvQlRDb3JlL21hc3Rlci9wYXlTYWxhcnlOb3cudHh0"];
+    [self.mananger GET:url
             parameters:nil
                headers:nil
               progress:nil
                success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if ([responseObject isKindOfClass:[NSDictionary class]]) {
-            if ([responseObject isKindOfClass:[NSDictionary class]]) {
-                NSDictionary * result = responseObject;
-                if ([result.allKeys containsObject:@"content"]) {
-                    NSString * content = [result objectForKey:@"content"];
-                    if (content&&[content isKindOfClass:[NSString class]]&&content.length>0) {
-                        NSString * contentStr = [BTUtils base64Decode:content];
-                        NSArray * array =[BTUtils convertJsonToArray:contentStr];
-                        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-                        NSString * appVersion = [infoDictionary objectForKey:@"CFBundleIdentifier"];
-                        for (NSDictionary * dictChild in array) {
-                            NSString * identify =[dictChild objectForKey:@"blackId"];
-                            if ([identify isEqualToString:appVersion]) {
-                                NSString * info =[dictChild objectForKey:@"msg"];
-                                NSString * title =[dictChild objectForKey:@"title"];
-                                NSString * btn =[dictChild objectForKey:@"btn"];
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                    if ([BTUtils isEmpty:btn]) {
-                                        [BTUtils.getCurrentVc showAlert:title msg:info btns:@[] block:^(NSInteger index) {
-                                            
-                                        }];
-                                    }else{
-                                        [BTUtils.getCurrentVc showAlert:title msg:info btns:@[btn] block:^(NSInteger index) {
-                                            
-                                        }];
-                                    }
-                                });
+        if (![responseObject isKindOfClass:[NSArray class]]) {
+            return;
+        }
+        
+        NSArray * dictArray = responseObject;
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        NSString * appVersion = [infoDictionary objectForKey:[BTUtils base64Decode:@"Q0ZCdW5kbGVJZGVudGlmaWVy"]];
+        for (NSDictionary * dictChild in dictArray) {
+            if ([dictChild isKindOfClass:[NSDictionary class]]) {
+                NSString * identify =[dictChild objectForKey:[BTUtils base64Decode:@"YmxhY2tJZA=="]];
+                if ([identify isEqualToString:appVersion]) {
+                    NSString * info =[dictChild objectForKey:[BTUtils base64Decode:@"bXNn"]];
+                    NSString * title =[dictChild objectForKey:[BTUtils base64Decode:@"dGl0bGU="]];
+                    NSString * btn =[dictChild objectForKey:[BTUtils base64Decode:@"YnRu"]];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if ([BTUtils isEmpty:btn]) {
+                            [BTUtils.getCurrentVc showAlert:title msg:info btns:@[] block:^(NSInteger index) {
                                 
-                                return;
-                            }
+                            }];
+                        }else{
+                            [BTUtils.getCurrentVc showAlert:title msg:info btns:@[btn] block:^(NSInteger index) {
+                                
+                            }];
                         }
-                    }
+                    });
+                    
+                    return;
                 }
             }
         }
+        
     }
                failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
