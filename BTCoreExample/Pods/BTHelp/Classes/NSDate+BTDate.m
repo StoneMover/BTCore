@@ -10,30 +10,50 @@
 
 @implementation NSDate (BTDate)
 
-- (NSInteger)year{
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents  * components  =  [calendar components: NSCalendarUnitYear fromDate:self];
-    return components.year;
+- (NSString*)year{
+    return [self dateStr:@"YYYY"];
 }
 
-- (NSInteger)month{
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents  * components  =  [calendar components: NSCalendarUnitMonth fromDate:self];
-    return components.month;
+- (NSString*)month{
+    return [self dateStr:@"MM"];
 }
 
-- (NSInteger)day{
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents  * components  =  [calendar components: NSCalendarUnitDay fromDate:self];
-    return components.day;
+- (NSString*)day{
+    return [self dateStr:@"dd"];
+}
+
+- (NSString*)weekDay{
+    return [self dateStr:@"EEEE"];
+}
+
+- (NSInteger)weekDayNum{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday |
+    NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    calendar.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
+    comps = [calendar components:unitFlags fromDate:self];
+    return [comps weekday] - 1;
+}
+
+- (NSString*)weekDayNumStrWithHead:(NSString*)head{
+    NSInteger index = [self weekDayNum];
+    NSArray * weekDayStrArray = nil;
+    if ([head isEqualToString:@"周"]) {
+        weekDayStrArray =  @[@"日",@"一",@"二",@"三",@"四",@"五",@"六"];
+    }else{
+        weekDayStrArray =  @[@"天",@"一",@"二",@"三",@"四",@"五",@"六"];
+    }
+    NSString * weekStr = weekDayStrArray[index];
+    return [NSString stringWithFormat:@"%@%@",head,weekStr];
 }
 
 - (NSInteger)calculateAge:(NSInteger)year month:(NSInteger)month day:(NSInteger)day{
-    NSInteger age =[self year]-year;
-    if (month>[self month]) {
+    NSInteger age =[self year].integerValue-year;
+    if (month>[self month].integerValue) {
         age--;
-    }else if (month==[self month]){
-        if (day>[self day]) {
+    }else if (month==[self month].integerValue){
+        if (day>[self day].integerValue) {
             age--;
         }
     }
@@ -91,7 +111,7 @@
     return str;
 }
 
-+ (NSDate*)initLocalDate{
++ (instancetype)initLocalDate{
     NSDate * date = [[NSDate alloc] init];
     NSTimeZone * zone = [NSTimeZone systemTimeZone];
     NSInteger interval = [zone secondsFromGMTForDate: date];

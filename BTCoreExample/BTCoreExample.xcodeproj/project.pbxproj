@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E0A2D247E5CA000AAFCCE /* BTGray.m */; };
 		9B4FAFA3228BC022004C8E52 /* BTUserMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4FAFA0228BC022004C8E52 /* BTUserMananger.m */; };
 		9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B22222C2DD007A02C1 /* AppDelegate.m */; };
 		9B78C6B62222C2DD007A02C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B52222C2DD007A02C1 /* ViewController.m */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		187E0A2C247E5CA000AAFCCE /* BTGray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTGray.h; sourceTree = "<group>"; };
+		187E0A2D247E5CA000AAFCCE /* BTGray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTGray.m; sourceTree = "<group>"; };
 		6A614AA6110376E8AE8FEFAC /* Pods-BTCoreExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTCoreExample.release.xcconfig"; path = "Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample.release.xcconfig"; sourceTree = "<group>"; };
 		9B4FAFA0228BC022004C8E52 /* BTUserMananger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTUserMananger.m; sourceTree = "<group>"; };
 		9B4FAFA1228BC022004C8E52 /* BTUserMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTUserMananger.h; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 				9B61A266223A551A00A209A5 /* BTCore.h */,
 				9BB2FDDF2283BE5C00991905 /* BTCoreConfig.h */,
 				9BB2FDDE2283BE5C00991905 /* BTCoreConfig.m */,
+				187E0A2C247E5CA000AAFCCE /* BTGray.h */,
+				187E0A2D247E5CA000AAFCCE /* BTGray.m */,
 			);
 			name = Classes;
 			path = ../../Classes;
@@ -272,6 +277,7 @@
 				9B78C6C12222C2DE007A02C1 /* main.m in Sources */,
 				9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */,
 				9B4FAFA3228BC022004C8E52 /* BTUserMananger.m in Sources */,
+				187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */,
 				9B78C6DA2222C87B007A02C1 /* BTViewController.m in Sources */,
 				9B78C6DC2222C87B007A02C1 /* BTHttp.m in Sources */,
 				9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */,
