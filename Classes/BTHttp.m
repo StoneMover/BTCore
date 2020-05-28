@@ -246,11 +246,9 @@ static BTHttp * http=nil;
             }
         }
         
-        NSLog(@"BTURL:%@",url);
+        NSLog(@"BTURL_GET:%@\nBT_HEADER:%@",url,self.dictHead);
     }else{
-        NSLog(@"BTURL:%@",url);
-        NSLog(@"BTURL_PARAMEERS:%@",parameters);
-        NSLog(@"BTURL_PARAMEERS_JSON:%@",[BTUtils convertDictToJsonStr:parameters]);
+        NSLog(@"BTURL_POST:%@\nBT_HEADER:%@\nBT_PARAMEERS:%@\nBT_PARAMEERS_JSON:%@",url,self.dictHead,parameters,[BTUtils convertDictToJsonStr:parameters]);
     }
 }
 
