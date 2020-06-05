@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BTPageView.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
+
 @class BTPageViewController;
 
 @protocol BTPageViewControllerDataSource <NSObject>
@@ -55,5 +58,12 @@
 
 - (void)selectIndex:(NSInteger)index animated:(BOOL)animated;
 
+- (NSArray<UIViewController*>*)getAllVc;
+
+- (nullable UIViewController*)vcWithIndex:(NSInteger)index;
+
+- (nullable UIViewController*)vcSelect;
+
 @end
 
+NS_ASSUME_NONNULL_END

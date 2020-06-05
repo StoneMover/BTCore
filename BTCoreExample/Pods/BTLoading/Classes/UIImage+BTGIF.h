@@ -1,20 +1,24 @@
 //
-//  UIImage+GIF.h
-//  LBGIFImage
+//  UIImage+BTGif.h
+//  BTLoadingTest
 //
-//  Created by Laurin Brandner on 06.01.12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by apple on 2020/6/4.
+//  Copyright © 2020 stonemover. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (BTGIF)
+NS_ASSUME_NONNULL_BEGIN
 
-+ (UIImage *)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b;
+@interface UIImage (BTGif)
 
 + (UIImage *)bt_animatedGIFWithData:(NSData *)data;
 
++ (UIImage *)bt_animatedGIFNamed:(NSString *)name bundle:(NSBundle*)b;
+
 - (UIImage *)bt_animatedImageByScalingAndCroppingToSize:(CGSize)size;
+
 
 @end
 
+NS_ASSUME_NONNULL_END

@@ -71,9 +71,12 @@
     //这里是不是要循环下子view让其重新layout一遍？
     if (self.headView) {
         self.scrollView.frame=CGRectMake(0, self.headView.bottom, self.width, self.height-self.headView.height);
+        [self.scrollView setContentSize:CGSizeMake(self.scrollView.contentSize.width, self.height-self.headView.height)];
     }else{
         self.scrollView.frame=self.bounds;
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.contentSize.width, self.scrollView.height);
     }
+    
 }
 
 #pragma mark UIScrollViewDelegate
@@ -256,7 +259,7 @@
 //获取当前下标的view,不会判断是否已经加装过
 - (UIView*)getChildView:(NSInteger)index{
     if (self.dataSource&&[self.dataSource respondsToSelector:@selector(pageView:contentViewForIndex:)]) {
-        NSLog(@"获取%ld的view",index);
+//        NSLog(@"获取%ld的view",index);
         UIView * view =[self.dataSource pageView:self contentViewForIndex:index];
         return view;
     }
@@ -331,7 +334,7 @@
 
 - (BOOL)isIndexOut:(NSInteger)index{
     if (index < 0 && index > self.childView.count - 1) {
-        NSLog(@"数组越界：%ld",index);
+//        NSLog(@"数组越界：%ld",index);
         return YES;
     }
     

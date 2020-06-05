@@ -16,7 +16,7 @@
 #import "BTLoadingView.h"
 #import "BTProgress.h"
 #import "BTToast.h"
-#import "UIImage+BTGIF.h"
+#import "UIImage+BTGif.h"
 #import "UIViewController+BTLoading.h"
 
 FOUNDATION_EXPORT double BTLoadingVersionNumber;
