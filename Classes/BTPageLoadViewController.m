@@ -29,6 +29,9 @@
 
 #pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames{
+    [self initTableView:cellNames isRegisgerNib:YES];
+}
+- (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib{
     self.tableView.frame=self.view.bounds;
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
@@ -38,10 +41,14 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.dataArrayCellId=[NSMutableArray new];
     for (NSString * cellName in cellNames) {
-        UINib * nib = [UINib nibWithNibName:cellName bundle:nil];
         NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
         [self.dataArrayCellId addObject:cellId];
-        [self.tableView registerNib:nib forCellReuseIdentifier:cellId];
+        if (isRegisgerNib) {
+            UINib * nib = [UINib nibWithNibName:cellName bundle:nil];
+            [self.tableView registerNib:nib forCellReuseIdentifier:cellId];
+        }else{
+            [self.tableView registerClass:NSClassFromString(cellName) forCellReuseIdentifier:cellId];
+        }
     }
     
     [self.view addSubview:self.tableView];
@@ -57,6 +64,10 @@
 }
 
 - (void)initCollectionView:(NSArray<NSString*>*)cellNames{
+    [self initCollectionView:cellNames isRegisgerNib:YES];
+}
+
+- (void)initCollectionView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib{
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -64,10 +75,15 @@
     self.collectionView.dataSource = self;
     self.dataArrayCellId=[NSMutableArray new];
     for (NSString * cellName in cellNames) {
-        UINib * nib = [UINib nibWithNibName:cellName bundle:nil];
         NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
         [self.dataArrayCellId addObject:cellId];
-        [self.collectionView registerNib:nib forCellWithReuseIdentifier:cellId];
+        if (isRegisgerNib) {
+            UINib * nib = [UINib nibWithNibName:cellName bundle:nil];
+            [self.collectionView registerNib:nib forCellWithReuseIdentifier:cellId];
+        }else{
+            [self.collectionView registerClass:NSClassFromString(cellName) forCellWithReuseIdentifier:cellId];
+        }
+        
     }
     
     

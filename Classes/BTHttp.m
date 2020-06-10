@@ -44,7 +44,7 @@ static BTHttp * http=nil;
     self.mananger = [AFHTTPSessionManager manager];
     self.dictHead=[[NSMutableDictionary alloc]init];
     [self initDefaultSet];
-    [self test];
+//    [self test];
     return self;
 }
 

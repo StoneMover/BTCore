@@ -16,7 +16,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.view.backgroundColor = UIColor.whiteColor;
+    
+    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+    view.backgroundColor = UIColor.redColor;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setItemPaddingDefault];
+    });
 }
 
 

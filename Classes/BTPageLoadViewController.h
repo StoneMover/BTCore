@@ -46,7 +46,9 @@
 
 #pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames;
+- (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib;
 - (void)initCollectionView:(NSArray<NSString*>*)cellNames;
+- (void)initCollectionView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib;
 - (void)setTableViewNoMoreEmptyLine;
 
 #pragma mark 自动加载逻辑

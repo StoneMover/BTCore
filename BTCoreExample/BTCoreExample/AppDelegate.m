@@ -11,6 +11,8 @@
 #import "BTHttp.h"
 #import <BTHelp/BTModel.h>
 #import "BTCoreConfig.h"
+#import "ViewController.h"
+
 
 @interface AppDelegate ()
 
@@ -21,18 +23,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    ViewController * vc = [ViewController new];
+    BTNavigationController * nav =[[BTNavigationController alloc] initWithRootViewController:vc];
     
-//    BTNavigationController * nav =[BTNavigationController alloc]
-    
-    BTCoreConfig.share.isLogHttpParameters = YES;
-    BTHttp * request=[BTHttp share];
-    NSString * url =@"http://192.168.2.136:9803/user/isExpire";
-    [request POST:url parameters:@{@"sessionId":@"050ec85b-31cc-4956-b8eb-45cf01214ded",@"username":@"15623728016"} success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
-        
-    }];
-    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

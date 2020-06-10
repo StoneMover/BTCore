@@ -32,10 +32,10 @@
 }
 
 
-- (void)showAlert:(NSString*)title
-              msg:(NSString*)msg
-             btns:(NSArray*)btns
-            block:(BTDialogBlock)block{
+- (UIAlertController*_Nonnull)showAlert:(NSString*)title
+                                    msg:(NSString*)msg
+                                   btns:(NSArray*)btns
+                                  block:(BTDialogBlock)block{
     NSMutableArray * actions=[NSMutableArray new];
     for (int i=0; i<btns.count; i++) {
         NSString * str=btns[i];
@@ -70,13 +70,14 @@
     }
     UIAlertController * controller=[self createAlert:title msg:msg action:actions style:UIAlertControllerStyleAlert];
     [self presentViewController:controller animated:YES completion:nil];
+    return controller;
 }
 
 
 
-- (void)showAlertDefault:(NSString*)title
-                     msg:(NSString*)msg
-                   block:(BTDialogBlock)block{
+- (UIAlertController*_Nonnull)showAlertDefault:(NSString*)title
+                                           msg:(NSString*)msg
+                                         block:(BTDialogBlock)block{
     UIAlertAction * actionCancel=[self action:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         block(0);
     }];
@@ -85,12 +86,13 @@
     }];
     UIAlertController * alertController=[self createAlert:title msg:msg action:@[actionCancel,actionOk] style:UIAlertControllerStyleAlert];
     [self presentViewController:alertController animated:YES completion:nil];
+    return alertController;
 }
 
-- (void)showActionSheet:(NSString*)title
-                    msg:(NSString*)msg
-                   btns:(NSArray*)btns
-                  block:(BTDialogBlock)block{
+- (UIAlertController*_Nonnull)showActionSheet:(NSString*)title
+                                          msg:(NSString*)msg
+                                         btns:(NSArray*)btns
+                                        block:(BTDialogBlock)block{
     NSMutableArray * dataArray=[NSMutableArray new];
     for (NSString * btn in btns) {
         UIAlertAction * action=[self action:btn style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -114,13 +116,14 @@
     [dataArray addObject:action];
     UIAlertController * alertController=[self createAlert:title msg:msg action:dataArray style:UIAlertControllerStyleActionSheet];
     [self presentViewController:alertController animated:YES completion:nil];
+    return alertController;
 }
 
 
-- (void)showAlertEdit:(NSString*)title
-         defaultValue:(NSString*)value
-          placeHolder:(NSString*)placeHolder
-                block:(void(^)(NSString * result))block{
+- (UIAlertController*_Nonnull)showAlertEdit:(NSString*)title
+                               defaultValue:(NSString*)value
+                                placeHolder:(NSString*)placeHolder
+                                      block:(void(^)(NSString * result))block{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                              message:@""
                                                                       preferredStyle:(UIAlertControllerStyleAlert)];
@@ -148,6 +151,7 @@
     //    [okAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
+    return alertController;
 }
 
 

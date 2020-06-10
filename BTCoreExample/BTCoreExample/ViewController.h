@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BTViewController.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : BTViewController
 
 
 @end
