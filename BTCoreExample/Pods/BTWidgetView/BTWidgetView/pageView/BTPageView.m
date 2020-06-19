@@ -104,6 +104,7 @@
             //不是点击滑动的情况
             [self autoLoadSubView:self.nowIndex + 1];
         }
+        NSLog(@"hhhh:%ld",self.nowIndex);
         
     }else if (self.scrollView.contentOffset.x-self.lastContentOffsetX<0){
         //向右边滑动，加载上一个
@@ -139,6 +140,9 @@
     if (self.nowIndex == index || [self isIndexOut:index]) {
         return;
     }
+    
+    //防止在连续滑动的情况下index没有改变导致无法加载的问题
+    [self autoLoadSubView:index];
     
     if (self.delegate&&[self.delegate respondsToSelector:@selector(pageView:didDismiss:)]) {
         [self.delegate pageView:self didDismiss:self.nowIndex];
@@ -314,6 +318,10 @@
     }
     [self autoLoadSubView:index];
     [self.scrollView setContentOffset:CGPointMake(self.scrollView.width*index, 0) animated:animated];
+    //没有动画滑动不会触发scrollView的滑动代理，无法更新index
+    if (!animated) {
+        self.nowIndex = index;
+    }
 }
 
 

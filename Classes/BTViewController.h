@@ -53,7 +53,7 @@ typedef void(^BTVcSuccessBlock)(NSObject * obj);
 - (void)getData;
 
 //重新加载网络数据
-- (void)reload;
+- (void)bt_loadingReload;
 
 @end
 

@@ -52,10 +52,12 @@
 - (void)getData{
     
 }
-- (void)reload{
-    [super reload];
+
+- (void)bt_loadingReload{
+    [super bt_loadingReload];
     [self getData];
 }
+
 
 
 

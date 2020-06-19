@@ -27,7 +27,7 @@
         [self initTitle:self.webTitle];
     }
     [self setNavLineColor:[BTUtils RGB:238 G:238 B:238]];
-    [self initLoading];
+    [self bt_initLoading];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //先让loading界面加载完成，由于初始化webView很耗时间
         [self initWebView];
@@ -121,8 +121,8 @@
     }
 }
 
-- (void)reload{
-    [super reload];
+- (void)bt_loadingReload{
+    [super bt_loadingReload];
     NSURL * url=[NSURL URLWithString:self.url];
     NSURLRequest * request=[[NSURLRequest alloc] initWithURL:url];
     [self.webView loadRequest:request];

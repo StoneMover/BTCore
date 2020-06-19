@@ -119,10 +119,10 @@
     if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
         if (self.loadingHelp) {
             if(dataDict.count==0){
-                [self showEmpty];
+                [self bt_showEmpty];
                 self.pageNumber--;
             }else{
-                [self dismiss];
+                [self bt_loadingDismiss];
             }
         }else{
             if(dataDict.count==0){
@@ -153,10 +153,10 @@
     if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
         if (self.loadingHelp) {
             if(dataArray.count==0){
-                [self showEmpty];
+                [self bt_showEmpty];
                 self.pageNumber--;
             }else{
-                [self dismiss];
+                [self bt_loadingDismiss];
             }
         }else{
             if(dataArray.count==0){
