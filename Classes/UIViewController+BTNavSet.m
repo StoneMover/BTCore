@@ -109,7 +109,7 @@
     UINavigationBar * navBar=self.navigationController.navigationBar;
     for (UIView * view in navBar.subviews) {
         for (NSLayoutConstraint *c  in view.constraints) {
-            NSLog(@"%f",c.constant);
+//            NSLog(@"%f",c.constant);
             if (c.constant==12||c.constant==8||c.constant==16) {
                 c.constant=padding;
             }else if (c.constant==-12||c.constant==-8||c.constant==-16){

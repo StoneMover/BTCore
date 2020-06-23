@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "BTWebViewController.h"
 
 @interface ViewController ()
 
@@ -18,13 +19,23 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
     
-    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    view.backgroundColor = UIColor.redColor;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
+//    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+//    view.backgroundColor = UIColor.redColor;
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
+//
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self setItemPaddingDefault];
+//    });
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setItemPaddingDefault];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        BTWebViewController * webVc = [BTWebViewController new];
+        webVc.isTitleFollowWeb = YES;
+        webVc.url = @"https://www.github.com";
+        webVc.loadingType = BTWebViewLoadingProgress;
+        [self.navigationController pushViewController:webVc animated:YES];
     });
+    
 }
 
 

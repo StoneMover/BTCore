@@ -8,20 +8,28 @@
 
 #import "BTViewController.h"
 
+typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
+    BTWebViewLoadingDefault = 0,
+    BTWebViewLoadingProgress
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BTWebViewController : BTViewController
 
 @property (nonatomic, strong) NSString * url;
 
-//是否需要底部的工具栏，默认不需要
-@property (nonatomic, assign) BOOL isNeedToolBar;
-
 //导航器初始title
 @property (nonatomic, strong) NSString * webTitle;
 
-//导航器标题是否不跟随网页变化
-@property (nonatomic, assign) BOOL isTitleNoFlowWeb;
+//导航器标题是否跟随网页变化
+@property (nonatomic, assign) BOOL isTitleFollowWeb;
+
+//加载中样式
+@property (nonatomic, assign) BTWebViewLoadingType loadingType;
+
+//进度条加载样式情况下的进度条颜色,默认红色
+@property (nonatomic, strong) UIColor * progressViewColor;
 
 @end
 

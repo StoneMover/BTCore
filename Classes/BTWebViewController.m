@@ -10,12 +10,14 @@
 #import <WebKit/WebKit.h>
 #import <BTHelp/BTUtils.h>
 #import "UIViewController+BTDialog.h"
+#import <BTWidgetView/BTProgressView.h>
+#import <BTWidgetView/UIView+BTViewTool.h>
 
 @interface BTWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
 @property (nonatomic, strong) WKWebView * webView;
 
-
+@property (nonatomic, strong) BTProgressView * progressView;
 
 @end
 
@@ -27,10 +29,15 @@
         [self initTitle:self.webTitle];
     }
     [self setNavLineColor:[BTUtils RGB:238 G:238 B:238]];
-    [self bt_initLoading];
+    if (self.loadingType == BTWebViewLoadingDefault) {
+        [self bt_initLoading];
+    }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //先让loading界面加载完成，由于初始化webView很耗时间
         [self initWebView];
+        if (self.loadingType == BTWebViewLoadingProgress) {
+            [self initProgressView];
+        }
     });
 }
 
@@ -48,27 +55,66 @@
     self.webView.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.view insertSubview:self.webView atIndex:0];
     
-    [self addSelfObserver];
+    [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
     
     NSURL * url=[NSURL URLWithString:self.url];
     NSURLRequest * request=[[NSURLRequest alloc] initWithURL:url];
     [self.webView loadRequest:request];
 }
 
+- (void)initProgressView{
+    self.progressView = [[BTProgressView alloc] initWithSize:CGSizeMake(BTUtils.SCREEN_W, 2)];
+    self.progressView.backgroundColor = UIColor.clearColor;
+    self.progressView.progressView.backgroundColor = self.progressViewColor ? self.progressViewColor : UIColor.redColor;
+    [self.view addSubview:self.progressView];
+    [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
+    self.progressView.percent = 0.05;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"estimatedProgress"]) {
+        self.progressView.hidden = NO;
+        self.progressView.percent = self.webView.estimatedProgress;
+    }
+    
+    if ([keyPath isEqualToString:@"title"])
+    {
+        NSLog(@"%@",[object valueForKey:@"title"]);
+        if (self.isTitleFollowWeb) {
+            [self initTitle:[object valueForKey:@"title"]];
+        }
+    }
+}
+
 #pragma mark WKNavigationDelegate
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
-    [self.loadingHelp dismiss];
+    if (self.loadingType == BTWebViewLoadingDefault) {
+        [self.loadingHelp dismiss];
+    }else{
+        self.progressView.hidden = YES;
+    }
+    
 }
 
 // 当main frame开始加载数据失败时，会回调
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    [self.loadingHelp showError:@"加载失败"];
+    if (self.loadingType == BTWebViewLoadingDefault) {
+        [self.loadingHelp showError:@"加载失败"];
+    }else{
+        self.progressView.hidden = YES;
+    }
+    
 }
 
 // 当main frame最后下载数据失败时，会回调
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    [self.loadingHelp showError:@"加载失败"];
+    if (self.loadingType == BTWebViewLoadingDefault) {
+        [self.loadingHelp showError:@"加载失败"];
+    }else{
+        self.progressView.hidden = YES;
+    }
+    
 }
 
 #pragma mark WKUIDelegate
@@ -106,20 +152,6 @@
 }
 
 #pragma mark kvo
-- (void)addSelfObserver{
-    [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
-{
-    if ([keyPath isEqualToString:@"title"])
-    {
-        NSLog(@"%@",[object valueForKey:@"title"]);
-        if (!self.isTitleNoFlowWeb) {
-            [self initTitle:[object valueForKey:@"title"]];
-        }
-    }
-}
 
 - (void)bt_loadingReload{
     [super bt_loadingReload];
@@ -131,6 +163,9 @@
 - (void)dealloc{
     [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"back"];
     [self.webView removeObserver:self forKeyPath:@"title"];
+    if (self.loadingType == BTWebViewLoadingProgress) {
+        [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    }
 }
 
 @end
