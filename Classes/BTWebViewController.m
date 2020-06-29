@@ -12,6 +12,7 @@
 #import "UIViewController+BTDialog.h"
 #import <BTWidgetView/BTProgressView.h>
 #import <BTWidgetView/UIView+BTViewTool.h>
+#import <BTHelp/UIColor+BTColor.h>
 
 @interface BTWebViewController ()<WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
@@ -28,7 +29,7 @@
     if (self.webTitle) {
         [self initTitle:self.webTitle];
     }
-    [self setNavLineColor:[BTUtils RGB:238 G:238 B:238]];
+    [self setNavLineColor:[UIColor RGBSame:238]];
     if (self.loadingType == BTWebViewLoadingDefault) {
         [self bt_initLoading];
     }

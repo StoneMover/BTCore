@@ -30,6 +30,9 @@
 //默认的请求参数
 @property (nonatomic, copy) NSDictionary * (^netDefaultDictBlock)(void);
 
+//需要去掉导航器左右间距的约束回调
+@property (nonatomic, copy) BOOL (^navItemPaddingBlock)(NSLayoutConstraint * constraint);
+
 //请求返回内容的过滤器，可以做一些请求状态的全局逻辑处理，success和fail回调都会用此接口，比如账号冻结，如果想继续往下执行则返回YES
 @property (nonatomic, copy) BOOL (^netFillterBlock)(NSObject * obj);
 

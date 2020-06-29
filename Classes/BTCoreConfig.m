@@ -86,6 +86,13 @@ static BTCoreConfig * config=nil;
         return YES;
     };
     
+    self.navItemPaddingBlock = ^BOOL(NSLayoutConstraint *constraint) {
+        if (fabs(constraint.constant)==12||fabs(constraint.constant)==8||fabs(constraint.constant)==16) {
+            return YES;
+        }
+        return NO;
+    };
+    
     self.mainColor=[UIColor redColor];
     
     self.pageLoadSizePage=20;

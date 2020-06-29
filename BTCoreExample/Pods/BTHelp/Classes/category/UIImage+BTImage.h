@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 //绘制圆角
 - (UIImage*)imageWithCornerRadius:(CGFloat)radius;
 
+//将UIimage重绘成圆形,如果不是等宽,等高则绘制中心图片
+- (UIImage*)circleImage;
+
 @end
 
 NS_ASSUME_NONNULL_END

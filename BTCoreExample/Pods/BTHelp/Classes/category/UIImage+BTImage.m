@@ -93,4 +93,47 @@
     return newImage;
 }
 
+- (UIImage*)circleImage{
+    CGRect rectClip;
+    
+    if (self.size.width>self.size.height) {
+        rectClip=CGRectMake(self.size.width/2-self.size.height/2, 0, self.size.height,self.size.height);
+    }else{
+        rectClip=CGRectMake(0, self.size.height/2-self.size.width/2, self.size.width, self.size.width);
+    }
+    
+    CGImageRef cgimg = CGImageCreateWithImageInRect([self CGImage], rectClip);
+    UIImage * clipImage = [UIImage imageWithCGImage:cgimg];
+    CGImageRelease(cgimg);//用完一定要释放，否则内存泄露
+    UIGraphicsBeginImageContext(clipImage.size);
+    
+    CGContextRef context =UIGraphicsGetCurrentContext();
+    
+    CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:1.0 green:0.1871 blue:0.3886 alpha:0].CGColor);
+    
+    CGRect rect=CGRectMake(0, 0, clipImage.size.width, clipImage.size.width);
+    
+    CGContextAddEllipseInRect(context, rect);
+    
+    CGContextClip(context);
+    
+    //在圆区域内画出image原图
+    
+    [clipImage drawInRect:rect];
+    
+    CGContextAddEllipseInRect(context, rect);
+    
+    CGContextStrokePath(context);
+    
+    //生成新的image
+    
+    UIImage *newimg = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newimg;
+    
+}
+
+
 @end

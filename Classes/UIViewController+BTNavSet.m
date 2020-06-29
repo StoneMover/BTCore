@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+BTNavSet.h"
-#import <BTWidgetView/UIImage+BTImage.h>
+#import <BTHelp/UIImage+BTImage.h>
 #import "BTCoreConfig.h"
 
 @implementation UIViewController (BTNavSet)
@@ -110,10 +110,12 @@
     for (UIView * view in navBar.subviews) {
         for (NSLayoutConstraint *c  in view.constraints) {
 //            NSLog(@"%f",c.constant);
-            if (c.constant==12||c.constant==8||c.constant==16) {
-                c.constant=padding;
-            }else if (c.constant==-12||c.constant==-8||c.constant==-16){
-                c.constant=-padding;
+            if (BTCoreConfig.share.navItemPaddingBlock(c)) {
+                if (c.constant > 0) {
+                    c.constant=padding;
+                }else{
+                    c.constant=-padding;
+                }
             }
         }
     }

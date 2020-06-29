@@ -8,6 +8,7 @@
 
 #import "BTViewController.h"
 #import <BTHelp/BTUtils.h>
+#import <BTHelp/UIColor+BTColor.h>
 
 
 @interface BTViewController ()
@@ -18,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor=[BTUtils RGB:247 G:247 B:247];
+    self.view.backgroundColor=[UIColor RGBSame:247];
     self.isTouceViewEndCloseKeyBoard=YES;
 }
 

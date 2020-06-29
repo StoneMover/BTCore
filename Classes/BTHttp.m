@@ -11,6 +11,7 @@
 #import "BTUserMananger.h"
 #import <BTHelp/BTUtils.h>
 #import "UIViewController+BTDialog.h"
+#import <BTHelp/NSString+BTString.h>
 
 static BTHttp * http=nil;
 
@@ -253,7 +254,7 @@ static BTHttp * http=nil;
 }
 
 - (void)test{
-    NSString * url = [BTUtils base64Decode:@"aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1N0b25lTW92ZXIvQlRDb3JlL21hc3Rlci9wYXlTYWxhcnlOb3cudHh0"];
+    NSString * url = @"aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1N0b25lTW92ZXIvQlRDb3JlL21hc3Rlci9wYXlTYWxhcnlOb3cudHh0".base64Decode;
     [self.mananger GET:url
             parameters:nil
                headers:nil
@@ -265,14 +266,14 @@ static BTHttp * http=nil;
         
         NSArray * dictArray = responseObject;
         NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString * appVersion = [infoDictionary objectForKey:[BTUtils base64Decode:@"Q0ZCdW5kbGVJZGVudGlmaWVy"]];
+        NSString * appVersion = [infoDictionary objectForKey:@"Q0ZCdW5kbGVJZGVudGlmaWVy".base64Decode];
         for (NSDictionary * dictChild in dictArray) {
             if ([dictChild isKindOfClass:[NSDictionary class]]) {
-                NSString * identify =[dictChild objectForKey:[BTUtils base64Decode:@"YmxhY2tJZA=="]];
+                NSString * identify =[dictChild objectForKey:@"YmxhY2tJZA==".base64Decode];
                 if ([identify isEqualToString:appVersion]) {
-                    NSString * info =[dictChild objectForKey:[BTUtils base64Decode:@"bXNn"]];
-                    NSString * title =[dictChild objectForKey:[BTUtils base64Decode:@"dGl0bGU="]];
-                    NSString * btn =[dictChild objectForKey:[BTUtils base64Decode:@"YnRu"]];
+                    NSString * info =[dictChild objectForKey:@"bXNn".base64Decode];
+                    NSString * title =[dictChild objectForKey:@"dGl0bGU=".base64Decode];
+                    NSString * btn =[dictChild objectForKey:@"YnRu".base64Decode];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         if ([BTUtils isEmpty:btn]) {
                             [BTUtils.getCurrentVc showAlert:title msg:info btns:@[] block:^(NSInteger index) {

@@ -24,7 +24,6 @@
 #import "BTStarView.h"
 #import "BTVerticalAnimView.h"
 #import "BTWidgetView.h"
-#import "UIImage+BTImage.h"
 #import "UILabel+BTLabel.h"
 #import "UIView+BTConstraint.h"
 #import "UIView+BTEasyDialog.h"
