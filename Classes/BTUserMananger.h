@@ -22,6 +22,8 @@
 
 @class BTUserModel;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface BTUserMananger : NSObject
 
 +(BTUserMananger*)share;
@@ -33,7 +35,7 @@
 @property(nonatomic,assign) BOOL isAllowNoWifiDownload;
 
 //账号缓存,清除用户新的时候并不会清除
-@property (nonatomic, strong) NSString * accountCache;
+@property (nonatomic, strong, nullable) NSString * accountCache;
 
 //是否自动登录
 @property (nonatomic, assign) BOOL isAutoLogin;
@@ -57,7 +59,7 @@
 - (BOOL)isLogin;
 
 //初始化的时候设置一次就可以了
-@property (nonatomic, strong) NSString * loginVcName;
+@property (nonatomic, strong,nullable) NSString * loginVcName;
 
 //是否登录，未登录跳转到登录界面
 - (BOOL)isLoginPush:(UIViewController*)rootVc;
@@ -70,13 +72,15 @@
 
 @end
 
+NS_ASSUME_NONNULL_END
+
 @interface BTUserModel : BTModel
 
-@property(nonatomic,strong) NSString * userName;//用户名
+@property(nonatomic,strong,nullable) NSString * userName;//用户名
 
-@property(nonatomic,strong) NSString * userToken;//用户token
+@property(nonatomic,strong,nullable) NSString * userToken;//用户token
 
-@property(nonatomic,strong) NSString * userId;//用户id
+@property(nonatomic,strong,nullable) NSString * userId;//用户id
 
 
 @end

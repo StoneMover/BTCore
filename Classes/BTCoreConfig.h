@@ -94,7 +94,7 @@
 //导航器rightBarItem标题默认颜色
 @property (nonatomic, strong) UIColor * defaultNavRightBarItemColor;
 
-+ (instancetype)share;
++ (nonnull instancetype)share;
 
 @end
 

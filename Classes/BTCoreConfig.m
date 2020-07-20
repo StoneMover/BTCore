@@ -15,7 +15,7 @@ static BTCoreConfig * config=nil;
 
 @implementation BTCoreConfig
 
-+ (instancetype)share{
++ (nonnull instancetype)share{
     if (!config) {
         config=[BTCoreConfig new];
     }

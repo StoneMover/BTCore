@@ -57,7 +57,7 @@ NSUserDefaults * defaults;
 }
 
 
-+(BTUserMananger*)share{
++(nonnull BTUserMananger*)share{
     if (mananger==nil) {
         mananger=[[BTUserMananger alloc] init];
     }
