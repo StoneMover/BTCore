@@ -69,7 +69,9 @@
         [actions addObject:action];
     }
     UIAlertController * controller=[self createAlert:title msg:msg action:actions style:UIAlertControllerStyleAlert];
-    [self presentViewController:controller animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:controller animated:YES completion:nil];
+    });
     return controller;
 }
 
@@ -85,7 +87,9 @@
         block(1);
     }];
     UIAlertController * alertController=[self createAlert:title msg:msg action:@[actionCancel,actionOk] style:UIAlertControllerStyleAlert];
-    [self presentViewController:alertController animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
     return alertController;
 }
 
@@ -115,7 +119,10 @@
     
     [dataArray addObject:action];
     UIAlertController * alertController=[self createAlert:title msg:msg action:dataArray style:UIAlertControllerStyleActionSheet];
-    [self presentViewController:alertController animated:YES completion:nil];
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
     return alertController;
 }
 
@@ -150,7 +157,9 @@
     }];
     //    [okAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
     [alertController addAction:okAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+   dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
     return alertController;
 }
 
