@@ -15,7 +15,7 @@
 //光标最大高度设置
 @property (nonatomic, assign) IBInspectable NSInteger maxCursorH;
 
-//最大文字长度设置
+//最大文字长度设置,设置后maxContentBlock、maxContentBlock才会有回调
 @property (nonatomic, assign) IBInspectable NSInteger maxContent;
 
 //字符间距设置
@@ -29,6 +29,12 @@
 
 //文字内容到达最大长度回调
 @property (nonatomic, copy) void(^maxContentBlock)(void);
+
+//开始编辑
+@property (nonatomic, copy) void(^beginEditBlock)(void);
+
+//结束编辑
+@property (nonatomic, copy) void(^endEditBlock)(void);
 
 //为键盘添加完成按钮
 - (void)addDoneView;
