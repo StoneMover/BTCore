@@ -29,7 +29,7 @@
     if (self.webTitle) {
         [self initTitle:self.webTitle];
     }
-    [self setNavLineColor:[UIColor RGBSame:238]];
+    [self setNavLineColor:[UIColor bt_RGBSame:238]];
     if (self.loadingType == BTWebViewLoadingDefault) {
         [self bt_initLoading];
     }
@@ -64,7 +64,7 @@
 }
 
 - (void)initProgressView{
-    self.progressView = [[BTProgressView alloc] initWithSize:CGSizeMake(BTUtils.SCREEN_W, 2)];
+    self.progressView = [[BTProgressView alloc] initBTViewWithSize:CGSizeMake(BTUtils.SCREEN_W, 2)];
     self.progressView.backgroundColor = UIColor.clearColor;
     self.progressView.progressView.backgroundColor = self.progressViewColor ? self.progressViewColor : UIColor.redColor;
     [self.view addSubview:self.progressView];

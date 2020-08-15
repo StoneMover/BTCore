@@ -123,7 +123,7 @@
 
 - (void)setNavTrans{
     self.navigationController.navigationBar.translucent = true;
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:UIColor.clearColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage bt_imageWithColor:UIColor.clearColor] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setClipsToBounds:YES];
     self.navigationController.navigationBar.backgroundColor=UIColor.clearColor;
@@ -138,7 +138,7 @@
 }
 
 - (void)setNavLineColor:(UIColor*)color height:(CGFloat)height{
-    [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:color size:CGSizeMake([UIScreen mainScreen].bounds.size.width, height)]];
+    [self.navigationController.navigationBar setShadowImage:[UIImage bt_imageWithColor:color size:CGSizeMake([UIScreen mainScreen].bounds.size.width, height)]];
 }
 
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action{

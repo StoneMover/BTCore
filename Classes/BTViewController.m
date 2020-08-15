@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor RGBSame:247];
+    self.view.backgroundColor=[UIColor bt_RGBSame:247];
     self.isTouceViewEndCloseKeyBoard=YES;
 }
 
