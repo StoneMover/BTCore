@@ -28,7 +28,9 @@
 //#import "BTToast.h"
 //#import "BTProgress.h"
 
-typedef void(^BTVcSuccessBlock)(NSObject * obj);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^BTVcSuccessBlock)(NSObject * _Nullable obj);
 
 
 
@@ -61,4 +63,4 @@ typedef void(^BTVcSuccessBlock)(NSObject * obj);
 
 @end
 
-
+NS_ASSUME_NONNULL_END

@@ -14,7 +14,7 @@
 @implementation BTNet
 
 //传入rootUrl,module名称,方法名称
-+ (NSString*)getUrl:(NSString*)rootUrl moduleName:(NSString*)moduleName functionName:(NSString*)functionName{
++ (NSString*)getUrl:(NSString*)rootUrl moduleName:(NSString*)moduleName functionName:(NSString*_Nullable)functionName{
     if (functionName) {
         return [NSString stringWithFormat:@"%@/%@/%@",rootUrl,moduleName,functionName];
     }else{
@@ -23,7 +23,7 @@
 }
 
 //传入module名称和方法名称
-+ (NSString*)getUrl:(NSString*)moduleName functionName:(NSString*)functionName{
++ (NSString*)getUrl:(NSString*)moduleName functionName:(NSString*_Nullable)functionName{
     return [self getUrl:[BTCoreConfig share].rootUrl moduleName:moduleName functionName:functionName];
 }
 
@@ -45,7 +45,7 @@
     return [self defaultDict:nil];
 }
 
-+ (NSMutableDictionary*)defaultDict:(NSDictionary*)dict{
++ (NSMutableDictionary*)defaultDict:(NSDictionary*_Nullable)dict{
     NSMutableDictionary * dictResult=nil;
     if (dict) {
         dictResult=[[NSMutableDictionary alloc] initWithDictionary:dict];
@@ -57,27 +57,27 @@
     return dictResult;
 }
 
-+ (BOOL)isSuccess:(NSDictionary*)dict{
++ (BOOL)isSuccess:(NSDictionary*_Nullable)dict{
     return [BTCoreConfig share].netSuccessBlock(dict);
 }
 
-+ (NSInteger)errorCode:(NSDictionary*)dict{
++ (NSInteger)errorCode:(NSDictionary*_Nullable)dict{
     return [BTCoreConfig share].netCodeBlock(dict);
 }
 
-+ (NSString*)errorInfo:(NSDictionary*)dict{
++ (NSString*)errorInfo:(NSDictionary*_Nullable)dict{
     return [BTCoreConfig share].netInfoBlock(dict);
 }
 
-+ (NSArray*)defaultDictArray:(NSDictionary*)dict{
++ (NSArray*)defaultDictArray:(NSDictionary*_Nullable)dict{
     return [BTCoreConfig share].netDataArrayBlock(dict);
 }
 
-+ (NSDictionary*)defaultDictData:(NSDictionary*)dict{
++ (NSDictionary*)defaultDictData:(NSDictionary*_Nullable)dict{
     return [BTCoreConfig share].netDataBlock(dict);
 }
 
-+ (NSURL*)getImgResultUrl:(NSString*)url{
++ (NSURL*)getImgResultUrl:(NSString*_Nullable)url{
     if ([BTUtils isEmpty:url]) {
         url = @"";
     }

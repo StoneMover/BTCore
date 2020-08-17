@@ -9,7 +9,7 @@
 #import "BTViewController.h"
 #import <BTHelp/BTUtils.h>
 #import <BTHelp/UIColor+BTColor.h>
-
+#import "BTCoreConfig.h"
 
 @interface BTViewController ()
 
@@ -21,6 +21,9 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor bt_RGBSame:247];
     self.isTouceViewEndCloseKeyBoard=YES;
+    if (BTCoreConfig.share.defaultNavLineColor) {
+        [self setNavLineColor:BTCoreConfig.share.defaultNavLineColor];
+    }
 }
 
 #pragma mark 生命周期

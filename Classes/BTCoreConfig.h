@@ -9,23 +9,24 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface BTCoreConfig : NSObject
 
 //获取请求状态中的提示信息
-@property (nonatomic, copy) NSString *  (^netInfoBlock) (NSDictionary * dict);
+@property (nonatomic, copy) NSString *  (^netInfoBlock) (NSDictionary * _Nullable dict);
 
 //获取请求内容中的数据
-@property (nonatomic, copy) NSDictionary *  (^netDataBlock) (NSDictionary * dict);
+@property (nonatomic, copy) NSDictionary *  (^netDataBlock) (NSDictionary * _Nullable dict);
 
 //获取请求结果的状态码，网络请求成功后
-@property (nonatomic, copy) NSInteger  (^netCodeBlock) (NSDictionary * dict);
+@property (nonatomic, copy) NSInteger  (^netCodeBlock) (NSDictionary * _Nullable dict);
 
 //获取请求内容中的数组结构体
-@property (nonatomic, copy) NSArray *  (^netDataArrayBlock) (NSDictionary * dict);
+@property (nonatomic, copy) NSArray *  (^netDataArrayBlock) (NSDictionary * _Nullable dict);
 
 //网络请求状态是否成功
-@property (nonatomic, copy) BOOL  (^netSuccessBlock) (NSDictionary * dict);
+@property (nonatomic, copy) BOOL  (^netSuccessBlock) (NSDictionary * _Nullable dict);
 
 //默认的请求参数
 @property (nonatomic, copy) NSDictionary * (^netDefaultDictBlock)(void);
@@ -94,8 +95,12 @@
 //导航器rightBarItem标题默认颜色
 @property (nonatomic, strong) UIColor * defaultNavRightBarItemColor;
 
-+ (nonnull instancetype)share;
+//导航器默认分割线颜色
+@property (nonatomic, strong) UIColor * defaultNavLineColor;
+
++ (instancetype)share;
 
 @end
 
 
+NS_ASSUME_NONNULL_END
