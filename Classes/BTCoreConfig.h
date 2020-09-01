@@ -77,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 //是否打印请求数据
 @property (nonatomic, assign) BOOL isLogHttpParameters;
 
+#pragma mark 导航器通用配置
 //导航器标题默认文字字体
 @property (nonatomic, strong) UIFont * defaultNavTitleFont;
 
@@ -97,6 +98,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //导航器默认分割线颜色
 @property (nonatomic, strong) UIColor * defaultNavLineColor;
+
+//默认的vc背景色
+@property (nonatomic, strong) UIColor * defaultVCBgColor;
 
 + (instancetype)share;
 
