@@ -14,5 +14,6 @@
 #import "UIViewController+BTDialog.h"
 #import "BTCoreConfig.h"
 #import "BTUserMananger.h"
+#import "BTViewController.h"
 
 #endif /* BTCore_h */
