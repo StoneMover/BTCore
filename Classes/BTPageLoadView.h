@@ -17,7 +17,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#import "MJRefresh.h"
+#import <MJRefresh/MJRefresh.h>
 #import <BTHelp/BTUtils.h>
 #import "BTModel.h"
 #import "BTCoreConfig.h"
