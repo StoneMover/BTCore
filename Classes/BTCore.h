@@ -10,7 +10,6 @@
 #define BTCore_h
 
 #import "BTHttp.h"
-#import "BTWebViewController.h"
 #import "UIViewController+BTNavSet.h"
 #import "UIViewController+BTDialog.h"
 #import "BTCoreConfig.h"
