@@ -9,7 +9,7 @@
 #import "BTCoreConfig.h"
 #import "BTUserMananger.h"
 #import <BTHelp/BTUtils.h>
-#import "BTNet.h"
+#import "BTHttp.h"
 
 static BTCoreConfig * config=nil;
 

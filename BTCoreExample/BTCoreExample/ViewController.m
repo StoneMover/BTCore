@@ -7,9 +7,9 @@
 //
 
 #import "ViewController.h"
-#import "BTWebViewController.h"
 
-@interface ViewController ()
+
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @end
 
@@ -17,26 +17,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColor.whiteColor;
-    
-//    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-//    view.backgroundColor = UIColor.redColor;
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
-//
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self setItemPaddingDefault];
-//    });
-    
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        BTWebViewController * webVc = [BTWebViewController new];
-        webVc.isTitleFollowWeb = YES;
-        webVc.url = @"https://www.github.com";
-        webVc.loadingType = BTWebViewLoadingProgress;
-        [self.navigationController pushViewController:webVc animated:YES];
-    });
-    
+    [self initTitle:@"BTCore"];
+    [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
+    [self.pageLoadView.dataArray addObjectsFromArray:@[@"分页加载组件",@"WebView加载"]];
+    [self.pageLoadView setTableViewNoMoreEmptyLine];
 }
 
+
+- (id<UITableViewDelegate>)BTPageLoadTableDelegate:(BTPageLoadView *)loadView{
+    return self;
+}
+
+- (id<UITableViewDataSource>)BTPageLoadTableDataSource:(BTPageLoadView *)loadView{
+    return self;
+}
+
+#pragma mark tableView data delegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.pageLoadView.dataArray count];
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell * cell=[tableView dequeueReusableCellWithIdentifier:self.pageLoadView.cellId];
+    cell.textLabel.text = self.pageLoadView.dataArray[indexPath.row];
+    return cell;
+}
+
+
+#pragma mark tableView delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+            
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 45;
+}
 
 @end

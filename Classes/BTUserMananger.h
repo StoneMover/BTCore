@@ -10,15 +10,6 @@
 #import <UIKit/UIKit.h>
 #import <BTHelp/BTModel.h>
 
-#define BT_USER_MAN [BTUserMananger share]
-
-#define BT_USER_MAN_MODEL BT_USER_MAN.model
-
-#define BT_IS_LOGIN [UserMan isLogin]
-
-#define BT_IS_LOGIN_PUSH(rootVc) [UserMan isLoginPush:rootVc]
-
-#define BT_USER_MAN_DEFAULTS [BTUserMananger share].defaults
 
 @class BTUserModel;
 

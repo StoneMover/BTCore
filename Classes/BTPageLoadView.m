@@ -1,45 +1,69 @@
 //
-//  BTPageLoadViewController.m
-//  moneyMaker
+//  BTPageLoadView.m
+//  BTCoreExample
 //
-//  Created by stonemover on 2019/1/22.
-//  Copyright © 2019 stonemover. All rights reserved.
+//  Created by apple on 2020/9/3.
+//  Copyright © 2020 stonemover. All rights reserved.
 //
 
-#import "BTPageLoadViewController.h"
-#import "MJRefresh.h"
-#import <BTHelp/BTUtils.h>
-#import "BTModel.h"
-#import "BTCoreConfig.h"
-#import "BTNet.h"
+#import "BTPageLoadView.h"
 
-@interface BTPageLoadViewController ()
+
+@interface BTPageLoadView()
 
 @property (nonatomic, weak) UIScrollView * scrollView;
 
 @end
 
-@implementation BTPageLoadViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+@implementation BTPageLoadView
+
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    [self initSelf];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    [self initSelf];
+    return self;
+}
+
+- (void)layoutSubviews{
+    if (self.tableView) {
+        self.tableView.frame = self.bounds;
+    }
+    
+    if (self.collectionView) {
+        self.collectionView.frame = self.bounds;
+    }
+}
+
+
+- (void)initSelf{
     self.loadFinishDataNum=[BTCoreConfig share].pageLoadSizePage;
-    self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
 }
 
-#pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames{
-    [self initTableView:cellNames isRegisgerNib:YES];
+    [self initTableView:cellNames isRegisgerNib:YES style:UITableViewStylePlain];
 }
+
 - (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib{
-    self.tableView.frame=self.view.bounds;
+    [self initTableView:cellNames isRegisgerNib:isRegisgerNib style:UITableViewStylePlain];
+}
+
+- (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib style:(UITableViewStyle)style{
+    _tableView = [[UITableView alloc] initWithFrame:self.bounds style:style];
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
-    self.tableView.delegate=self;
-    self.tableView.dataSource=self;
+    
+    self.tableView.delegate = [self.delegate BTPageLoadTableDelegate:self];
+    self.tableView.dataSource = [self.delegate BTPageLoadTableDataSource:self];
+    
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.dataArrayCellId=[NSMutableArray new];
+    _dataArrayCellId=[NSMutableArray new];
     for (NSString * cellName in cellNames) {
         NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
         [self.dataArrayCellId addObject:cellId];
@@ -51,29 +75,26 @@
         }
     }
     
-    [self.view addSubview:self.tableView];
+    [self addSubview:self.tableView];
     self.scrollView=self.tableView;
 }
 
-- (UITableView*)tableView{
-    if (!_tableView) {
-        _tableView=[[UITableView alloc] init];
-    }
-    
-    return _tableView;
-}
 
 - (void)initCollectionView:(NSArray<NSString*>*)cellNames{
-    [self initCollectionView:cellNames isRegisgerNib:YES];
+    UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
+    [self initCollectionView:cellNames isRegisgerNib:YES layout:layout];
 }
 
 - (void)initCollectionView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib{
     UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc]init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
+    [self initCollectionView:cellNames isRegisgerNib:isRegisgerNib layout:layout];
+}
+
+- (void)initCollectionView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib layout:(UICollectionViewFlowLayout*)layout{
+    
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
     self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    self.dataArrayCellId=[NSMutableArray new];
+    _dataArrayCellId=[NSMutableArray new];
     for (NSString * cellName in cellNames) {
         NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
         [self.dataArrayCellId addObject:cellId];
@@ -87,9 +108,10 @@
     }
     
     
-    self.collectionView.delegate=self;
-    self.collectionView.dataSource=self;
-    [self.view addSubview:self.collectionView];
+    
+    self.collectionView.delegate=[self.delegate BTPageLoadCollectionDelegate:self];
+    self.collectionView.dataSource=[self.delegate BTPageLoadCollectionDataSource:self];
+    [self addSubview:self.collectionView];
     self.scrollView=self.collectionView;
 }
 
@@ -100,7 +122,15 @@
 #pragma mark 自动加载逻辑
 - (void)autoLoad:(NSDictionary*)dict class:(Class)cla{
     if ([BTNet isSuccess:dict]) {
-        NSArray * array=[self pageLoadData:dict];
+        NSArray * array = nil;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadData:dataOri:)]) {
+            array = [self.delegate BTPageLoadData:self dataOri:dict];
+        }
+        
+        if (array == nil) {
+            array = [BTNet defaultDictArray:dict];
+        }
+        
         [self autoLoadSuccess:array class:cla];
     }else{
         [self autoLoadSeverError:[BTNet errorInfo:dict]];
@@ -112,27 +142,27 @@
     [self endFootRefresh];
     if (self.isRefresh) {
         [self.dataArray removeAllObjects];
-        self.isRefresh=NO;
+        _isRefresh=NO;
     }
     
     [self autoAnalyses:dataDict class:cls];
     if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
         if (self.loadingHelp) {
             if(dataDict.count==0){
-                [self bt_showEmpty];
-                self.pageNumber--;
+                [self.loadingHelp showEmpty];
+                _pageNumber--;
             }else{
-                [self bt_loadingDismiss];
+                [self.loadingHelp dismiss];
             }
         }else{
             if(dataDict.count==0){
-                self.pageNumber--;
+                _pageNumber--;
                 [BTToast show:@"暂无数据"];
             }
         }
     }
-    self.isLoadFinish=[self autoCheckDataLoadFinish:dataDict];
-    self.pageNumber++;
+    self.isLoadFinish=dataDict.count < self.loadFinishDataNum;
+    _pageNumber++;
     if (self.tableView) {
         [self.tableView reloadData];
     }
@@ -146,27 +176,27 @@
     [self endFootRefresh];
     if (self.isRefresh) {
         [self.dataArray removeAllObjects];
-        self.isRefresh=NO;
+        _isRefresh=NO;
     }
     
     [self.dataArray addObjectsFromArray:dataArray];
     if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
         if (self.loadingHelp) {
             if(dataArray.count==0){
-                [self bt_showEmpty];
-                self.pageNumber--;
+                [self.loadingHelp showEmpty];
+                _pageNumber--;
             }else{
-                [self bt_loadingDismiss];
+                [self.loadingHelp dismiss];
             }
         }else{
             if(dataArray.count==0){
-                self.pageNumber--;
+                _pageNumber--;
                 [BTToast show:@"暂无数据"];
             }
         }
     }
-    self.isLoadFinish=[self autoCheckDataLoadFinish:dataArray];
-    self.pageNumber++;
+    self.isLoadFinish = dataArray.count < self.loadFinishDataNum;
+    _pageNumber++;
     if (self.tableView) {
         [self.tableView reloadData];
     }
@@ -191,7 +221,7 @@
         [self.loadingHelp showError:errorInfo];
         return;
     }
-    self.isRefresh=NO;
+    _isRefresh=NO;
     [BTToast showErrorInfo:errorInfo];
 }
 
@@ -204,7 +234,7 @@
     }else {
         info=error.domain;
     }
-    self.isRefresh=NO;
+    _isRefresh=NO;
     if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage&&self.loadingHelp&&!self.isRefresh) {
         //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
         [self.loadingHelp showError:info];
@@ -219,19 +249,15 @@
     for (NSDictionary * dict in dataDict) {
         BTModel * modelChild=[[cla alloc]init];
         [modelChild analisys:dict];
-        [self createModel:modelChild dict:dict index:index];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadCreate:obj:dict:index:)]) {
+            [self.delegate BTPageLoadCreate:self obj:modelChild dict:dict index:index];
+        }
         [self.dataArray addObject:modelChild];
         index++;
     }
 }
 
-- (BOOL)autoCheckDataLoadFinish:(NSArray*)array{
-    if (array.count<self.loadFinishDataNum) {
-        
-        return YES;
-    }
-    return NO;
-}
+
 
 - (void)setIsLoadFinish:(BOOL)isLoadFinish{
     if (isLoadFinish==_isLoadFinish) {
@@ -248,10 +274,7 @@
     }
 }
 
-#pragma mark 相关回调
-- (void)createModel:(NSObject*)model dict:(NSDictionary*)dict index:(NSInteger)index{
-    
-}
+
 
 
 
@@ -260,7 +283,7 @@
     if (_isNeedHeadRefresh!=isNeedHeadRefresh) {
         _isNeedHeadRefresh=isNeedHeadRefresh;
         if (isNeedHeadRefresh) {
-            __weak BTPageLoadViewController * weakSelf=self;
+            __weak BTPageLoadView * weakSelf=self;
             self.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
                 [weakSelf headRefreshLoad];
             }];
@@ -278,13 +301,17 @@
     if (_isNeedFootRefresh!=isNeedFootRefresh) {
         _isNeedFootRefresh=isNeedFootRefresh;
         if (isNeedFootRefresh) {
-            __weak BTPageLoadViewController * weakSelf=self;
+            __weak BTPageLoadView * weakSelf=self;
             self.scrollView.mj_footer=[MJRefreshBackNormalFooter
                                        footerWithRefreshingBlock:^{
                                            [weakSelf footRefreshLoad];
                                        }];
             if (BTUtils.UI_IS_IPHONEX) {
-                self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=[self mjFootIgnoredScrollViewContentInsetBottom];
+                CGFloat result = 34;
+                if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadIgnoredContentInsetBottom:)]) {
+                    result = [self.delegate BTPageLoadIgnoredContentInsetBottom:self];
+                }
+                self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=result;
             }
             
         }else{
@@ -315,13 +342,17 @@
 }
 
 - (void)headRefreshLoad{
-    self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
     self.isLoadFinish=NO;
-    self.isRefresh=YES;
-    [self getData];
+    _isRefresh=YES;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadGetData:)]) {
+        [self.delegate BTPageLoadGetData:self];
+    }
 }
 - (void)footRefreshLoad{
-    [self getData];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadGetData:)]) {
+        [self.delegate BTPageLoadGetData:self];
+    }
 }
 
 #pragma mark 相关辅助方法
@@ -334,17 +365,13 @@
 }
 
 - (NSString*)pageNumStr{
-    return [NSString stringWithFormat:@"%ld",self.pageNumber];
-}
-
-- (NSArray<NSDictionary*>*)pageLoadData:(NSDictionary*)dict{
-    return [BTNet defaultDictArray:dict];
+    return [NSString stringWithFormat:@"%ld",(long)self.pageNumber];
 }
 
 
 
 
-- (NSString*)cellId:(NSInteger)index{
+- (NSString*_Nullable)cellId:(NSInteger)index{
     if (self.dataArrayCellId&&index<self.dataArrayCellId.count) {
         return self.dataArrayCellId[index];
     }
@@ -352,7 +379,7 @@
     return nil;
 }
 
-- (NSString*)cellId{
+- (NSString*_Nullable)cellId{
     return [self cellId:0];
 }
 
@@ -360,19 +387,23 @@
     if (self.dataArray.count==0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.isLoadFinish=NO;
-            self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
+            self->_pageNumber=[BTCoreConfig share].pageLoadStartPage;
             [self.loadingHelp showLoading];
-            [self getData];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadGetData:)]) {
+                [self.delegate BTPageLoadGetData:self];
+            }
         });
     }
 }
 
 - (void)resetValueAndGetData{
     self.isLoadFinish=NO;
-    self.pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
     [self.dataArray removeAllObjects];
     [self.loadingHelp showLoading];
-    [self getData];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadGetData:)]) {
+        [self.delegate BTPageLoadGetData:self];
+    }
 }
 
 - (void)setRefreshHeadThemeWhite{
@@ -386,9 +417,6 @@
 }
 
 
-- (CGFloat)mjFootIgnoredScrollViewContentInsetBottom{
-    return 34;
-}
 
 
 @end

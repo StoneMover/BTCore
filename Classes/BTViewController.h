@@ -8,30 +8,32 @@
 
 #import <UIKit/UIKit.h>
 
+#import <BTHelp/BTUtils.h>
+#import <BTHelp/UIColor+BTColor.h>
 
-#import "UIViewController+BTNavSet.h"
-
-//#if __has_include(<BTLoading/UIViewController+BTLoading.h>)
-//
-//#else
-//#import "UIViewController+BTLoading.h"
-//#import "BTToast.h"
-//#import "BTProgress.h"
-//#endif
-//
 #import <BTLoading/UIViewController+BTLoading.h>
 #import <BTLoading/BTToast.h>
 #import <BTLoading/BTProgress.h>
+
+#import <BTWidgetView/UIView+BTViewTool.h>
+
 #import <RTRootNavigationController/RTRootNavigationController.h>
 
-//#import "UIViewController+BTLoading.h"
-//#import "BTToast.h"
-//#import "BTProgress.h"
+#import "BTCoreConfig.h"
+#import "UIViewController+BTDialog.h"
+#import "UIViewController+BTNavSet.h"
+
+#import "BTPageLoadView.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^BTVcSuccessBlock)(NSObject * _Nullable obj);
 
+typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
+    BTWebViewLoadingDefault = 0,
+    BTWebViewLoadingProgress
+};
 
 
 @interface BTViewController : UIViewController
@@ -60,6 +62,33 @@ typedef void(^BTVcSuccessBlock)(NSObject * _Nullable obj);
 @end
 
 @interface BTNavigationController : RTRootNavigationController
+
+@end
+
+
+
+@interface BTWebViewController : BTViewController
+
+@property (nonatomic, strong) NSString * url;
+
+//导航器初始title
+@property (nonatomic, strong) NSString * webTitle;
+
+//导航器标题是否跟随网页变化
+@property (nonatomic, assign) BOOL isTitleFollowWeb;
+
+//加载中样式
+@property (nonatomic, assign) BTWebViewLoadingType loadingType;
+
+//进度条加载样式情况下的进度条颜色,默认红色
+@property (nonatomic, strong) UIColor * progressViewColor;
+
+@end
+
+
+@interface BTPageLoadViewController : BTViewController<BTPageLoadViewDelegate>
+
+@property (nonatomic, strong, readonly) BTPageLoadView * pageLoadView;
 
 @end
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BTViewController.h"
 
-@interface ViewController : BTViewController
+@interface ViewController : BTPageLoadViewController
 
 
 @end
