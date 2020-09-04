@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 //当前分页下标数字
 @property (nonatomic, assign, readonly) NSInteger pageNumber;
 
-//数据加载完成的标记，默认15条，当一页数据小于15的时候认定为加载完成
+//数据加载完成的标记，当数组中的条数少于该值则认为加载完毕
 @property (nonatomic, assign) NSInteger loadFinishDataNum;
 
 //是否需要下拉加载
