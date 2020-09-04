@@ -7,9 +7,12 @@
 //
 
 #import "ViewController.h"
-
+#import <BTWidgetView/UIView+BTViewTool.h>
+#import "TestScaleHeadViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+
 
 @end
 
@@ -19,9 +22,12 @@
     [super viewDidLoad];
     [self initTitle:@"BTCore"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
-    [self.pageLoadView.dataArray addObjectsFromArray:@[@"分页加载组件",@"WebView加载"]];
+    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
+    
+    
 }
+
 
 
 - (id<UITableViewDelegate>)BTPageLoadTableDelegate:(BTPageLoadView *)loadView{
@@ -49,7 +55,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0:
-            
+        {
+            TestScaleHeadViewController * vc=[TestScaleHeadViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            break;
+        case 1:
+        {
+            BTWebViewController * vc=[BTWebViewController new];
+            vc.url = @"https://www.baidu.com";
+            vc.isTitleFollowWeb = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             break;
             
         default:

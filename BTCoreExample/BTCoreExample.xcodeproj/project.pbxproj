@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E0A2D247E5CA000AAFCCE /* BTGray.m */; };
 		187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187EB2F3250089F000399AF5 /* BTPageLoadView.m */; };
+		18ECB61B2501E9F100E21A25 /* TestScaleHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ECB61A2501E9F100E21A25 /* TestScaleHeadViewController.m */; };
 		9B4FAFA3228BC022004C8E52 /* BTUserMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4FAFA0228BC022004C8E52 /* BTUserMananger.m */; };
 		9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B22222C2DD007A02C1 /* AppDelegate.m */; };
 		9B78C6B62222C2DD007A02C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B52222C2DD007A02C1 /* ViewController.m */; };
@@ -29,6 +30,8 @@
 		187E0A2D247E5CA000AAFCCE /* BTGray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTGray.m; sourceTree = "<group>"; };
 		187EB2F2250089F000399AF5 /* BTPageLoadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTPageLoadView.h; sourceTree = "<group>"; };
 		187EB2F3250089F000399AF5 /* BTPageLoadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTPageLoadView.m; sourceTree = "<group>"; };
+		18ECB6192501E9F100E21A25 /* TestScaleHeadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestScaleHeadViewController.h; sourceTree = "<group>"; };
+		18ECB61A2501E9F100E21A25 /* TestScaleHeadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestScaleHeadViewController.m; sourceTree = "<group>"; };
 		6A614AA6110376E8AE8FEFAC /* Pods-BTCoreExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTCoreExample.release.xcconfig"; path = "Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample.release.xcconfig"; sourceTree = "<group>"; };
 		9B4FAFA0228BC022004C8E52 /* BTUserMananger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTUserMananger.m; sourceTree = "<group>"; };
 		9B4FAFA1228BC022004C8E52 /* BTUserMananger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTUserMananger.h; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 		187EB2F72500CD7E00399AF5 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				18ECB6192501E9F100E21A25 /* TestScaleHeadViewController.h */,
+				18ECB61A2501E9F100E21A25 /* TestScaleHeadViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -287,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B78C6B62222C2DD007A02C1 /* ViewController.m in Sources */,
+				18ECB61B2501E9F100E21A25 /* TestScaleHeadViewController.m in Sources */,
 				9B78C6C12222C2DE007A02C1 /* main.m in Sources */,
 				9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */,
 				9B4FAFA3228BC022004C8E52 /* BTUserMananger.m in Sources */,
