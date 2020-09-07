@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <BTWidgetView/UIView+BTViewTool.h>
 #import "TestScaleHeadViewController.h"
+#import "TestLogViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -22,7 +23,7 @@
     [super viewDidLoad];
     [self initTitle:@"BTCore"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
-    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载"]];
+    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
     
@@ -68,6 +69,11 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case 2:
+        {
+            TestLogViewController * vc=[TestLogViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
             
         default:
             break;
