@@ -9,10 +9,10 @@
 #import "BTLogView.h"
 #import "BTPageLoadView.h"
 #import <BTHelp/NSDate+BTDate.h>
-#import <UIView+BTViewTool.h>
-#import <UIView+BTConstraint.h>
 #import "BTCoreConfig.h"
 #import <BTLoading/BTToast.h>
+#import <BTWidgetView/UIView+BTViewTool.h>
+#import <BTWidgetView/UIView+BTConstraint.h>
 
 static BTLogView * logView = nil;
 
