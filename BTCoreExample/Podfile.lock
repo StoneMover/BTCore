@@ -16,7 +16,7 @@ PODS:
     - AFNetworking/NSURLSession
   - BTHelp (0.3.2)
   - BTLoading (0.3.0)
-  - BTWidgetView (0.2.1):
+  - BTWidgetView (0.2.2):
     - BTHelp
   - MJRefresh (3.5.0)
   - RTRootNavigationController (0.7.2):
@@ -26,7 +26,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - BTHelp
-  - BTLoading (~> 0.3.0)
+  - BTLoading
   - BTWidgetView
   - MJRefresh
   - RTRootNavigationController
@@ -44,10 +44,10 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   BTHelp: 02fa6849c0cad7773a0bb6fad232092e1d59a161
   BTLoading: 375c891ec32a43925dcab4146b2d671ac1cd02b9
-  BTWidgetView: 303e5d1326b68561162a430137d91090f1d0232f
+  BTWidgetView: 2a80cad93be241836d31a2e5eaddd7b2c4323c8b
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   RTRootNavigationController: 8344c2352d6d40fa370d0366efae2c84a945213f
 
-PODFILE CHECKSUM: e1d8a14d5bcda55916db22950067411bdff87bbf
+PODFILE CHECKSUM: 4608e303237a8162e17fb3ccc64c57b511225283
 
 COCOAPODS: 1.8.4

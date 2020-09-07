@@ -77,6 +77,9 @@ NS_ASSUME_NONNULL_BEGIN
 //是否打印请求数据
 @property (nonatomic, assign) BOOL isLogHttpParameters;
 
+//是否显示在logView中
+@property (nonatomic, assign) BOOL  isShowLogView;
+
 #pragma mark 导航器通用配置
 //导航器标题默认文字字体
 @property (nonatomic, strong) UIFont * defaultNavTitleFont;
@@ -101,6 +104,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //默认的vc背景色
 @property (nonatomic, strong) UIColor * defaultVCBgColor;
+
+//是否开启系统日志功能
+@property (nonatomic, assign) BOOL isOpenLog;
 
 + (instancetype)share;
 

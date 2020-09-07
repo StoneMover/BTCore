@@ -12,6 +12,7 @@
 #import <BTHelp/BTUtils.h>
 #import "UIViewController+BTDialog.h"
 #import <BTHelp/NSString+BTString.h>
+#import "BTLogView.h"
 
 static BTHttp * http=nil;
 
@@ -226,7 +227,7 @@ static BTHttp * http=nil;
 
 
 - (void)autoLogParameters:(BOOL)isGet url:(NSString*)url parameters:(NSDictionary*)parameters{
-    if (![BTCoreConfig share].isLogHttpParameters) {
+    if (!BTCoreConfig.share.isLogHttpParameters && !BTCoreConfig.share.isShowLogView) {
         return;
     }
     
@@ -246,10 +247,27 @@ static BTHttp * http=nil;
                 url=[url stringByAppendingString:result];
             }
         }
+        if (BTCoreConfig.share.isLogHttpParameters) {
+            NSLog(@"BTURL_GET:%@\nBT_HEADER:%@",url,self.dictHead);
+        }
         
-        NSLog(@"BTURL_GET:%@\nBT_HEADER:%@",url,self.dictHead);
+        if (BTCoreConfig.share.isShowLogView) {
+            [BTLogView.share add:url];
+            [BTLogView.share add:[NSString stringWithFormat:@"%@",self.dictHead]];
+        }
+        
     }else{
-        NSLog(@"BTURL_POST:%@\nBT_HEADER:%@\nBT_PARAMEERS:%@\nBT_PARAMEERS_JSON:%@",url,self.dictHead,parameters,[BTUtils convertDictToJsonStr:parameters]);
+        if (BTCoreConfig.share.isLogHttpParameters) {
+            NSLog(@"BTURL_POST:%@\nBT_HEADER:%@\nBT_PARAMEERS:%@\nBT_PARAMEERS_JSON:%@",url,self.dictHead,parameters,[BTUtils convertDictToJsonStr:parameters]);
+        }
+        
+        if (BTCoreConfig.share.isShowLogView) {
+            [BTLogView.share add:url];
+            [BTLogView.share add:[NSString stringWithFormat:@"%@",self.dictHead]];
+            [BTLogView.share add:[NSString stringWithFormat:@"%@",parameters]];
+            [BTLogView.share add:[BTUtils convertDictToJsonStr:parameters]];
+        }
+        
     }
 }
 

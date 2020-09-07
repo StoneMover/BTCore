@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clear;
 
 //0:上,1:中,2:底部
-- (void)setLocation:(NSInteger)location;
+@property (nonatomic, assign, readonly) NSInteger location;
 
 @end
 

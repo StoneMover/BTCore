@@ -11,6 +11,8 @@
 #import <BTHelp/NSDate+BTDate.h>
 #import <UIView+BTViewTool.h>
 #import <UIView+BTConstraint.h>
+#import "BTCoreConfig.h"
+#import <BTLoading/BTToast.h>
 
 static BTLogView * logView = nil;
 
@@ -23,6 +25,10 @@ static BTLogView * logView = nil;
 @property (nonatomic, strong) UIButton * enableBtn;
 
 @property (nonatomic, strong) UIButton * clearBtn;
+
+@property (nonatomic, strong) UIButton * locationBtn;
+
+@property (nonatomic, strong) UIButton * closeBtn;
 
 @end
 
@@ -41,7 +47,7 @@ static BTLogView * logView = nil;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
-    [self setBTDefaultShade];
+    [self setBTShade:0.2 radius:1];
     self.dataArray = [NSMutableArray new];
     
     NSArray * localArray = [NSUserDefaults.standardUserDefaults valueForKey:@"BT_LOG_DATA"];
@@ -67,12 +73,26 @@ static BTLogView * logView = nil;
     self.clearBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.clearBtn setTitle:@"清除" forState:UIControlStateNormal];
     [self.clearBtn addTarget:self action:@selector(clear) forControlEvents:UIControlEventTouchUpInside];
-    
     self.clearBtn.BTLeft = self.enableBtn.BTRight + 2;
+    
+    
+    self.locationBtn = [[UIButton alloc] initBTViewWithSize:CGSizeMake(40, 20)];
+    self.locationBtn.backgroundColor = UIColor.lightGrayColor;
+    self.locationBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.locationBtn setTitle:@"位置" forState:UIControlStateNormal];
+    [self.locationBtn addTarget:self action:@selector(localtionClick) forControlEvents:UIControlEventTouchUpInside];
+    self.locationBtn.BTLeft = self.clearBtn.BTRight + 2;
+    
+    self.closeBtn = [[UIButton alloc] initBTViewWithSize:CGSizeMake(40, 20)];
+    self.closeBtn.backgroundColor = UIColor.lightGrayColor;
+    self.closeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.closeBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    [self.closeBtn addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
+    self.closeBtn.BTLeft = self.locationBtn.BTRight + 2;
     
     self.pageView.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     
-    [self bt_addSubViewArray:@[self.pageView,self.enableBtn,self.clearBtn]];
+    [self bt_addSubViewArray:@[self.pageView,self.enableBtn,self.clearBtn,self.locationBtn,self.closeBtn]];
     
     
     
@@ -92,25 +112,48 @@ static BTLogView * logView = nil;
 }
 
 
+- (void)localtionClick{
+    if (self.location == 2) {
+        _location = 0;
+    }else{
+        _location++;
+    }
+    [self setLocation:_location];
+}
 
+- (void)closeClick{
+    [self hide];
+}
 
 - (void)show{
+    if (!BTCoreConfig.share.isOpenLog) {
+        return;
+    }
     [BTUtils.APP_WINDOW addSubview:self];
     [BTUtils.APP_WINDOW bringSubviewToFront:self];
     [self.pageView.tableView reloadData];
 }
 
 - (void)hide{
+    if (!BTCoreConfig.share.isOpenLog) {
+        return;
+    }
     [self removeFromSuperview];
 }
 
 - (void)add:(NSString*)str{
+    if (!BTCoreConfig.share.isOpenLog) {
+        return;
+    }
     NSString * data = [[[NSDate bt_initLocalDate] bt_dateStr:@"YYYY-MM-dd HH:mm:ss"] stringByAppendingFormat:@"\n%@",str];
     [self.dataArray addObject:data];
     [self.pageView.tableView reloadData];
 }
 
 - (void)addAndSave:(NSString*)str{
+    if (!BTCoreConfig.share.isOpenLog) {
+        return;
+    }
     NSString * data = [[[NSDate bt_initLocalDate] bt_dateStr:@"YYYY-MM-dd HH:mm:ss"] stringByAppendingFormat:@"\n%@",str];
     [self.dataArray addObject:data];
     [NSUserDefaults.standardUserDefaults setValue:self.dataArray forKey:@"BT_LOG_DATA"];
@@ -119,6 +162,9 @@ static BTLogView * logView = nil;
 }
 
 - (void)clear{
+    if (!BTCoreConfig.share.isOpenLog) {
+        return;
+    }
     [self.dataArray removeAllObjects];
     [NSUserDefaults.standardUserDefaults setValue:self.dataArray forKey:@"BT_LOG_DATA"];
     [NSUserDefaults.standardUserDefaults synchronize];
@@ -126,10 +172,14 @@ static BTLogView * logView = nil;
 }
 
 - (void)setLocation:(NSInteger)location{
+    if (!BTCoreConfig.share.isOpenLog) {
+        return;
+    }
+    _location = location;
     switch (location) {
         case 0:
         {
-            self.BTTop = 0;
+            self.BTTop = BTUtils.NAV_HEIGHT;
         }
             break;
         case 1:
@@ -174,6 +224,11 @@ static BTLogView * logView = nil;
 #pragma mark tableView delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSString * str = self.dataArray[indexPath.row];
+    NSArray * array = [str componentsSeparatedByString:@"\n"];
+    UIPasteboard.generalPasteboard.string = array[1];
+    [BTToast showSuccess:@"复制成功"];
+    
 }
 
 
@@ -187,7 +242,7 @@ static BTLogView * logView = nil;
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     [self initLabel];
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     return self;
 }
