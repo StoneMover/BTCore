@@ -94,7 +94,7 @@ static BTLogView * logView = nil;
     
     [self bt_addSubViewArray:@[self.pageView,self.enableBtn,self.clearBtn,self.locationBtn,self.closeBtn]];
     
-    
+    self.layer.zPosition = MAXFLOAT;
     
     return self;
 }

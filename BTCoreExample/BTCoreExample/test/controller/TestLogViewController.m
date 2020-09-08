@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initTitle:@"LogView"];
-    [BTLogView.share show];
+    
     [BTLogView.share addAndSave:@"保存的log日志"];
 //    [self addLog];
     

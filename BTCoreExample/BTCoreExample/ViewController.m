@@ -10,6 +10,7 @@
 #import <BTWidgetView/UIView+BTViewTool.h>
 #import "TestScaleHeadViewController.h"
 #import "TestLogViewController.h"
+#import "BTLogView.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,7 +27,8 @@
     [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
-    
+    BTCoreConfig.share.isOpenLog = YES;
+    [BTLogView.share show];
 }
 
 
