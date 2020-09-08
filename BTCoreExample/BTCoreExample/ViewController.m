@@ -74,7 +74,9 @@
         case 2:
         {
             TestLogViewController * vc=[TestLogViewController new];
-            [self.navigationController pushViewController:vc animated:YES];
+            BTNavigationController * nav = [[BTNavigationController alloc] initWithRootViewController:vc];
+            nav.modalPresentationStyle = 0;
+            [self.navigationController presentViewController:nav animated:YES completion:nil];
         }
             
         default:

@@ -18,9 +18,15 @@ static BTLogView * logView = nil;
 
 @interface BTLogView()<BTPageLoadViewDelegate,UITableViewDataSource,UITableViewDelegate>
 
+@property (nonatomic, strong) BTLogWindow * window;
+
 @property (nonatomic, strong) BTPageLoadView * pageView;
 
 @property (nonatomic, strong) NSMutableArray * dataArray;
+
+@property (nonatomic, strong) UIScrollView * scrollView;
+
+@property (nonatomic, strong) UIButton * exportBtn;
 
 @property (nonatomic, strong) UIButton * enableBtn;
 
@@ -37,31 +43,55 @@ static BTLogView * logView = nil;
 
 + (instancetype)share{
     if (logView == nil) {
-        CGFloat size =  BTUtils.SCREEN_W / 2;
-        logView = [[BTLogView alloc] initWithFrame:CGRectMake(0, (BTUtils.SCREEN_H - size)/2, size, size)];
+        logView = [BTLogView new];
     }
     return logView;
 }
 
+- (instancetype)init{
+    self = [super init];
+    [self initSelf];
+    return self;
+}
 
-
-- (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    [self setBTShade:0.2 radius:1];
+- (void)initSelf{
     self.dataArray = [NSMutableArray new];
-    
     NSArray * localArray = [NSUserDefaults.standardUserDefaults valueForKey:@"BT_LOG_DATA"];
     if (localArray) {
         [self.dataArray addObjectsFromArray:localArray];
     }
+}
+
+- (void)initWindow{
+    if (self.window) {
+        return;
+    }
+    CGFloat size =  BTUtils.SCREEN_W / 2;
+    self.window = [[BTLogWindow alloc] initBTViewWithSize:CGSizeMake(size, size)];
+    [self.window setBTShade:0.2 radius:1];
     
-    self.pageView = [[BTPageLoadView alloc] initWithFrame:self.bounds];
+    self.pageView = [[BTPageLoadView alloc] initWithFrame:self.window.bounds];
     self.pageView.delegate = self;
     [self.pageView initTableView:@[@"BTLogTableViewCell"] isRegisgerNib:NO];
     self.pageView.tableView.estimatedRowHeight = 10;
     [self.pageView setTableViewNoMoreEmptyLine];
-    [self setLocation:1];
+    [self setLocation:2];
+    self.pageView.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
     
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.window.BTWidth, 20)];
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    [self initBtn];
+    [self.scrollView bt_addSubViewArray:@[self.enableBtn,self.locationBtn,self.clearBtn,self.closeBtn,self.exportBtn]];
+    self.scrollView.contentSize = CGSizeMake(self.exportBtn.BTRight + 2, 20);
+    
+    [self.window bt_addSubViewArray:@[self.pageView,self.scrollView]];
+    
+    self.window.windowLevel = UIWindowLevelStatusBar;
+}
+
+
+
+- (void)initBtn{
     self.enableBtn = [[UIButton alloc] initBTViewWithSize:CGSizeMake(40, 20)];
     self.enableBtn.backgroundColor = UIColor.lightGrayColor;
     self.enableBtn.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -90,22 +120,23 @@ static BTLogView * logView = nil;
     [self.closeBtn addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
     self.closeBtn.BTLeft = self.locationBtn.BTRight + 2;
     
-    self.pageView.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0);
+    self.exportBtn = [[UIButton alloc] initBTViewWithSize:CGSizeMake(40, 20)];
+    self.exportBtn.backgroundColor = UIColor.lightGrayColor;
+    self.exportBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.exportBtn setTitle:@"导出" forState:UIControlStateNormal];
+    [self.exportBtn addTarget:self action:@selector(exportClick) forControlEvents:UIControlEventTouchUpInside];
+    self.exportBtn.BTLeft = self.closeBtn.BTRight + 2;
     
-    [self bt_addSubViewArray:@[self.pageView,self.enableBtn,self.clearBtn,self.locationBtn,self.closeBtn]];
     
-    self.layer.zPosition = MAXFLOAT;
-    
-    return self;
 }
 
 - (void)hideClick{
     if ([self.enableBtn.titleLabel.text isEqualToString:@"透明"]) {
-        self.alpha = 0.1;
+        self.window.alpha = 0.1;
         self.pageView.userInteractionEnabled = NO;
         [self.enableBtn setTitle:@"显示" forState:UIControlStateNormal];
     }else{
-        self.alpha = 1;
+        self.window.alpha = 1;
         self.pageView.userInteractionEnabled = YES;
         [self.enableBtn setTitle:@"透明" forState:UIControlStateNormal];
     }
@@ -125,12 +156,17 @@ static BTLogView * logView = nil;
     [self hide];
 }
 
+- (void)exportClick{
+    UIPasteboard.generalPasteboard.string = [self exportData];
+    [BTToast showSuccess:@"数据已复制到粘贴板"];
+}
+
 - (void)show{
     if (!BTCoreConfig.share.isOpenLog) {
         return;
     }
-    [BTUtils.APP_WINDOW addSubview:self];
-    [BTUtils.APP_WINDOW bringSubviewToFront:self];
+    [self initWindow];
+    self.window.hidden = NO;
     [self.pageView.tableView reloadData];
 }
 
@@ -138,7 +174,8 @@ static BTLogView * logView = nil;
     if (!BTCoreConfig.share.isOpenLog) {
         return;
     }
-    [self removeFromSuperview];
+    [self.window bt_removeAllChildView];
+    self.window = nil;
 }
 
 - (void)add:(NSString*)str{
@@ -171,6 +208,25 @@ static BTLogView * logView = nil;
     [self.pageView.tableView reloadData];
 }
 
+- (NSString * _Nullable)exportData{
+    NSMutableArray * array = [self.dataArray mutableCopy];
+    for (int i=0; i<array.count; i++) {
+        NSString * str = array[i];
+        array[i] = [str stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    }
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString;
+    if (!jsonData) {
+        return nil;
+    }else{
+        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    return mutStr;
+}
+
 - (void)setLocation:(NSInteger)location{
     if (!BTCoreConfig.share.isOpenLog) {
         return;
@@ -179,17 +235,17 @@ static BTLogView * logView = nil;
     switch (location) {
         case 0:
         {
-            self.BTTop = BTUtils.NAV_HEIGHT;
+            self.window.BTTop = BTUtils.NAV_HEIGHT;
         }
             break;
         case 1:
         {
-            self.BTCenterY = BTUtils.SCREEN_H / 2;
+            self.window.BTCenterY = BTUtils.SCREEN_H / 2;
         }
             break;
         case 2:
         {
-            self.BTBottom = BTUtils.SCREEN_H;
+            self.window.BTBottom = BTUtils.SCREEN_H;
         }
             break;
     }
@@ -264,5 +320,22 @@ static BTLogView * logView = nil;
 
 
 
+
+@end
+
+
+@implementation BTLogWindow
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    if (self.alpha == 1) {
+        return [super hitTest:point withEvent:event];
+    }
+    
+    if (point.y < 20) {
+        return [super hitTest:point withEvent:event];
+    }
+    
+    return nil;
+}
 
 @end

@@ -12,10 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-@interface BTLogView : UIView
+@interface BTLogView : NSObject
 
 + (instancetype)share;
 
+//如果不需要显示不用调用show方法即可
 - (void)show;
 
 - (void)hide;
@@ -26,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)clear;
 
+- (NSString * _Nullable)exportData;
+
 //0:上,1:中,2:底部
 @property (nonatomic, assign, readonly) NSInteger location;
 
@@ -35,6 +38,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BTLogTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UILabel * labelTitle;
+
+@end
+
+
+@interface BTLogWindow : UIWindow
+
 
 @end
 

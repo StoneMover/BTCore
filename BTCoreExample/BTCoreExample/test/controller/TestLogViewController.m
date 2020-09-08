@@ -20,8 +20,11 @@
     [self initTitle:@"LogView"];
     
     [BTLogView.share addAndSave:@"保存的log日志"];
-//    [self addLog];
-    
+    [self initLeftBarStr:@"取消"];
+}
+
+- (void)leftBarClick{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)addLog{
