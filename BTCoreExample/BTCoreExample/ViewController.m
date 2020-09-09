@@ -11,10 +11,11 @@
 #import "TestScaleHeadViewController.h"
 #import "TestLogViewController.h"
 #import "BTLogView.h"
+#import "TestWindowViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-
+@property (nonatomic, strong) UIWindow * testWindow;
 
 @end
 
@@ -24,11 +25,10 @@
     [super viewDidLoad];
     [self initTitle:@"BTCore"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
-    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView"]];
+    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
-    BTCoreConfig.share.isOpenLog = YES;
-    [BTLogView.share show];
+
 }
 
 
@@ -78,7 +78,47 @@
             nav.modalPresentationStyle = 0;
             [self.navigationController presentViewController:nav animated:YES completion:nil];
         }
+            break;
+        case 3:
+        {
+            //创建蒙层
+            UIView * view = [[UIView alloc] init];
+            view.backgroundColor = UIColor.blackColor;
+            view.alpha = 0.2;
+            view.frame = BTUtils.APP_WINDOW.bounds;
+            [BTUtils.APP_WINDOW addSubview:view];
             
+            //创建测试导航器以及vc
+            TestWindowViewController * vc=[TestWindowViewController new];
+            BTNavigationController * nav = [[BTNavigationController alloc] initWithRootViewController:vc];
+            
+            //创建window,并将window的坐标设置在屏幕底部,设置windowLevel防止获取默认window失败
+            self.testWindow = [[UIWindow alloc] initWithFrame:CGRectMake(0, BTUtils.SCREEN_H, BTUtils.SCREEN_W, BTUtils.SCREEN_H - 200)];
+            self.testWindow.windowLevel = UIWindowLevelAlert;
+            self.testWindow .backgroundColor = UIColor.redColor;
+            [self.testWindow  setBTCornerRadiusTop:10];
+            self.testWindow .rootViewController = nav;
+            self.testWindow.hidden = NO;
+            
+            //执行弹出的加载动画
+            [UIView animateWithDuration:.35 animations:^{
+                self.testWindow .BTTop = 200;
+            }];
+            
+            //消失的回调处理
+            __weak ViewController * weakSelf=self;
+            vc.blockSuccess = ^(NSObject * _Nullable obj) {
+                [UIView animateWithDuration:.35 animations:^{
+                    self.testWindow .BTTop = BTUtils.SCREEN_H;
+                } completion:^(BOOL finished) {
+                    [view removeFromSuperview];
+                    weakSelf.testWindow.rootViewController = nil;
+                    weakSelf.testWindow = nil;
+                }];
+                
+            };
+        }
+            break;
         default:
             break;
     }

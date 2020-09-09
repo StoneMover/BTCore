@@ -29,8 +29,7 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
-    
-    BTCoreConfig.share.isOpenLog = YES;
+
     return YES;
 }
 

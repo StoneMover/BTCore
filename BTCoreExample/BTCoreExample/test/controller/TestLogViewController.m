@@ -21,6 +21,9 @@
     
     [BTLogView.share addAndSave:@"保存的log日志"];
     [self initLeftBarStr:@"取消"];
+    
+    BTCoreConfig.share.isOpenLog = YES;
+    [BTLogView.share show];
 }
 
 - (void)leftBarClick{

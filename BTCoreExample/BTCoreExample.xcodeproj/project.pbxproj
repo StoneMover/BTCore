@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184FBD322508AD6A00FDDED2 /* TestWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */; };
 		187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E0A2D247E5CA000AAFCCE /* BTGray.m */; };
 		187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187EB2F3250089F000399AF5 /* BTPageLoadView.m */; };
 		1885DB942506131F00468F72 /* BTLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885DB932506131F00468F72 /* BTLogView.m */; };
@@ -29,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		184FBD302508AD6A00FDDED2 /* TestWindowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestWindowViewController.h; sourceTree = "<group>"; };
+		184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestWindowViewController.m; sourceTree = "<group>"; };
 		187E0A2C247E5CA000AAFCCE /* BTGray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTGray.h; sourceTree = "<group>"; };
 		187E0A2D247E5CA000AAFCCE /* BTGray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTGray.m; sourceTree = "<group>"; };
 		187EB2F2250089F000399AF5 /* BTPageLoadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTPageLoadView.h; sourceTree = "<group>"; };
@@ -105,6 +108,8 @@
 				1885DB95250619C900468F72 /* TestLogViewController.h */,
 				1885DB96250619C900468F72 /* TestLogViewController.m */,
 				1885DB97250619C900468F72 /* TestLogViewController.xib */,
+				184FBD302508AD6A00FDDED2 /* TestWindowViewController.h */,
+				184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -309,6 +314,7 @@
 				1885DB98250619C900468F72 /* TestLogViewController.m in Sources */,
 				18ECB61B2501E9F100E21A25 /* TestScaleHeadViewController.m in Sources */,
 				9B78C6C12222C2DE007A02C1 /* main.m in Sources */,
+				184FBD322508AD6A00FDDED2 /* TestWindowViewController.m in Sources */,
 				9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */,
 				9B4FAFA3228BC022004C8E52 /* BTUserMananger.m in Sources */,
 				187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */,
