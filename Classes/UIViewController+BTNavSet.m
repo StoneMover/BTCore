@@ -102,7 +102,7 @@
 
 
 - (void)setItemPaddingDefault{
-    [self setItemPadding:5];
+    [self setItemPadding:BTCoreConfig.share.navItemPadding];
 }
 
 - (void)setItemPadding:(CGFloat)padding{

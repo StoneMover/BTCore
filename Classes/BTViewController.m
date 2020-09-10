@@ -132,25 +132,43 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = UIColor.whiteColor;
     if (self.webTitle) {
         [self initTitle:self.webTitle];
     }
+    [self inileftBarSelf];
     [self setNavLineColor:[UIColor bt_RGBSame:238]];
     if (self.loadingType == BTWebViewLoadingDefault) {
         [self bt_initLoading];
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //先让loading界面加载完成，由于初始化webView很耗时间
         [self initWebView];
-        if (self.loadingType == BTWebViewLoadingProgress) {
-            [self initProgressView];
-        }
+        
     });
 }
 
-- (void)leftBarClick{
-    [[self.webView configuration].userContentController removeScriptMessageHandlerForName:@"back"];
+- (void)inileftBarSelf{
+    if (!self.closeImg) {
+        return;
+    }
+    
+    UIBarButtonItem * backItem = [self createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
+    UIBarButtonItem * closeItem = [self createItemImg:self.closeImg action:@selector(closeClick)];
+    self.navigationItem.leftBarButtonItems = @[backItem,closeItem];
+}
+
+- (void)closeClick{
     [super leftBarClick];
+}
+
+- (void)leftBarClick{
+    if (self.closeImg && self.webView.canGoBack) {
+        [self.webView goBack];
+    }else{
+        [super leftBarClick];
+    }
+    
 }
 
 - (void)initWebView{
@@ -163,7 +181,9 @@
     [self.view insertSubview:self.webView atIndex:0];
     
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
-    
+    if (self.loadingType == BTWebViewLoadingProgress) {
+        [self initProgressView];
+    }
     NSURL * url=[NSURL URLWithString:self.url];
     NSURLRequest * request=[[NSURLRequest alloc] initWithURL:url];
     [self.webView loadRequest:request];

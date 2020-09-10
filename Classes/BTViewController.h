@@ -72,7 +72,7 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 @property (nonatomic, strong) NSString * url;
 
 //导航器初始title
-@property (nonatomic, strong) NSString * webTitle;
+@property (nonatomic, strong, nullable) NSString * webTitle;
 
 //导航器标题是否跟随网页变化
 @property (nonatomic, assign) BOOL isTitleFollowWeb;
@@ -81,7 +81,10 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 @property (nonatomic, assign) BTWebViewLoadingType loadingType;
 
 //进度条加载样式情况下的进度条颜色,默认红色
-@property (nonatomic, strong) UIColor * progressViewColor;
+@property (nonatomic, strong, nullable) UIColor * progressViewColor;
+
+//关闭按钮,设置了该值后,将会出现返回和关闭两个按钮,返回按钮可以返回上一个网页,关闭按钮直接退出webview
+@property (nonatomic, strong, nullable) UIImage * closeImg;
 
 @end
 

@@ -108,6 +108,9 @@ NS_ASSUME_NONNULL_BEGIN
 //是否开启系统日志功能
 @property (nonatomic, assign) BOOL isOpenLog;
 
+//导航器返回的按钮距离左边的间距,默认5
+@property (nonatomic, assign) CGFloat navItemPadding;
+
 + (instancetype)share;
 
 @end

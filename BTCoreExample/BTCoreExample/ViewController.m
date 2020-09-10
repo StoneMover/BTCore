@@ -68,6 +68,8 @@
             BTWebViewController * vc=[BTWebViewController new];
             vc.url = @"https://www.baidu.com";
             vc.isTitleFollowWeb = YES;
+//            vc.closeImg = [UIImage imageNamed:@"close"];
+            vc.loadingType = BTWebViewLoadingProgress;
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
