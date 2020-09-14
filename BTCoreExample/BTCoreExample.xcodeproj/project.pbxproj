@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181CB461250F08AD000B19A4 /* GCDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CB45F250F08AD000B19A4 /* GCDViewController.m */; };
+		181CB462250F08AD000B19A4 /* GCDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181CB460250F08AD000B19A4 /* GCDViewController.xib */; };
 		184FBD322508AD6A00FDDED2 /* TestWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */; };
 		187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E0A2D247E5CA000AAFCCE /* BTGray.m */; };
 		187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187EB2F3250089F000399AF5 /* BTPageLoadView.m */; };
@@ -30,6 +32,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		181CB45E250F08AD000B19A4 /* GCDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDViewController.h; sourceTree = "<group>"; };
+		181CB45F250F08AD000B19A4 /* GCDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDViewController.m; sourceTree = "<group>"; };
+		181CB460250F08AD000B19A4 /* GCDViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GCDViewController.xib; sourceTree = "<group>"; };
 		184FBD302508AD6A00FDDED2 /* TestWindowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestWindowViewController.h; sourceTree = "<group>"; };
 		184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestWindowViewController.m; sourceTree = "<group>"; };
 		187E0A2C247E5CA000AAFCCE /* BTGray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTGray.h; sourceTree = "<group>"; };
@@ -110,6 +115,9 @@
 				1885DB97250619C900468F72 /* TestLogViewController.xib */,
 				184FBD302508AD6A00FDDED2 /* TestWindowViewController.h */,
 				184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */,
+				181CB45E250F08AD000B19A4 /* GCDViewController.h */,
+				181CB45F250F08AD000B19A4 /* GCDViewController.m */,
+				181CB460250F08AD000B19A4 /* GCDViewController.xib */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -258,6 +266,7 @@
 				9B78C6BB2222C2DE007A02C1 /* Assets.xcassets in Resources */,
 				9B78C6B92222C2DD007A02C1 /* Main.storyboard in Resources */,
 				1885DB99250619C900468F72 /* TestLogViewController.xib in Resources */,
+				181CB462250F08AD000B19A4 /* GCDViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +330,7 @@
 				1885DB942506131F00468F72 /* BTLogView.m in Sources */,
 				9B78C6DA2222C87B007A02C1 /* BTViewController.m in Sources */,
 				9B78C6DC2222C87B007A02C1 /* BTHttp.m in Sources */,
+				181CB461250F08AD000B19A4 /* GCDViewController.m in Sources */,
 				9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */,
 				9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */,
 				9BB2FDE02283BE5C00991905 /* BTCoreConfig.m in Sources */,

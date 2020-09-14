@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id<UICollectionViewDelegate>)BTPageLoadCollectionDelegate:(BTPageLoadView*)loadView;
 - (id<UICollectionViewDataSource>)BTPageLoadCollectionDataSource:(BTPageLoadView*)loadView;
 
-//自动化创建model的时候回调,如果你想计算cell的高度则可以实现此代理进行计算即可
+//自动化创建model的时候回调,如果你想计算cell的高度则可以实现此代理进行计算即可,会将转换后的model以及字典传回
 - (void)BTPageLoadCreate:(BTPageLoadView*)loadView obj:(NSObject*)obj dict:(NSDictionary*)dict index:(NSInteger)index;
 
 //MJFoot刷新距离底部的距离，适配iphonex,普通手机不会用到
@@ -56,6 +56,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 //获取array数组的方法回调，如果结构复杂则重写该方法然后返回数组字典即可
 - (NSArray<NSDictionary*>*)BTPageLoadData:(BTPageLoadView*)loadView dataOri:(NSDictionary*)dataOri;
+
+//下拉刷新的头部
+- (MJRefreshHeader*)BTPageLoadRefreshHeader:(BTPageLoadView*)loadView;
+
+//上拉加载的footer
+- (MJRefreshFooter*)BTPageLoadRefreshFooter:(BTPageLoadView*)loadView;
 
 @end
 

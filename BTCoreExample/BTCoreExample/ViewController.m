@@ -12,6 +12,7 @@
 #import "TestLogViewController.h"
 #import "BTLogView.h"
 #import "TestWindowViewController.h"
+#import "GCDViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,7 +26,7 @@
     [super viewDidLoad];
     [self initTitle:@"BTCore"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
-    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试"]];
+    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试",@"GCD"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
 
@@ -119,6 +120,12 @@
                 }];
                 
             };
+        }
+            break;
+        case 4:
+        {
+            GCDViewController * vc=[GCDViewController new];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:

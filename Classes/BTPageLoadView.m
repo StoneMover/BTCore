@@ -284,9 +284,18 @@
         _isNeedHeadRefresh=isNeedHeadRefresh;
         if (isNeedHeadRefresh) {
             __weak BTPageLoadView * weakSelf=self;
-            self.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-                [weakSelf headRefreshLoad];
-            }];
+            if (self.delegate && [self.delegate BTPageLoadRefreshHeader:self]) {
+                self.scrollView.mj_header = [self.delegate BTPageLoadRefreshHeader:self];
+                self.scrollView.mj_header.refreshingBlock = ^{
+                    [weakSelf headRefreshLoad];
+                };
+            }else{
+                self.scrollView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                    [weakSelf headRefreshLoad];
+                }];
+            }
+            
+            
             self.scrollView.mj_header.lastUpdatedTimeKey=self.refreshTimeKey?self.refreshTimeKey:NSStringFromClass([self class]);
             self.scrollView.mj_header.ignoredScrollViewContentInsetTop=self.scrollView.contentInset.top;
         }else{
@@ -302,10 +311,17 @@
         _isNeedFootRefresh=isNeedFootRefresh;
         if (isNeedFootRefresh) {
             __weak BTPageLoadView * weakSelf=self;
-            self.scrollView.mj_footer=[MJRefreshBackNormalFooter
-                                       footerWithRefreshingBlock:^{
-                                           [weakSelf footRefreshLoad];
-                                       }];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadRefreshFooter:)]) {
+                self.scrollView.mj_footer = [self.delegate BTPageLoadRefreshFooter:self];
+                self.scrollView.mj_footer.refreshingBlock = ^{
+                    [weakSelf footRefreshLoad];
+                };
+            }else{
+                self.scrollView.mj_footer=[MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+                    [weakSelf footRefreshLoad];
+                }];
+            }
+            
             if (BTUtils.UI_IS_IPHONEX) {
                 CGFloat result = 34;
                 if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadIgnoredContentInsetBottom:)]) {
