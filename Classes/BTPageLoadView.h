@@ -128,7 +128,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)autoLoadSuccess:(NSArray *)dataArray;
 
 //服务器错误与网络错误提示，如果error不空则进入autoLoadNetError方法，反之进入autoLoadSeverError方法
-- (void)autoLoadError:(NSError*)error errorInfo:(NSString*)errorInfo;
+- (void)autoLoadError:(NSError* _Nullable)error errorInfo:(NSString* _Nullable)errorInfo;
 
 //服务器错误状态显示
 - (void)autoLoadSeverError:(NSString*)errorInfo;

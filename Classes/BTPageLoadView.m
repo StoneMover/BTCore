@@ -205,11 +205,13 @@
     }
 }
 
-- (void)autoLoadError:(NSError*)error errorInfo:(NSString*)errorInfo{
+- (void)autoLoadError:(NSError* _Nullable)error errorInfo:(NSString* _Nullable)errorInfo{
     if (error) {
         [self autoLoadNetError:error];
-    }else{
+    }else if(errorInfo){
         [self autoLoadSeverError:errorInfo];
+    }else{
+        [self autoLoadSeverError:@"未知错误"];
     }
 }
 
