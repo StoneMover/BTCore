@@ -5,13 +5,23 @@
 //  Created by whbt_mac on 2016/10/18.
 //  Copyright © 2016年 StoneMover. All rights reserved.
 //  对于AFNetworking的再次封装,避免以后网络请求库的替换操作
-//  
+//
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @interface BTHttp : NSObject
+
+@property (nonatomic, strong, readonly) AFHTTPSessionManager * mananger;
+
+//是否携带cookie信息
+@property (nonatomic, assign) BOOL HTTPShouldHandleCookies;
+
+//设置超时时间
+@property (nonatomic, assign) NSInteger timeInterval;
+
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
 
 +(instancetype)share;
 
@@ -64,16 +74,8 @@ NS_ASSUME_NONNULL_BEGIN
 //删除头部信息
 - (void)delHttpHead:(NSString*)key;
 
-//是否携带cookie信息
-@property (nonatomic, assign) BOOL HTTPShouldHandleCookies;
-
-//设置超时时间
-@property (nonatomic, assign) NSInteger timeInterval;
-
 //设置接收数据类型
 - (void)setResponseAcceptableContentType:(NSSet<NSString*>*)acceptableContentTypes;
-
-@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
 
 @end
 

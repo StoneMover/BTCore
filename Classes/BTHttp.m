@@ -20,7 +20,7 @@ static BTHttp * http=nil;
 
 @property (nonatomic, strong) NSMutableDictionary * dictHead;
 
-@property (nonatomic, strong) AFHTTPSessionManager * mananger;
+
 
 
 @end
@@ -43,7 +43,7 @@ static BTHttp * http=nil;
 
 -(instancetype)init{
     self=[super init];
-    self.mananger = [AFHTTPSessionManager manager];
+    _mananger = [AFHTTPSessionManager manager];
     self.dictHead=[[NSMutableDictionary alloc]init];
     [self initDefaultSet];
 //    [self test];
