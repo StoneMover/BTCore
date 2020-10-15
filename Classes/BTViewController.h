@@ -93,6 +93,9 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 
 @property (nonatomic, strong, readonly) BTPageLoadView * pageLoadView;
 
+//从statusbar 开始布局适用于顶部透明的vc
+- (void)setLayoutFromStatusBar;
+
 @end
 
 NS_ASSUME_NONNULL_END

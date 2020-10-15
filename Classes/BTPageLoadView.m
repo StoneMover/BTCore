@@ -434,7 +434,11 @@
     
 }
 
-
+- (void)clearTableViewSystemInset{
+    if (@available(iOS 11.0, *)) {
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
+}
 
 
 @end

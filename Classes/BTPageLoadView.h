@@ -165,6 +165,8 @@ NS_ASSUME_NONNULL_BEGIN
 //设置MJ刷新头部的主题颜色为白色
 - (void)setRefreshHeadThemeWhite;
 
+//去除系统contentInset
+- (void)clearTableViewSystemInset;
 
 @end
 

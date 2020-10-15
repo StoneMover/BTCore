@@ -316,6 +316,12 @@
     [self getData];
 }
 
-
+- (void)setLayoutFromStatusBar{
+    self.edgesForExtendedLayout = UIRectEdgeAll;
+    if (@available(iOS 13.0, *)) {
+        self.pageLoadView.tableView.automaticallyAdjustsScrollIndicatorInsets = NO;
+    }
+    self.extendedLayoutIncludesOpaqueBars = YES;
+}
 
 @end
