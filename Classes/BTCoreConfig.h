@@ -61,6 +61,13 @@ NS_ASSUME_NONNULL_BEGIN
 //分页加载的默认每页数据，默认的是每页20条数据
 @property (nonatomic, assign) NSInteger pageLoadSizePage;
 
+
+//分页数量大小名称
+@property (nonatomic, strong) NSString * pageLoadSizeName;
+
+//分页名称
+@property (nonatomic, strong) NSString * pageLoadIndexName;
+
 //继承于BTUserModel 的用户模型
 @property (nonatomic, strong) Class userModelClass;
 

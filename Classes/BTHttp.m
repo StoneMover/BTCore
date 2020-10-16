@@ -221,6 +221,42 @@ static BTHttp * http=nil;
 }
 
 
+#pragma mark PUT
+- (NSURLSessionDataTask *)PUT:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
+                      failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure{
+    [self autoLogParameters:NO url:URLString parameters:parameters];
+    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dictHead];
+    return [self.mananger PUT:URLString parameters:parameters headers:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([self requestFilter:responseObject]) {
+            success(task,responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if ([self requestFilter:error]) {
+            failure(task,error);
+        }
+    }];
+}
+
+#pragma mark DELETE
+- (NSURLSessionDataTask *)DELETE:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
+                      failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure{
+    [self autoLogParameters:NO url:URLString parameters:parameters];
+    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dictHead];
+    return [self.mananger DELETE:URLString parameters:parameters headers:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if ([self requestFilter:responseObject]) {
+            success(task,responseObject);
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if ([self requestFilter:error]) {
+            failure(task,error);
+        }
+    }];
+}
+
 - (BOOL)requestFilter:(NSObject *)obj{
     return [BTCoreConfig share].netFillterBlock(obj);
 }
@@ -375,6 +411,15 @@ static BTHttp * http=nil;
     
     return dictResult;
 }
+
++ (NSMutableDictionary *)defaultPageDict:(NSInteger)page{
+    NSDictionary * dict = @{
+        BTCoreConfig.share.pageLoadSizeName:[NSNumber numberWithInteger:BTCoreConfig.share.pageLoadSizePage],
+        BTCoreConfig.share.pageLoadIndexName:[NSNumber numberWithInteger:page]
+    };
+    return [self defaultDict:dict];
+}
+
 
 + (BOOL)isSuccess:(NSDictionary*_Nullable)dict{
     return BTCoreConfig.share.netSuccessBlock(dict);

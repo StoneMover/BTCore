@@ -68,6 +68,18 @@ NS_ASSUME_NONNULL_BEGIN
                        success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
                        failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
 
+#pragma mark PUT
+- (NSURLSessionDataTask *)PUT:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
+                      failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure;
+
+#pragma mark DELETE
+- (NSURLSessionDataTask *)DELETE:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
+                         failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure;
+
 //添加头信息
 -(void)addHttpHead:(NSString*)key value:(NSString*)value;
 
@@ -112,6 +124,8 @@ typedef void(^BTNetFailFullBlock)(NSError * _Nullable error,NSInteger code,NSStr
 //获取默认的数据请求字典
 + (NSMutableDictionary*)defaultDict;
 + (NSMutableDictionary*)defaultDict:(NSDictionary*_Nullable)dict;
++ (NSMutableDictionary *)defaultPageDict:(NSInteger)page;
+
 
 //判断网络是否请求成功
 + (BOOL)isSuccess:(NSDictionary * _Nullable)dict;
