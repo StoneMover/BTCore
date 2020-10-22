@@ -105,6 +105,9 @@ NS_ASSUME_NONNULL_BEGIN
 //cellId 数组
 @property (nonatomic, strong, nullable ,readonly) NSMutableArray * dataArrayCellId;
 
+//数据为空的时候是否Toast提示
+@property (nonatomic, assign) BOOL isToastWhenDataEmpty;
+
 #pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames;
 - (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib;

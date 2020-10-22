@@ -138,6 +138,9 @@
 }
 
 - (void)autoLoadSuccess:(NSArray*)dataDict class:(Class)cls{
+    if (dataDict == nil || [dataDict isKindOfClass:[NSNull class]]) {
+        dataDict = [NSArray new];
+    }
     [self endHeadRefresh];
     [self endFootRefresh];
     if (self.isRefresh) {
@@ -157,7 +160,9 @@
         }else{
             if(dataDict.count==0){
                 _pageNumber--;
-                [BTToast show:@"暂无数据"];
+                if (self.isToastWhenDataEmpty) {
+                    [BTToast show:@"暂无数据"];
+                }
             }
         }
     }
