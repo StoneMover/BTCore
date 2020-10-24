@@ -10,7 +10,7 @@
 #import "BTUserMananger.h"
 #import <BTHelp/BTUtils.h>
 #import "BTHttp.h"
-
+#import <BTHelp/NSString+BTString.h>
 
 static BTCoreConfig * config=nil;
 
@@ -85,6 +85,27 @@ static BTCoreConfig * config=nil;
 //        }
         
         return YES;
+    };
+    
+    self.netErrorInfoFillterBlock = ^NSString * _Nonnull(NSError * _Nonnull error) {
+        
+        if ([error.userInfo.allKeys containsObject:AFNetworkingOperationFailingURLResponseDataErrorKey]) {
+            NSData * data = [error.userInfo objectForKey:AFNetworkingOperationFailingURLResponseDataErrorKey];
+            NSString * result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSDictionary * dict = [result bt_toDict];
+            return BTCoreConfig.share.netInfoBlock(dict);
+        }
+        
+        if (error == nil) {
+            return @"未知错误";
+        }
+        NSString * info=nil;
+        if ([error.userInfo.allKeys containsObject:@"NSLocalizedDescription"]) {
+            info=[error.userInfo objectForKey:@"NSLocalizedDescription"];
+        }else {
+            info=error.domain;
+        }
+        return info;
     };
     
     self.navItemPaddingBlock = ^BOOL(NSLayoutConstraint *constraint) {

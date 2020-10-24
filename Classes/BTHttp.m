@@ -257,7 +257,7 @@ static BTHttp * http=nil;
     }];
 }
 
-- (BOOL)requestFilter:(NSObject *)obj{
+- (BOOL)requestFilter:(NSObject *_Nullable)obj{
     return [BTCoreConfig share].netFillterBlock(obj);
 }
 
