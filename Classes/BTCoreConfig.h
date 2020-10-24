@@ -27,20 +27,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 /*
- 获取请求结果的状态码，网络请求成功后
+ 获取请求结果的状态码，网络请求成功后返回的http 状态为200
  这里特指已经返回200的情况后，获取字典中的类似status或者success的字段进行相关逻辑
  */
 @property (nonatomic, copy) NSInteger  (^netCodeBlock) (NSDictionary * _Nullable dict);
 
 /*
- 网络请求状态是否成功
+ 网络请求状态是否成功，网络请求成功后返回的http 状态为200
  这里特指已经返回200的情况后,通过字典中的类似status或者success的字段进行业务逻辑判断的成功与否
  */
 @property (nonatomic, copy) BOOL  (^netSuccessBlock) (NSDictionary * _Nullable dict);
 
 
 /*
- 获取请求状态中的提示信息,这里主要是针对返回code 为200的字典信息错误，如果不为200需要取出后台的错误信息使用netErrorInfoFillterBlock
+ 获取请求状态中的提示信息,这里主要是针对返回http 状态 为200的字典信息错误，如果不为200需要取出后台的错误信息使用netErrorInfoFillterBlock
  如果当code不为200且获取的为字典对象同样可以调用该方法一同处理
  */
 @property (nonatomic, copy) NSString *  (^netInfoBlock) (NSDictionary * _Nullable dict);
