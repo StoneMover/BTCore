@@ -12,7 +12,8 @@
 #import <BTHelp/BTModel.h>
 #import "BTCoreConfig.h"
 #import "ViewController.h"
-
+#import <BTHelp/BTUtils.h>
+#import "FullTestViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,6 +24,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    BTCoreConfig.share.defaultVCBgColor = [UIColor bt_RGBSame:235];
     ViewController * vc = [ViewController new];
     BTNavigationController * nav =[[BTNavigationController alloc] initWithRootViewController:vc];
     
@@ -33,6 +35,14 @@
     return YES;
 }
 
+-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+  if (self.isForceLandscape) {
+      return UIInterfaceOrientationMaskLandscape;
+  }else if (self.isForcePortrait){
+      return UIInterfaceOrientationMaskPortrait;
+  }
+  return UIInterfaceOrientationMaskPortrait;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     

@@ -13,6 +13,7 @@
 #import "BTLogView.h"
 #import "TestWindowViewController.h"
 #import "GCDViewController.h"
+#import "FullTestViewController.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,7 +27,7 @@
     [super viewDidLoad];
     [self initTitle:@"BTCore"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
-    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试",@"GCD"]];
+    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试",@"GCD",@"横竖屏切换"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
 
@@ -128,6 +129,12 @@
             [self.navigationController pushViewController:vc animated:YES];
         }
             break;
+        case 5:
+        {
+            FullTestViewController * vc=[FullTestViewController new];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
         default:
             break;
     }
@@ -138,4 +145,18 @@
     return 45;
 }
 
+//设置是否允许自动旋转
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+//设置支持的屏幕旋转方向
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+  return UIInterfaceOrientationMaskLandscapeRight;
+}
+
+//设置presentation方式展示的屏幕方向
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+  return UIInterfaceOrientationLandscapeRight;
+}
 @end

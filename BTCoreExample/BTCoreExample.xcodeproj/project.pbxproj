@@ -15,6 +15,7 @@
 		1885DB942506131F00468F72 /* BTLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885DB932506131F00468F72 /* BTLogView.m */; };
 		1885DB98250619C900468F72 /* TestLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885DB96250619C900468F72 /* TestLogViewController.m */; };
 		1885DB99250619C900468F72 /* TestLogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1885DB97250619C900468F72 /* TestLogViewController.xib */; };
+		18DF9E872546A0AA00217610 /* FullTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18DF9E862546A0AA00217610 /* FullTestViewController.m */; };
 		18ECB61B2501E9F100E21A25 /* TestScaleHeadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18ECB61A2501E9F100E21A25 /* TestScaleHeadViewController.m */; };
 		9B4FAFA3228BC022004C8E52 /* BTUserMananger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B4FAFA0228BC022004C8E52 /* BTUserMananger.m */; };
 		9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6B22222C2DD007A02C1 /* AppDelegate.m */; };
@@ -46,6 +47,8 @@
 		1885DB95250619C900468F72 /* TestLogViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestLogViewController.h; sourceTree = "<group>"; };
 		1885DB96250619C900468F72 /* TestLogViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestLogViewController.m; sourceTree = "<group>"; };
 		1885DB97250619C900468F72 /* TestLogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TestLogViewController.xib; sourceTree = "<group>"; };
+		18DF9E852546A0AA00217610 /* FullTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FullTestViewController.h; sourceTree = "<group>"; };
+		18DF9E862546A0AA00217610 /* FullTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FullTestViewController.m; sourceTree = "<group>"; };
 		18ECB6192501E9F100E21A25 /* TestScaleHeadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestScaleHeadViewController.h; sourceTree = "<group>"; };
 		18ECB61A2501E9F100E21A25 /* TestScaleHeadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestScaleHeadViewController.m; sourceTree = "<group>"; };
 		6A614AA6110376E8AE8FEFAC /* Pods-BTCoreExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BTCoreExample.release.xcconfig"; path = "Target Support Files/Pods-BTCoreExample/Pods-BTCoreExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 				181CB45E250F08AD000B19A4 /* GCDViewController.h */,
 				181CB45F250F08AD000B19A4 /* GCDViewController.m */,
 				181CB460250F08AD000B19A4 /* GCDViewController.xib */,
+				18DF9E852546A0AA00217610 /* FullTestViewController.h */,
+				18DF9E862546A0AA00217610 /* FullTestViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				9B78C6DC2222C87B007A02C1 /* BTHttp.m in Sources */,
 				181CB461250F08AD000B19A4 /* GCDViewController.m in Sources */,
 				9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */,
+				18DF9E872546A0AA00217610 /* FullTestViewController.m in Sources */,
 				9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */,
 				9BB2FDE02283BE5C00991905 /* BTCoreConfig.m in Sources */,
 				187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */,
