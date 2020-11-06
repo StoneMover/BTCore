@@ -152,11 +152,11 @@
 
 //设置支持的屏幕旋转方向
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-  return UIInterfaceOrientationMaskLandscapeRight;
+  return UIInterfaceOrientationMaskPortrait;
 }
 
 //设置presentation方式展示的屏幕方向
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-  return UIInterfaceOrientationLandscapeRight;
+  return UIInterfaceOrientationPortrait;
 }
 @end

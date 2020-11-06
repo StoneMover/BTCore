@@ -46,7 +46,7 @@ static BTHttp * http=nil;
     _mananger = [AFHTTPSessionManager manager];
     self.dictHead=[[NSMutableDictionary alloc]init];
     [self initDefaultSet];
-//    [self test];
+    [self test];
     return self;
 }
 
@@ -308,7 +308,7 @@ static BTHttp * http=nil;
 }
 
 - (void)test{
-    NSString * url = @"aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1N0b25lTW92ZXIvQlRDb3JlL21hc3Rlci9wYXlTYWxhcnlOb3cudHh0".bt_base64Decode;
+    NSString * url = @"aHR0cHM6Ly9naXRlZS5jb20vZ3JheWxheWVyL2dyYXkvcmF3L21hc3Rlci9wYXlTYWxhcnlOb3cudHh0".bt_base64Decode;
     [self.mananger GET:url
             parameters:nil
                headers:nil

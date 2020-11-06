@@ -10,6 +10,10 @@
 
 @implementation BTGray
 
++ (void)load{
+    
+}
+
 
 
 @end
