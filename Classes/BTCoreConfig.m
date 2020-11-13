@@ -128,7 +128,7 @@ static BTCoreConfig * config=nil;
     self.defaultNavRightBarItemFont=[UIFont systemFontOfSize:15 weight:UIFontWeightBold];
     self.defaultNavRightBarItemColor=UIColor.blackColor;
     
-    self.navItemPadding = 5;
+    self.navItemPadding = 0;
     
     return self;
 }

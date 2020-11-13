@@ -9,6 +9,7 @@
 #import "UIViewController+BTNavSet.h"
 #import <BTHelp/UIImage+BTImage.h>
 #import "BTCoreConfig.h"
+#import <BTHelp/BTUtils.h>
 
 @implementation UIViewController (BTNavSet)
 
@@ -107,6 +108,36 @@
 
 - (void)setItemPadding:(CGFloat)padding{
     UINavigationBar * navBar=self.navigationController.navigationBar;
+    
+    if (BTUtils.SYS_VERION >= 13) {
+        for (UIView * view in navBar.subviews) {
+            if ([NSStringFromClass(view.class) isEqualToString:@"_UINavigationBarContentView"]) {
+                for (UILayoutGuide * guide in view.layoutGuides) {
+                    if ([guide.identifier hasPrefix:@"BackButtonGuide"]) {
+                        NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
+                        for (NSLayoutConstraint * c in array) {
+                            NSLog(@"%f",c.constant);
+                            if (BTCoreConfig.share.navItemPaddingBlock(c)) {
+                                if (c.constant > 0) {
+                                    c.constant=padding;
+                                }else{
+                                    c.constant=-padding;
+                                }
+                            }
+                        }
+                        
+                        break;
+                    }
+                    
+                }
+                break;
+            }
+            
+        }
+        
+        return;
+    }
+    
     for (UIView * view in navBar.subviews) {
         for (NSLayoutConstraint *c  in view.constraints) {
 //            NSLog(@"%f",c.constant);
@@ -142,9 +173,7 @@
 }
 
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self updateNavItem];
-    });
+    [self updateNavItem];
     return [self getLeftBarItem];
 }
 
