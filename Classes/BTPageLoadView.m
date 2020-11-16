@@ -291,7 +291,7 @@
         _isNeedHeadRefresh=isNeedHeadRefresh;
         if (isNeedHeadRefresh) {
             __weak BTPageLoadView * weakSelf=self;
-            if (self.delegate && [self.delegate BTPageLoadRefreshHeader:self]) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadRefreshHeader:)]) {
                 self.scrollView.mj_header = [self.delegate BTPageLoadRefreshHeader:self];
                 self.scrollView.mj_header.refreshingBlock = ^{
                     [weakSelf headRefreshLoad];
