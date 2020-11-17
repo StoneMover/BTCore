@@ -109,7 +109,7 @@
 - (void)setItemPadding:(CGFloat)padding{
     UINavigationBar * navBar=self.navigationController.navigationBar;
     
-    if (BTUtils.SYS_VERION >= 13) {
+    if (@available(iOS 13.0, *)) {
         for (UIView * view in navBar.subviews) {
             if ([NSStringFromClass(view.class) isEqualToString:@"_UINavigationBarContentView"]) {
                 for (UILayoutGuide * guide in view.layoutGuides) {
