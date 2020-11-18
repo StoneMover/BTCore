@@ -278,6 +278,19 @@
     }
 }
 
+#pragma mark 解决https加载问题
+- (void)webView:(WKWebView*)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge*)challenge completionHandler:(void(^)(NSURLSessionAuthChallengeDisposition,NSURLCredential*_Nullable))completionHandler{
+
+   if([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]){
+
+       NSURLCredential *card = [[NSURLCredential alloc] initWithTrust:challenge.protectionSpace.serverTrust];
+
+       completionHandler(NSURLSessionAuthChallengeUseCredential,card);
+
+   }
+
+}
+
 #pragma mark kvo
 
 - (void)bt_loadingReload{
