@@ -13,17 +13,7 @@
 
 @implementation UIViewController (BTNavSet)
 
-- (void)initTitle:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
-    self.title=title;
-    self.navigationController.navigationBar.titleTextAttributes=@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} ;
-}
-- (void)initTitle:(NSString *)title color:(UIColor *)color{
-    [self initTitle:title color:color font:[BTCoreConfig share].defaultNavTitleFont];
-}
-- (void)initTitle:(NSString *)title{
-    //这个里的color可以根据项目的主题色调一下
-    [self initTitle:title color:[BTCoreConfig share].defaultNavTitleColor font:[BTCoreConfig share].defaultNavTitleFont];
-}
+
 
 - (UIBarButtonItem*)createItemStr:(NSString*)title
                             color:(UIColor*)color
@@ -58,6 +48,17 @@
     return [[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:target action:action];
 }
 
+
+- (void)initTitle:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
+    self.title=title;
+    self.navigationController.navigationBar.titleTextAttributes=@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} ;
+}
+- (void)initTitle:(NSString *)title color:(UIColor *)color{
+    [self initTitle:title color:color font:[BTCoreConfig share].defaultNavTitleFont];
+}
+- (void)initTitle:(NSString *)title{
+    [self initTitle:title color:[BTCoreConfig share].defaultNavTitleColor font:[BTCoreConfig share].defaultNavTitleFont];
+}
 
 
 - (void)initRightBarStr:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
@@ -100,29 +101,121 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)initCustomeItem:(NavItemType)type str:(NSArray<NSString*>*)strs{
+    CGSize size = [self customeItemSize:type];
+    CGFloat padding = [self customePadding:type];
+    UIFont * font = [self customeFont:type];
+    UIColor * color = [self customeStrColor:type];
+    UIView * parentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width * strs.count + (strs.count - 1) * padding, size.height)];
+    NSInteger index = 0;
+    for (NSString * str in strs) {
+        UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(index * (size.width + padding), 0, size.width, size.height)];
+        [btn setTitle:str forState:UIControlStateNormal];
+        [btn setTitleColor:color forState:UIControlStateNormal];
+        btn.titleLabel.font = font;
+        btn.tag = index;
+        [parentView addSubview:btn];
+        if (type == NavItemTypeRight) {
+            [btn addTarget:self action:@selector(customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
+        }else if(type == NavItemTypeLeft){
+            [btn addTarget:self action:@selector(customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        index++;
+    }
+    
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:parentView];
+    if (type == NavItemTypeRight) {
+        self.navigationItem.rightBarButtonItem = item;
+    }else if(type == NavItemTypeLeft){
+        self.navigationItem.rightBarButtonItem = item;
+    }
+}
 
+- (void)initCustomeItem:(NavItemType)type img:(NSArray<UIImage*>*)imgs{
+    CGSize size = [self customeItemSize:type];
+    CGFloat padding = [self customePadding:type];
+    UIView * parentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width * imgs.count + (imgs.count - 1) * padding, size.height)];
+    NSInteger index = 0;
+    for (UIImage * img in imgs) {
+        UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(index * (size.width + padding), 0, size.width, size.height)];
+        [btn setImage:img forState:UIControlStateNormal];
+        btn.tag = index;
+        [parentView addSubview:btn];
+        if (type == NavItemTypeRight) {
+            [btn addTarget:self action:@selector(customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
+        }else if(type == NavItemTypeLeft){
+            [btn addTarget:self action:@selector(customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        index++;
+    }
+    if (type == NavItemTypeRight) {
+        self.navigationItem.leftBarButtonItem.customView = parentView;
+    }else if(type == NavItemTypeLeft){
+        self.navigationItem.rightBarButtonItem.customView = parentView;
+    }
+}
+
+- (CGSize)customeItemSize:(NavItemType)type{
+    return CGSizeMake(44, 44);
+}
+- (CGFloat)customePadding:(NavItemType)type{
+    return 0;
+}
+
+- (UIFont *)customeFont:(NavItemType)type{
+    if (type == NavItemTypeLeft) {
+        return BTCoreConfig.share.defaultNavLeftBarItemFont;
+    }
+    return BTCoreConfig.share.defaultNavRightBarItemFont;
+}
+
+- (UIColor*)customeStrColor:(NavItemType)type{
+    if (type == NavItemTypeLeft) {
+        return BTCoreConfig.share.defaultNavLeftBarItemColor;
+    }
+    return BTCoreConfig.share.defaultNavRightBarItemColor;
+}
+
+- (void)customeItemLeftClick:(UIButton*)btn{
+    [self customeItemClick:NavItemTypeLeft index:btn.tag];
+}
+
+- (void)customeItemRightClick:(UIButton*)btn{
+    [self customeItemClick:NavItemTypeRight index:btn.tag];
+}
+
+- (void)customeItemClick:(NavItemType)type index:(NSInteger)index{
+    
+}
 
 - (void)setItemPaddingDefault{
-    [self setItemPadding:BTCoreConfig.share.navItemPadding];
+    [self setItemPadding:[self bt_NavItemPadding:NavItemTypeLeft]
+            rightPadding:[self bt_NavItemPadding:NavItemTypeRight]];
 }
 
 - (void)setItemPadding:(CGFloat)padding{
+    [self setItemPadding:padding rightPadding:padding];
+}
+
+- (void)setItemPadding:(CGFloat)leftPadding rightPadding:(CGFloat)rightPadding{
     UINavigationBar * navBar=self.navigationController.navigationBar;
     
-    if (@available(iOS 13.0, *)) {
+    if (@available(iOS 12.0, *)) {
         for (UIView * view in navBar.subviews) {
             if ([NSStringFromClass(view.class) isEqualToString:@"_UINavigationBarContentView"]) {
                 for (UILayoutGuide * guide in view.layoutGuides) {
+                    NSLog(@"%@",guide.identifier);
                     if ([guide.identifier hasPrefix:@"BackButtonGuide"]) {
                         NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
                         for (NSLayoutConstraint * c in array) {
                             NSLog(@"%f",c.constant);
                             if (BTCoreConfig.share.navItemPaddingBlock(c)) {
                                 if (c.constant > 0) {
-                                    c.constant=padding;
+                                    c.constant=leftPadding;
                                 }else{
-                                    c.constant=-padding;
+                                    c.constant=-leftPadding;
                                 }
+                                break;
                             }
                         }
                         
@@ -130,6 +223,30 @@
                     }
                     
                 }
+                
+                if (self.navigationItem.rightBarButtonItem || self.navigationItem.rightBarButtonItems) {
+                    for (UILayoutGuide * guide in view.layoutGuides) {
+                        NSLog(@"%@",guide.identifier);
+                        if ([guide.identifier hasPrefix:@"TrailingBarGuide"]) {
+                            NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
+                            for (NSLayoutConstraint * c in array) {
+                                NSLog(@"%f",c.constant);
+                                if (BTCoreConfig.share.navItemPaddingBlock(c)) {
+                                    if (c.constant > 0) {
+                                        c.constant=rightPadding;
+                                    }else{
+                                        c.constant=-rightPadding;
+                                    }
+                                    break;
+                                }
+                            }
+                            
+                            break;
+                        }
+                        
+                    }
+                }
+                
                 break;
             }
             
@@ -143,9 +260,9 @@
 //            NSLog(@"%f",c.constant);
             if (BTCoreConfig.share.navItemPaddingBlock(c)) {
                 if (c.constant > 0) {
-                    c.constant=padding;
+                    c.constant=leftPadding;
                 }else{
-                    c.constant=-padding;
+                    c.constant=-leftPadding;
                 }
             }
         }
@@ -173,16 +290,15 @@
 }
 
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action{
-    [self updateNavItem];
-    return [self getLeftBarItem];
-}
-
-- (UIBarButtonItem*)getLeftBarItem{
-    return [self createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
-}
-
-- (void)updateNavItem{
     [self setItemPaddingDefault];
+    UIBarButtonItem * item = [self createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
+    return item;
+}
+
+
+
+- (CGFloat)bt_NavItemPadding:(NavItemType)type{
+    return BTCoreConfig.share.navItemPadding;
 }
 
 

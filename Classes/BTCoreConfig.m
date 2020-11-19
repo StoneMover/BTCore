@@ -109,9 +109,25 @@ static BTCoreConfig * config=nil;
     };
     
     self.navItemPaddingBlock = ^BOOL(NSLayoutConstraint *constraint) {
-        if (fabs(constraint.constant)==12||fabs(constraint.constant)==8||fabs(constraint.constant)==16) {
+        //375宽度屏幕左边距是8，右边距是-16
+        if (fabs(constraint.constant)==8) {
             return YES;
         }
+        
+        if (fabs(constraint.constant)==16) {
+            return YES;
+        }
+        
+        
+        //414宽度屏幕锁边距是12，右边距是-20
+        if (fabs(constraint.constant)==12) {
+            return YES;
+        }
+        
+        if (fabs(constraint.constant) == 20) {
+            return YES;
+        }
+        
         return NO;
     };
     
@@ -128,7 +144,7 @@ static BTCoreConfig * config=nil;
     self.defaultNavRightBarItemFont=[UIFont systemFontOfSize:15 weight:UIFontWeightBold];
     self.defaultNavRightBarItemColor=UIColor.blackColor;
     
-    self.navItemPadding = 0;
+    self.navItemPadding = 5;
     
     return self;
 }
