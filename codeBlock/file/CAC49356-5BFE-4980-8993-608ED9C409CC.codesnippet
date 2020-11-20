@@ -3,26 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string></string>
+	<string>BTNetBlock</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>public static func &lt;#String#&gt;(_ successBlock:@escaping BTNetSuccessBlcok,_ failBlock:@escaping BTNetFailFullBlock) -&gt; Void {
-        
-    }</string>
+	<string>successBlock:@escaping BTNetSuccessBlcok, failBlock:@escaping BTNetFailFullBlock</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>0D10B41B-BD7A-4154-B69C-F41A205A87D5</string>
+	<string>CAC49356-5BFE-4980-8993-608ED9C409CC</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string></string>
+	<string>方法block参数</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>BTSign</string>
+	<string>BTNetBlock</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

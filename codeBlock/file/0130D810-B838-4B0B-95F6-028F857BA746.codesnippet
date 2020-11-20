@@ -3,33 +3,46 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>SMNetList</string>
+	<string>SMNet</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>BTHttp * request=[BTHttp share];
+	<string>[BTProgress showLoading:@""];
+BTHttp * request=[BTHttp share];
 NSMutableDictionary * dict=[self defaultDict];
-[dict setValue:[BTUtils SAFE_STR:&lt;#String#&gt;] forKey:&lt;#String#&gt;];
+[dict setValue:[BTUtils SAFE_STR:&lt;#String#&gt;] forKey:@"&lt;#String#&gt;"];
 NSString * url =[self getUrlFunction:@"&lt;#String#&gt;"];
 [request POST:url parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-    if (success) {
-        success(responseObject);
+    [BTProgress hideLoading];
+    if ([self isSuccess:responseObject]) {
+        if (success) {
+            success(responseObject);
+        }
+    }else{
+        if(fail){
+            fail(nil,[self errorInfo:responseObject]);
+        }else{
+            [BTToast showErrorInfo:[self errorInfo:responseObject]];
+        }
     }
 } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+    [BTProgress hideLoading];
     if (fail) {
         fail(error,nil);
+    }else{
+        [BTToast showErrorObj:error];
     }
 }];</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>70E7D27F-F584-4BC9-9439-B961569416B4</string>
+	<string>0130D810-B838-4B0B-95F6-028F857BA746</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Generic</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>数据列表请求</string>
+	<string>一个基本的请求</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SMNetList</string>
+	<string>SMNet</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

@@ -9,15 +9,16 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>let request = BTHttp.share()
-        let dict=defaultDict()
-        dict!.setValue(BTUtils.safe_STR("&lt;#String#&gt;"), forKey: "&lt;#String#&gt;")
+	<string>        let request = BTHttp.share()
+        let dict = defaultPageDict(&lt;#String#&gt;)
+        dict.setValue(&lt;#String#&gt;, forKey: "&lt;#String#&gt;")
         let url = getUrlFunction("&lt;#String#&gt;")
-        request.post(url!, parameters: dict!, success: { (task, response) in
-            if isSuccess(response as? [AnyHashable : Any]){
-                successBlock(response)
+        request.post(url, parameters: dict, success: { (task, response) in
+            let dataDict = response as? [AnyHashable : Any]
+            if isSuccess(dataDict){
+                successBlock(dataDict!)
             }else{
-                failBlock(nil,errorCode(response as? [AnyHashable : Any]),errorInfo(response as? [AnyHashable : Any]))
+                failBlock(nil,errorCode(dataDict),errorInfo(dataDict))
             }
         },failure: { (task, error) in
             failBlock(error,-1,nil)
@@ -33,6 +34,6 @@
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

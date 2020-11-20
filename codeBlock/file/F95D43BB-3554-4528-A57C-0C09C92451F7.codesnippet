@@ -3,26 +3,24 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>BTNetFunction</string>
+	<string>SMNetNewParameter</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>public static func &lt;#String#&gt;(_ successBlock:@escaping BTNetSuccessBlcok,_ failBlock:@escaping BTNetFailFullBlock) -&gt; Void {
-        
-    }</string>
+	<string>[dict setValue:[BTUtils SAFE_STR:&lt;#String#&gt;] forKey:@"&lt;#String#&gt;"];</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>A182F733-804F-49A9-9121-4ABE7FB5BD0E</string>
+	<string>F95D43BB-3554-4528-A57C-0C09C92451F7</string>
 	<key>IDECodeSnippetLanguage</key>
-	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<string>Xcode.SourceCodeLanguage.Generic</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>网络请求方法</string>
+	<string>网络请求中新参数设置</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>BTNetFunction</string>
+	<string>SMNetNewParameter</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>0</integer>
+	<integer>2</integer>
 </dict>
 </plist>

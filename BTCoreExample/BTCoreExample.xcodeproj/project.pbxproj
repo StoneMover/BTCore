@@ -10,6 +10,7 @@
 		181CB461250F08AD000B19A4 /* GCDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 181CB45F250F08AD000B19A4 /* GCDViewController.m */; };
 		181CB462250F08AD000B19A4 /* GCDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181CB460250F08AD000B19A4 /* GCDViewController.xib */; };
 		184FBD322508AD6A00FDDED2 /* TestWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */; };
+		186C6CDD2567C36D00FCECE5 /* TestNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C6CDC2567C36D00FCECE5 /* TestNet.m */; };
 		187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E0A2D247E5CA000AAFCCE /* BTGray.m */; };
 		187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187EB2F3250089F000399AF5 /* BTPageLoadView.m */; };
 		1885DB942506131F00468F72 /* BTLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885DB932506131F00468F72 /* BTLogView.m */; };
@@ -38,6 +39,8 @@
 		181CB460250F08AD000B19A4 /* GCDViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GCDViewController.xib; sourceTree = "<group>"; };
 		184FBD302508AD6A00FDDED2 /* TestWindowViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestWindowViewController.h; sourceTree = "<group>"; };
 		184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestWindowViewController.m; sourceTree = "<group>"; };
+		186C6CDB2567C36D00FCECE5 /* TestNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestNet.h; sourceTree = "<group>"; };
+		186C6CDC2567C36D00FCECE5 /* TestNet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestNet.m; sourceTree = "<group>"; };
 		187E0A2C247E5CA000AAFCCE /* BTGray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTGray.h; sourceTree = "<group>"; };
 		187E0A2D247E5CA000AAFCCE /* BTGray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTGray.m; sourceTree = "<group>"; };
 		187EB2F2250089F000399AF5 /* BTPageLoadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTPageLoadView.h; sourceTree = "<group>"; };
@@ -92,9 +95,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		186C6CDA2567C35E00FCECE5 /* net */ = {
+			isa = PBXGroup;
+			children = (
+				186C6CDB2567C36D00FCECE5 /* TestNet.h */,
+				186C6CDC2567C36D00FCECE5 /* TestNet.m */,
+			);
+			path = net;
+			sourceTree = "<group>";
+		};
 		187EB2F52500CBC300399AF5 /* test */ = {
 			isa = PBXGroup;
 			children = (
+				186C6CDA2567C35E00FCECE5 /* net */,
 				187EB2F72500CD7E00399AF5 /* controller */,
 				187EB2F62500CBC800399AF5 /* view */,
 			);
@@ -339,6 +352,7 @@
 				9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */,
 				18DF9E872546A0AA00217610 /* FullTestViewController.m in Sources */,
 				9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */,
+				186C6CDD2567C36D00FCECE5 /* TestNet.m in Sources */,
 				9BB2FDE02283BE5C00991905 /* BTCoreConfig.m in Sources */,
 				187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */,
 			);

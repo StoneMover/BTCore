@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>BTPush</string>
+	<string>BTNetFunction</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>self.navigationController?.pushViewController(&lt;#ViewController#&gt;, animated: true)</string>
+	<string>public static func &lt;#String#&gt;( successBlock:@escaping BTNetSuccessBlcok,failBlock:@escaping BTNetFailFullBlock) -&gt; Void {
+        
+    }</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>7CEB670E-E42F-4E54-B274-306BFD2A13C7</string>
+	<string>A182F733-804F-49A9-9121-4ABE7FB5BD0E</string>
 	<key>IDECodeSnippetLanguage</key>
-	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>跳转至下一个vc</string>
+	<string>网络请求方法</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>BTPush</string>
+	<string>BTNetFunction</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

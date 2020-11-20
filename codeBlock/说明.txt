@@ -1,0 +1,42 @@
+xcode 中代码块存放位置
+
+~/Library/Developer/Xcode/UserData/CodeSnippets
+
+File文件夹中保存的为自己定义的代码块文件，以SM（用于object-c）和BT（用于swift）。
+
+BTNetFunction 无参数的请求方法
+BTNetBlock 方法参数中的block
+BTNet 用于网络请求
+BTNetList 用于列表的网络请求
+BTNetNewParameter 创建新的参数行
+
+BTClosure 闭包快捷键
+BTMark 快速实现mark标记
+BTCollectionViewDelegate 快速实现collectionView 的代理方法
+BTTableViewDelegate 快速实现tableView 的代理方法
+
+SMImport 导入.h文件
+SMAssign 快速实现assign属性
+SMCopy 快速实现copy属性
+SMStrong 快速实现strong属性
+SMWeak 快速实现weak属性
+SMMark 快速实现mark标记
+
+SMNetFunc 无参数的请求方法
+SMNetBlock 方法参数中的block
+SMNet 用于网络请求
+SMNetList 用于列表的网络请求
+SMNetNewParameter 创建新的参数行
+
+
+SMCollectionDelegate 快速实现collectionView 的代理方法
+SMTableViewDefaultConfig tableView 的基本设置
+SMTableViewDelegate 快速实现tableView 的代理方法
+SMTableViewDelegateSection 快速实现tableView section 的代理方法
+SMTableViewSlideDel 快速实现tableView 侧滑删除 的代理方法
+
+SMWeakSelf 快速实现对自己弱引用的代码
+ 
+SMProtocol 快速生成协议
+SMPushVc 快速跳转到下一个界面
+

@@ -11,11 +11,11 @@
 	<key>IDECodeSnippetContents</key>
 	<string>#pragma mark tableView data delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [self.dataArray count];
+    return self.pageLoadView.dataArray.count;
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell=[tableView dequeueReusableCellWithIdentifier:@"&lt;#String#&gt;Id"];
+    UITableViewCell * cell=[tableView dequeueReusableCellWithIdentifier:self.pageLoadView.cellId];
     return cell;
 }
 
@@ -27,8 +27,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 50;
-}</string>
+    return 75;
+}
+</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>E6B7CFD7-2BE6-45B5-910B-560C41208256</string>
 	<key>IDECodeSnippetLanguage</key>

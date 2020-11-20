@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>SMSetParameter</string>
+	<string>SMNetFunc</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>[dict setValue:[BTUtils SAFE_STR:&lt;#String#&gt;] forKey:&lt;#String#&gt;];</string>
+	<string>+ (void)&lt;#String#&gt;:(BTNetSuccessBlcok)success fail:(BTNetFailBlock)fail;</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>F95D43BB-3554-4528-A57C-0C09C92451F7</string>
+	<string>2E1970E3-C88D-436D-A065-6B9F0921DE07</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Generic</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>网络请求中新参数设置</string>
+	<string>无参数网络请求回调</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SMNewParameter</string>
+	<string>SMNetFunc</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>

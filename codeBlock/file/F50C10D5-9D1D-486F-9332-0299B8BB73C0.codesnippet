@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>BTNetBlock</string>
+	<string>BTNetNewParameter</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>_ successBlock:@escaping BTNetSuccessBlcok,_ failBlock:@escaping BTNetFailFullBlock</string>
+	<string>dict.setValue(&lt;#String#&gt;, forKey: "&lt;#String#&gt;")</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>CAC49356-5BFE-4980-8993-608ED9C409CC</string>
+	<string>F50C10D5-9D1D-486F-9332-0299B8BB73C0</string>
 	<key>IDECodeSnippetLanguage</key>
 	<string>Xcode.SourceCodeLanguage.Swift</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>方法block参数</string>
+	<string>新的参数</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>BTNetBlock</string>
+	<string>BTNetNewParameter</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
