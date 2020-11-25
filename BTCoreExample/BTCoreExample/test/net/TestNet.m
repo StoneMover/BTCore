@@ -7,8 +7,7 @@
 //
 
 #import "TestNet.h"
-#import <BTLoading/BTLoading.h>    <#Class#> * vc=[<#Class#> new];
-[self.navigationController pushViewController:vc animated:YES];
+#import <BTLoading/BTLoading.h>
 #import <BTHelp/BTUtils.h>
 
 @implementation TestNet

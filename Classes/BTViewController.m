@@ -192,7 +192,7 @@
 - (void)initProgressView{
     self.progressView = [[BTProgressView alloc] initBTViewWithSize:CGSizeMake(BTUtils.SCREEN_W, 2)];
     self.progressView.backgroundColor = UIColor.clearColor;
-    self.progressView.progressView.backgroundColor = self.progressViewColor ? self.progressViewColor : UIColor.redColor;
+    self.progressView.progressColor = self.progressViewColor ? self.progressViewColor : UIColor.redColor;
     [self.view addSubview:self.progressView];
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
     self.progressView.percent = 0.05;
