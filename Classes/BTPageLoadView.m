@@ -141,39 +141,19 @@
     if (dataDict == nil || [dataDict isKindOfClass:[NSNull class]]) {
         dataDict = [NSArray new];
     }
-    [self endHeadRefresh];
-    [self endFootRefresh];
-    if (self.isRefresh) {
-        [self.dataArray removeAllObjects];
-        _isRefresh=NO;
-    }
     
-    [self autoAnalyses:dataDict class:cls];
-    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
-        if (self.loadingHelp) {
-            if(dataDict.count==0){
-                [self.loadingHelp showEmpty];
-                _pageNumber--;
-            }else{
-                [self.loadingHelp dismiss];
-            }
-        }else{
-            if(dataDict.count==0){
-                _pageNumber--;
-                if (self.isToastWhenDataEmpty) {
-                    [BTToast show:@"暂无数据"];
-                }
-            }
+    NSMutableArray * dataArray = [NSMutableArray new];
+    NSInteger index=0;
+    for (NSDictionary * dict in dataDict) {
+        BTModel * modelChild=[[cls alloc]init];
+        [modelChild analisys:dict];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadCreate:obj:dict:index:)]) {
+            [self.delegate BTPageLoadCreate:self obj:modelChild dict:dict index:index];
         }
+        [dataArray addObject:modelChild];
+        index++;
     }
-    self.isLoadFinish=dataDict.count < self.loadFinishDataNum;
-    _pageNumber++;
-    if (self.tableView) {
-        [self.tableView reloadData];
-    }
-    if (self.collectionView) {
-        [self.collectionView reloadData];
-    }
+    [self autoLoadSuccess:dataArray];
 }
 
 - (void)autoLoadSuccess:(NSArray *)dataArray{
@@ -185,7 +165,7 @@
     }
     
     [self.dataArray addObjectsFromArray:dataArray];
-    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage) {
+    if (self.pageNumber == [BTCoreConfig share].pageLoadStartPage) {
         if (self.loadingHelp) {
             if(dataArray.count==0){
                 [self.loadingHelp showEmpty];
@@ -196,7 +176,7 @@
         }else{
             if(dataArray.count==0){
                 _pageNumber--;
-                [BTToast show:@"暂无数据"];
+                [self emptyDataToast];
             }
         }
     }
@@ -249,19 +229,6 @@
     }
     
     [BTToast showErrorInfo:info];
-}
-
-- (void)autoAnalyses:(NSArray<NSDictionary*>*)dataDict class:(Class)cla{
-    NSInteger index=0;
-    for (NSDictionary * dict in dataDict) {
-        BTModel * modelChild=[[cla alloc]init];
-        [modelChild analisys:dict];
-        if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadCreate:obj:dict:index:)]) {
-            [self.delegate BTPageLoadCreate:self obj:modelChild dict:dict index:index];
-        }
-        [self.dataArray addObject:modelChild];
-        index++;
-    }
 }
 
 
@@ -445,5 +412,17 @@
     }
 }
 
+- (void)emptyDataToast{
+    if (!self.isToastWhenDataEmpty) {
+        return;
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadEmptyDataToast)]) {
+        [self.delegate BTPageLoadEmptyDataToast];
+        return;
+    }
+    
+    [BTToast show:@"暂无数据"];
+}
 
 @end

@@ -63,6 +63,9 @@ NS_ASSUME_NONNULL_BEGIN
 //上拉加载的footer
 - (MJRefreshFooter*)BTPageLoadRefreshFooter:(BTPageLoadView*)loadView;
 
+//空数据Toast执行方法，需要自定义可重写方法
+- (void)BTPageLoadEmptyDataToast;
+
 @end
 
 @interface BTPageLoadView : UIView
