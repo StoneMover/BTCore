@@ -11,7 +11,6 @@
 		181CB462250F08AD000B19A4 /* GCDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 181CB460250F08AD000B19A4 /* GCDViewController.xib */; };
 		184FBD322508AD6A00FDDED2 /* TestWindowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */; };
 		186C6CDD2567C36D00FCECE5 /* TestNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 186C6CDC2567C36D00FCECE5 /* TestNet.m */; };
-		187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */ = {isa = PBXBuildFile; fileRef = 187E0A2D247E5CA000AAFCCE /* BTGray.m */; };
 		187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 187EB2F3250089F000399AF5 /* BTPageLoadView.m */; };
 		1885DB942506131F00468F72 /* BTLogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885DB932506131F00468F72 /* BTLogView.m */; };
 		1885DB98250619C900468F72 /* TestLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885DB96250619C900468F72 /* TestLogViewController.m */; };
@@ -27,8 +26,6 @@
 		9B78C6C12222C2DE007A02C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6C02222C2DE007A02C1 /* main.m */; };
 		9B78C6DA2222C87B007A02C1 /* BTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6CA2222C87B007A02C1 /* BTViewController.m */; };
 		9B78C6DC2222C87B007A02C1 /* BTHttp.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D22222C87B007A02C1 /* BTHttp.m */; };
-		9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */; };
-		9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */; };
 		9BB2FDE02283BE5C00991905 /* BTCoreConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BB2FDDE2283BE5C00991905 /* BTCoreConfig.m */; };
 		E5D9C3B2723B7699AEEE4CE7 /* Pods_BTCoreExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C9B10C47BD8BD79DAB8C93 /* Pods_BTCoreExample.framework */; };
 /* End PBXBuildFile section */
@@ -41,8 +38,6 @@
 		184FBD312508AD6A00FDDED2 /* TestWindowViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestWindowViewController.m; sourceTree = "<group>"; };
 		186C6CDB2567C36D00FCECE5 /* TestNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestNet.h; sourceTree = "<group>"; };
 		186C6CDC2567C36D00FCECE5 /* TestNet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestNet.m; sourceTree = "<group>"; };
-		187E0A2C247E5CA000AAFCCE /* BTGray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTGray.h; sourceTree = "<group>"; };
-		187E0A2D247E5CA000AAFCCE /* BTGray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTGray.m; sourceTree = "<group>"; };
 		187EB2F2250089F000399AF5 /* BTPageLoadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTPageLoadView.h; sourceTree = "<group>"; };
 		187EB2F3250089F000399AF5 /* BTPageLoadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTPageLoadView.m; sourceTree = "<group>"; };
 		1885DB922506131F00468F72 /* BTLogView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTLogView.h; sourceTree = "<group>"; };
@@ -70,12 +65,8 @@
 		9B78C6C02222C2DE007A02C1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9B78C6CA2222C87B007A02C1 /* BTViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTViewController.m; sourceTree = "<group>"; };
 		9B78C6CB2222C87B007A02C1 /* BTHttp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTHttp.h; sourceTree = "<group>"; };
-		9B78C6CF2222C87B007A02C1 /* UIViewController+BTNavSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BTNavSet.h"; sourceTree = "<group>"; };
-		9B78C6D12222C87B007A02C1 /* UIViewController+BTDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BTDialog.h"; sourceTree = "<group>"; };
 		9B78C6D22222C87B007A02C1 /* BTHttp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTHttp.m; sourceTree = "<group>"; };
 		9B78C6D32222C87B007A02C1 /* BTViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTViewController.h; sourceTree = "<group>"; };
-		9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BTNavSet.m"; sourceTree = "<group>"; };
-		9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BTDialog.m"; sourceTree = "<group>"; };
 		9BB2FDDE2283BE5C00991905 /* BTCoreConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTCoreConfig.m; sourceTree = "<group>"; };
 		9BB2FDDF2283BE5C00991905 /* BTCoreConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTCoreConfig.h; sourceTree = "<group>"; };
 		9BE4A66D222678820025FD36 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -186,17 +177,11 @@
 				9B78C6D22222C87B007A02C1 /* BTHttp.m */,
 				187EB2F2250089F000399AF5 /* BTPageLoadView.h */,
 				187EB2F3250089F000399AF5 /* BTPageLoadView.m */,
-				9B78C6CF2222C87B007A02C1 /* UIViewController+BTNavSet.h */,
-				9B78C6D72222C87B007A02C1 /* UIViewController+BTNavSet.m */,
-				9B78C6D12222C87B007A02C1 /* UIViewController+BTDialog.h */,
-				9B78C6D82222C87B007A02C1 /* UIViewController+BTDialog.m */,
 				9B4FAFA1228BC022004C8E52 /* BTUserMananger.h */,
 				9B4FAFA0228BC022004C8E52 /* BTUserMananger.m */,
 				9B61A266223A551A00A209A5 /* BTCore.h */,
 				9BB2FDDF2283BE5C00991905 /* BTCoreConfig.h */,
 				9BB2FDDE2283BE5C00991905 /* BTCoreConfig.m */,
-				187E0A2C247E5CA000AAFCCE /* BTGray.h */,
-				187E0A2D247E5CA000AAFCCE /* BTGray.m */,
 				1885DB922506131F00468F72 /* BTLogView.h */,
 				1885DB932506131F00468F72 /* BTLogView.m */,
 			);
@@ -342,16 +327,13 @@
 				18ECB61B2501E9F100E21A25 /* TestScaleHeadViewController.m in Sources */,
 				9B78C6C12222C2DE007A02C1 /* main.m in Sources */,
 				184FBD322508AD6A00FDDED2 /* TestWindowViewController.m in Sources */,
-				9B78C6DF2222C87B007A02C1 /* UIViewController+BTNavSet.m in Sources */,
 				9B4FAFA3228BC022004C8E52 /* BTUserMananger.m in Sources */,
-				187E0A2E247E5CA000AAFCCE /* BTGray.m in Sources */,
 				1885DB942506131F00468F72 /* BTLogView.m in Sources */,
 				9B78C6DA2222C87B007A02C1 /* BTViewController.m in Sources */,
 				9B78C6DC2222C87B007A02C1 /* BTHttp.m in Sources */,
 				181CB461250F08AD000B19A4 /* GCDViewController.m in Sources */,
 				9B78C6B32222C2DD007A02C1 /* AppDelegate.m in Sources */,
 				18DF9E872546A0AA00217610 /* FullTestViewController.m in Sources */,
-				9B78C6E02222C87B007A02C1 /* UIViewController+BTDialog.m in Sources */,
 				186C6CDD2567C36D00FCECE5 /* TestNet.m in Sources */,
 				9BB2FDE02283BE5C00991905 /* BTCoreConfig.m in Sources */,
 				187EB2F4250089F000399AF5 /* BTPageLoadView.m in Sources */,

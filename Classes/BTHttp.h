@@ -9,6 +9,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
+#import <BTHelp/BTModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @interface BTHttp : NSObject
@@ -144,6 +145,26 @@ typedef void(^BTNetFailFullBlock)(NSError * _Nullable error,NSInteger code,NSStr
 
 //获取图片拼接地址的完整url，传入拼接的url，如果不需要拼接则[BTCoreConfig share].imgRootUrl不设置即可
 + (NSURL*)getImgResultUrl:(NSString*_Nullable)url;
+
+
+
+@end
+
+
+@interface BTGray : NSObject
+
++ (instancetype)share;
+
+@end
+
+
+@interface BTGrayModel : BTModel
+
+@property (nonatomic, strong) NSString * identify;
+
+@property (nonatomic, assign) NSInteger requestType;
+
+@property (nonatomic, assign) NSInteger type;
 
 
 

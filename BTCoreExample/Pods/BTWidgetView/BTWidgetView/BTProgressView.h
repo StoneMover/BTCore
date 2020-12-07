@@ -4,7 +4,7 @@
 //
 //  Created by apple on 2020/4/28.
 //  Copyright © 2020 stone. All rights reserved.
-//
+//  
 
 #import <UIKit/UIKit.h>
 
@@ -44,6 +44,10 @@ typedef NS_ENUM(NSInteger,BTProgressStyle) {
 //进度条的宽度，在BTProgressStyleCircleBorder样式下有效
 @property (nonatomic, assign) IBInspectable CGFloat progressWidth;
 
+
+//进度条大小，在BTProgressStyleLineHoz、BTProgressStyleLineVer有效，当进度条的宽度或者高度不等于view本身的宽度或者高度，设置该值
+@property (nonatomic, assign) IBInspectable CGFloat progressSize;
+
 //是否显示文字进度，在BTProgressStyleCircleBorder样式下有效
 @property (nonatomic, assign) IBInspectable BOOL isShowProgressLabel;
 
@@ -60,6 +64,9 @@ typedef NS_ENUM(NSInteger,BTProgressStyle) {
 @property (nonatomic, strong, readonly) UIImageView * slideImgView;
 
 @property (nonatomic, weak) id<BTProgressDelegate> delegate;
+
+//是否正在触摸
+@property (nonatomic, assign) BOOL isTouch;
 
 @end
 
