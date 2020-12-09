@@ -7,6 +7,37 @@
 //  对于AFNetworking的再次封装,避免以后网络请求库的替换操作
 //
 
+/**
+ 关于https自签证书的验证
+ 
+ 
+ 我们在使用自签名证书来实现HTTPS请求时，因为不像机构颁发的证书一样其签名根证书在系统中已经内置了，所以我们需要在App中内置自己服务器的签名根证书来验证数字证书。
+ 
+ 首先将服务端生成的.cer格式的根证书添加到项目中，注意在添加证书要一定要记得勾选要添加的targets。这里有个地方要注意：苹果的ATS要求服务端必须支持TLS
+1.2或以上版本；必须使用支持前向保密的密码；证书必须使用SHA-256或者更好的签名hash算法来签名，如果证书无效，则会导致连接失败。由于我在生成的根证书时签名hash算法低于其要求，在配置完请求时一直报NSURLErrorServerCertificateUntrusted = -1202错误，希望大家可以注意到这一点。
+ 
+
+ 如果是CA认证不需要修改
+ 
+ AFSecurityPolicy分三种验证模式：
+ 1、AFSSLPinningModeNone：只验证证书是否在信任列表中
+ 2、AFSSLPinningModeCertificate：验证证书是否在信任列表中，然后再对比服务端证书和客户端证书是否一致
+ 3、 AFSSLPinningModePublicKey：只验证服务端与客户端证书的公钥是否一致
+ 
+ 如果不想被抓包如此设置：
+
+ [BTHttp.share.mananger setValue:[NSURL URLWithString:@"你的API地址"] forKey:@"baseURL"];
+ AFSecurityPolicy * policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModePublicKey];
+ BTHttp.share.mananger.securityPolicy = policy;
+ 
+ 可以被抓包
+ AFSecurityPolicy * policy = [AFSecurityPolicy new];
+ policy.allowInvalidCertificates = YES;
+ policy.validatesDomainName = NO;
+ BTHttp.share.mananger.securityPolicy = policy;
+ 
+ */
+
 #import <Foundation/Foundation.h>
 #import <AFNetworking/AFNetworking.h>
 #import <BTHelp/BTModel.h>
