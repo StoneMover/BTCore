@@ -161,7 +161,7 @@ typedef void(^BTNetFailFullBlock)(NSError * _Nullable error,NSInteger code,NSStr
 //获取默认的数据请求字典
 + (NSMutableDictionary*)defaultDict;
 + (NSMutableDictionary*)defaultDict:(NSDictionary*_Nullable)dict;
-+ (NSMutableDictionary *)defaultPageDict:(NSInteger)page;
++ (NSMutableDictionary*)defaultPageDict:(NSInteger)page;
 
 
 //判断网络是否请求成功

@@ -98,10 +98,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger pageLoadSizePage;
 
 
-//分页数量大小名称
+//分页数量大小参数名称
 @property (nonatomic, strong) NSString * pageLoadSizeName;
 
-//分页名称
+//分页下标参数名称
 @property (nonatomic, strong) NSString * pageLoadIndexName;
 
 //继承于BTUserModel 的用户模型
@@ -117,7 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, strong) NSArray * arrayNetCodeNotification DEPRECATED_ATTRIBUTE;
 
-//是否打印请求数据
+//是否打印请求参数值
 @property (nonatomic, assign) BOOL isLogHttpParameters;
 
 //是否显示在logView中

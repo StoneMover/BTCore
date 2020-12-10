@@ -20,11 +20,10 @@
 #ifndef BTCore_h
 #define BTCore_h
 
+#import "BTViewController.h"
 #import "BTHttp.h"
-#import "UIViewController+BTNavSet.h"
-#import "UIViewController+BTDialog.h"
 #import "BTCoreConfig.h"
 #import "BTUserMananger.h"
-#import "BTViewController.h"
+#import "BTLogView.h"
 
 #endif /* BTCore_h */
