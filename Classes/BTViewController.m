@@ -137,7 +137,7 @@
         [self initTitle:self.webTitle];
     }
     [self inileftBarSelf];
-    [self setNavLineColor:[UIColor bt_RGBSame:238]];
+    [self setNavLineColor:self.webNavLineColor ? self.webNavLineColor : [UIColor bt_RGBSame:238]];
     if (self.loadingType == BTWebViewLoadingDefault) {
         [self bt_initLoading];
     }
