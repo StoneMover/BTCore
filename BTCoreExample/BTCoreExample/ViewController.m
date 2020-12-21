@@ -14,6 +14,7 @@
 #import "TestWindowViewController.h"
 #import "GCDViewController.h"
 #import "FullTestViewController.h"
+#import <BTHelp/UIImage+BTImage.h>
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -70,7 +71,7 @@
             BTWebViewController * vc=[BTWebViewController new];
             vc.url = @"https://www.baidu.com";
             vc.isTitleFollowWeb = YES;
-//            vc.closeImg = [UIImage imageNamed:@"close"];
+//            vc.closeImg = [UIImage bt_imageWithColor:UIColor.redColor size:CGSizeMake(11.5, 24)];
             vc.loadingType = BTWebViewLoadingProgress;
             [self.navigationController pushViewController:vc animated:YES];
         }

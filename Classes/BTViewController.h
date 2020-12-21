@@ -79,8 +79,14 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 //关闭按钮,设置了该值后,将会出现返回和关闭两个按钮,返回按钮可以返回上一个网页,关闭按钮直接退出webview
 @property (nonatomic, strong, nullable) UIImage * closeImg;
 
-//导航器分割线颜色
+//导航器分割线颜色，默认238
 @property (nonatomic, strong) UIColor * webNavLineColor;
+
+//添加到js 的方法,在初始化之前设置,back为返回方法，组件自己设备，不允许重名，重名后将收不到回调并直接退出界面
+@property (nonatomic, strong) NSArray * jsFunctionArray;
+
+//js方法调用回调
+@property (copy, nonatomic) void (^jsFunctionBlock)(NSString * name,NSString * body);
 
 @end
 

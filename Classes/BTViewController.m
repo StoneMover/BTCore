@@ -177,6 +177,9 @@
     self.webView.navigationDelegate=self;
     self.webView.UIDelegate=self;
     [[self.webView configuration].userContentController addScriptMessageHandler:self name:@"back"];
+    for (NSString * function in self.jsFunctionArray) {
+        [[self.webView configuration].userContentController addScriptMessageHandler:self name:function];
+    }
     self.webView.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.view insertSubview:self.webView atIndex:0];
     
@@ -202,6 +205,9 @@
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         self.progressView.hidden = NO;
         self.progressView.percent = self.webView.estimatedProgress;
+        if (self.progressView.percent == 1) {
+            self.progressView.hidden = YES;
+        }
     }
     
     if ([keyPath isEqualToString:@"title"])
@@ -275,6 +281,10 @@
     //message.body  参数值
     if ([message.name isEqualToString:@"back"]) {
         [self leftBarClick];
+    }else{
+        if (self.jsFunctionBlock) {
+            self.jsFunctionBlock(message.name, message.body);
+        }
     }
 }
 
@@ -302,6 +312,9 @@
 
 - (void)dealloc{
     [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"back"];
+    for (NSString * function in self.jsFunctionArray) {
+        [self.webView.configuration.userContentController removeScriptMessageHandlerForName:function];
+    }
     [self.webView removeObserver:self forKeyPath:@"title"];
     if (self.loadingType == BTWebViewLoadingProgress) {
         [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
