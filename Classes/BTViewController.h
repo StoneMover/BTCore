@@ -88,6 +88,9 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 //js方法调用回调
 @property (copy, nonatomic) void (^jsFunctionBlock)(NSString * name,NSString * body);
 
+//NSURLRequest设置回调
+@property (copy, nonatomic) void (^requestSetBlock)(NSURLRequest * _Nullable  request);
+
 @end
 
 

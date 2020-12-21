@@ -189,6 +189,9 @@
     }
     NSURL * url=[NSURL URLWithString:self.url];
     NSURLRequest * request=[[NSURLRequest alloc] initWithURL:url];
+    if(self.requestSetBlock){
+        self.requestSetBlock(request);
+    }
     [self.webView loadRequest:request];
 }
 
