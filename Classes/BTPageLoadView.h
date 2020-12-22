@@ -22,6 +22,7 @@
 #import <BTHelp/BTModel.h>
 #import <BTLoading/BTToast.h>
 #import <BTLoading/BTLoadingView.h>
+#import <BTWidgetView/UIView+BTViewTool.h>
 #import "BTCoreConfig.h"
 #import "BTHttp.h"
 
@@ -173,6 +174,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 //去除系统contentInset
 - (void)clearTableViewSystemInset;
+
+//设置tableview弹性头部图片，把headView背景设置为透明
+- (void)setTableViewBounceHeadImgView:(NSString *)imgName height:(CGFloat)height;
+
+//当scrollView的代理滑动的时候调用如下方法，则可实现头部图片缩放功能
+- (void)bt_scrollViewDidScroll:(UIScrollView*)scrollView;
 
 @end
 

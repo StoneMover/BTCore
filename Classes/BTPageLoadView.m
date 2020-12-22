@@ -13,6 +13,10 @@
 
 @property (nonatomic, weak) UIScrollView * scrollView;
 
+@property (nonatomic, strong) UIImageView * tableViewBoundceHeadImgView;
+
+@property (nonatomic, assign) CGFloat tableViewBoundceHeadImgViewOriHeight;
+
 @end
 
 
@@ -423,6 +427,28 @@
     }
     
     [BTToast show:@"暂无数据"];
+}
+
+- (void)setTableViewBounceHeadImgView:(NSString *)imgName height:(CGFloat)height{
+    self.tableView.backgroundColor = UIColor.clearColor;
+    self.tableViewBoundceHeadImgViewOriHeight = height;
+    UIImageView * bgView =  [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, BTUtils.SCREEN_W, height)];
+    bgView.clipsToBounds = YES;
+    bgView.image = [UIImage imageNamed:imgName];
+    bgView.contentMode = UIViewContentModeScaleAspectFill;
+    self.tableViewBoundceHeadImgView = bgView;
+    [self insertSubview:bgView atIndex:0];
+}
+
+
+- (void)bt_scrollViewDidScroll:(UIScrollView*)scrollView{
+    if (scrollView.contentOffset.y < 0) {
+        self.tableViewBoundceHeadImgView.BTTop = 0;
+        self.tableViewBoundceHeadImgView.BTHeight = self.tableViewBoundceHeadImgViewOriHeight + fabs(scrollView.contentOffset.y);
+    }else{
+        self.tableViewBoundceHeadImgView.BTTop = - scrollView.contentOffset.y;
+    }
+
 }
 
 @end
