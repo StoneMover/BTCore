@@ -523,7 +523,7 @@ static BTGray * gray = nil;
         if (![responseObject isKindOfClass:[NSArray class]]) {
             return;
         }
-        NSArray * array = responseObject;
+//        NSArray * array = responseObject;
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
     }];
