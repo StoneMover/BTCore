@@ -289,25 +289,15 @@
         _isNeedFootRefresh=isNeedFootRefresh;
         if (isNeedFootRefresh) {
             __weak BTPageLoadView * weakSelf=self;
-            if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadRefreshFooter:)]) {
-                self.scrollView.mj_footer = [self.delegate BTPageLoadRefreshFooter:self];
-                self.scrollView.mj_footer.refreshingBlock = ^{
-                    [weakSelf footRefreshLoad];
-                };
-            }else{
-                self.scrollView.mj_footer=[MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-                    [weakSelf footRefreshLoad];
-                }];
+            self.scrollView.mj_footer=[MJRefreshBackNormalFooter
+                                       footerWithRefreshingBlock:^{
+                                           [weakSelf footRefreshLoad];
+                                       }];
+            CGFloat result = BTUtils.UI_IS_IPHONEX ? 34 : 0;
+            if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadIgnoredContentInsetBottom:)]) {
+                result = [self.delegate BTPageLoadIgnoredContentInsetBottom:self];
             }
-            
-            if (BTUtils.UI_IS_IPHONEX) {
-                CGFloat result = 34;
-                if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadIgnoredContentInsetBottom:)]) {
-                    result = [self.delegate BTPageLoadIgnoredContentInsetBottom:self];
-                }
-                self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=result;
-            }
-            
+            self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=result;
         }else{
             if (self.scrollView.mj_footer) {
                 self.scrollView.mj_footer.hidden=YES;
