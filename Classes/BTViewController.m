@@ -377,12 +377,12 @@
 - (UIBarButtonItem*)createItemStr:(NSString*)title
                            target:(nullable id)target
                            action:(nullable SEL)action{
-    return [self createItemStr:title color:[UIColor redColor] font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:target action:action];
+    return [self createItemStr:title color:BTCoreConfig.share.mainColor font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:target action:action];
 }
 
 - (UIBarButtonItem*)createItemStr:(NSString*)title
                            action:(nullable SEL)action{
-    return [self createItemStr:title color:[UIColor redColor] font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:self action:action];
+    return [self createItemStr:title color:BTCoreConfig.share.mainColor font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:self action:action];
 }
 
 - (UIBarButtonItem*)createItemImg:(UIImage*)img
@@ -417,7 +417,7 @@
     
 }
 - (void)initRightBarStr:(NSString*)title color:(UIColor*)color{
-    [self initRightBarStr:title color:[BTCoreConfig share].defaultNavRightBarItemColor font:[BTCoreConfig share].defaultNavRightBarItemFont];
+    [self initRightBarStr:title color:color font:[BTCoreConfig share].defaultNavRightBarItemFont];
 }
 - (void)initRightBarStr:(NSString*)title{
     [self initRightBarStr:title color:[BTCoreConfig share].defaultNavRightBarItemColor];
