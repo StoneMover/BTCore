@@ -187,6 +187,9 @@
     if (self.loadingType == BTWebViewLoadingProgress) {
         [self initProgressView];
     }
+    if (self.btWebInitFinish) {
+        self.btWebInitFinish(self.webView);
+    }
     NSURL * url=[NSURL URLWithString:self.url];
     NSURLRequest * request=[[NSURLRequest alloc] initWithURL:url];
     if(self.requestSetBlock){
@@ -230,7 +233,9 @@
     }else{
         self.progressView.hidden = YES;
     }
-    
+    if (self.btWebLoadSuccessBlock) {
+        self.btWebLoadSuccessBlock(webView);
+    }
 }
 
 // 当main frame开始加载数据失败时，会回调

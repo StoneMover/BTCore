@@ -58,7 +58,7 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 
 @end
 
-
+@class WKWebView;
 
 @interface BTWebViewController : BTViewController
 
@@ -90,6 +90,12 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 
 //NSURLRequest设置回调
 @property (copy, nonatomic) void (^requestSetBlock)(NSURLRequest * _Nullable  request);
+
+//webview初始化完成
+@property (nonatomic, copy) void (^btWebInitFinish)(WKWebView * webView);
+
+//webView加载成功
+@property (nonatomic, copy) void (^btWebLoadSuccessBlock)(WKWebView * webView);
 
 @end
 
