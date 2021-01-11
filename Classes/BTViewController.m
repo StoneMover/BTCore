@@ -226,6 +226,13 @@
 }
 
 #pragma mark WKNavigationDelegate
+//页面开始加载的时候
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation{
+    if (self.loadingType == BTWebViewLoadingProgress) {
+        self.progressView.hidden = NO;
+    }
+}
+
 // 页面加载完成之后调用
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation{
     if (self.loadingType == BTWebViewLoadingDefault) {
