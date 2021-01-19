@@ -564,11 +564,11 @@
         for (UIView * view in navBar.subviews) {
             if ([NSStringFromClass(view.class) isEqualToString:@"_UINavigationBarContentView"]) {
                 for (UILayoutGuide * guide in view.layoutGuides) {
-                    NSLog(@"%@",guide.identifier);
+//                    NSLog(@"%@",guide.identifier);
                     if ([guide.identifier hasPrefix:@"BackButtonGuide"]) {
                         NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
                         for (NSLayoutConstraint * c in array) {
-                            NSLog(@"%f",c.constant);
+//                            NSLog(@"%f",c.constant);
                             if (BTCoreConfig.share.navItemPaddingBlock(c)) {
                                 if (c.constant > 0) {
                                     c.constant=leftPadding;
@@ -586,11 +586,11 @@
                 
                 if (self.navigationItem.rightBarButtonItem || self.navigationItem.rightBarButtonItems) {
                     for (UILayoutGuide * guide in view.layoutGuides) {
-                        NSLog(@"%@",guide.identifier);
+//                        NSLog(@"%@",guide.identifier);
                         if ([guide.identifier hasPrefix:@"TrailingBarGuide"]) {
                             NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
                             for (NSLayoutConstraint * c in array) {
-                                NSLog(@"%f",c.constant);
+//                                NSLog(@"%f",c.constant);
                                 if (BTCoreConfig.share.navItemPaddingBlock(c)) {
                                     if (c.constant > 0) {
                                         c.constant=rightPadding;

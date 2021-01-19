@@ -14,9 +14,9 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - BTHelp (0.3.9)
+  - BTHelp (0.3.11)
   - BTLoading (0.3.3)
-  - BTWidgetView (0.3.4):
+  - BTWidgetView (0.3.5):
     - BTHelp
   - MJRefresh (3.5.0)
   - RTRootNavigationController (0.7.2):
@@ -42,9 +42,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
-  BTHelp: b0c6daf9ba6ab15f9c0dff23700ea8a9a3124f03
+  BTHelp: ce4f70da9ee62e04a2e7920cc5a9faa094259c5e
   BTLoading: 80fd462b12e693e54c594d2e61ad6c84e9201265
-  BTWidgetView: bb7b2f6ed54d8f02e82579fb59268fc71bf91cb9
+  BTWidgetView: ab35352f6b60af57fc5c8a5cec1ffe3e3bd200ce
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   RTRootNavigationController: 8344c2352d6d40fa370d0366efae2c84a945213f
 

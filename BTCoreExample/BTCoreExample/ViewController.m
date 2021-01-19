@@ -15,6 +15,7 @@
 #import "GCDViewController.h"
 #import "FullTestViewController.h"
 #import <BTHelp/UIImage+BTImage.h>
+#import "TestNavVC.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,7 +29,7 @@
     [super viewDidLoad];
     [self initTitle:@"BTCore"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
-    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试",@"GCD",@"横竖屏切换"]];
+    [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试",@"GCD",@"横竖屏切换",@"自定义导航器"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
 
@@ -134,6 +135,12 @@
         {
             FullTestViewController * vc=[FullTestViewController new];
             [self.navigationController pushViewController:vc animated:NO];
+        }
+            break;
+        case 6:
+        {
+            TestNavVC * vc=[TestNavVC new];
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
         default:

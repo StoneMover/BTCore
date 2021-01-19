@@ -11,6 +11,8 @@
 #import <BTHelp/BTUtils.h>
 #import "BTHttp.h"
 #import <BTHelp/NSString+BTString.h>
+#import <BTWidgetView/UIFont+BTFont.h>
+#import <BTHelp/UIColor+BTColor.h>
 
 static BTCoreConfig * config=nil;
 
@@ -131,18 +133,18 @@ static BTCoreConfig * config=nil;
         return NO;
     };
     
-    self.mainColor=[UIColor redColor];
+    self.mainColor = UIColor.redColor;
     
-    self.pageLoadSizePage=20;
-    self.pageLoadStartPage=1;
+    self.pageLoadSizePage = 20;
+    self.pageLoadStartPage = 1;
     
     
-    self.defaultNavTitleFont=[UIFont systemFontOfSize:18 weight:UIFontWeightBold];
-    self.defaultNavTitleColor=UIColor.blackColor;
-    self.defaultNavLeftBarItemFont=[UIFont systemFontOfSize:15 weight:UIFontWeightBold];
-    self.defaultNavLeftBarItemColor=UIColor.blackColor;
-    self.defaultNavRightBarItemFont=[UIFont systemFontOfSize:15 weight:UIFontWeightBold];
-    self.defaultNavRightBarItemColor=UIColor.blackColor;
+    self.defaultNavTitleFont = [UIFont BTAutoFontWithSize:18 weight:UIFontWeightBold];
+    self.defaultNavTitleColor = UIColor.bt_51Color;
+    self.defaultNavLeftBarItemFont = [UIFont BTAutoFontWithSize:15 weight:UIFontWeightBold];
+    self.defaultNavLeftBarItemColor = UIColor.bt_51Color;
+    self.defaultNavRightBarItemFont = [UIFont BTAutoFontWithSize:15 weight:UIFontWeightBold];
+    self.defaultNavRightBarItemColor = UIColor.bt_51Color;
     
     self.navItemPadding = 5;
     

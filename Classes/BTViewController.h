@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import <BTHelp/BTUtils.h>
 #import <BTHelp/UIColor+BTColor.h>
 #import <BTLoading/UIViewController+BTLoading.h>
@@ -17,6 +16,7 @@
 #import <RTRootNavigationController/RTRootNavigationController.h>
 #import "BTCoreConfig.h"
 #import "BTPageLoadView.h"
+#import "BTNavigationView.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
@@ -42,6 +42,9 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 
 //前后页面的简单回调
 @property (nonatomic, copy, nullable) BTVcSuccessBlock blockSuccess;
+
+//自定义的导航器头部
+@property (nonatomic, strong) BTNavigationView * btNavView;
 
 //当vc完全出现后的第一次调用，只会调用一次，用在一些需要在界面完全显示后才需要进行初始化的情况
 - (void)viewDidAppearFirst;
