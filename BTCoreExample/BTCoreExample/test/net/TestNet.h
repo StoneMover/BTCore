@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TestNet : BTNet
 
-+ (void)test:(BTNetSuccessBlcok)success fail:(BTNetFailBlock)fail;
++ (void)test:(BTNetSuccessBlock)success fail:(BTNetFailBlock)fail;
 
 @end
 

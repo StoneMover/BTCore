@@ -12,7 +12,7 @@
 
 @implementation TestNet
 
-+ (void)test:(BTNetSuccessBlcok)success fail:(BTNetFailBlock)fail{
++ (void)test:(BTNetSuccessBlock)success fail:(BTNetFailBlock)fail{
     BTHttp * request = [BTHttp share];
     NSMutableDictionary * dict = [self defaultPageDict:0];
     
