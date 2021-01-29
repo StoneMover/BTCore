@@ -130,7 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-typedef void(^BTNetSuccessBlcok)(id obj);
+typedef void(^BTNetSuccessBlock)(id obj);
 
 typedef void(^BTNetFailBlock)(NSError * _Nullable error,NSString * _Nullable errorInfo);
 
