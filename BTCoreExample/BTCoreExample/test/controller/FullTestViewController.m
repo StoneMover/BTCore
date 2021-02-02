@@ -45,7 +45,7 @@
     [self landClick];
 }
 
-- (void)leftBarClick{
+- (void)bt_leftBarClick{
     [self portraitClick];
     [super bt_leftBarClick];
     

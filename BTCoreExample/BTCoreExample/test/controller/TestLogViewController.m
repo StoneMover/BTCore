@@ -26,7 +26,7 @@
     [BTLogView.share show];
 }
 
-- (void)leftBarClick{
+- (void)bt_leftBarClick{
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

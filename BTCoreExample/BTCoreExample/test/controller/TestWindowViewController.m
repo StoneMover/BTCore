@@ -23,7 +23,7 @@
     [self bt_initTitle:@"半屏导航器"];
 }
 
-- (void)leftBarClick{
+- (void)bt_leftBarClick{
 //    UIView * rootView = self.view;
 //    while (rootView.superview) {
 //        rootView = rootView.superview;
@@ -40,7 +40,7 @@
     NSLog(@"te");
 }
 
-- (void)rightBarClick{
+- (void)bt_rightBarClick{
     ViewController * vc=[ViewController new];
     [self.navigationController pushViewController:vc animated:YES];
 }

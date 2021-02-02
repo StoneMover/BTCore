@@ -153,7 +153,7 @@
         return;
     }
     
-    UIBarButtonItem * backItem = [self bt_createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
+    UIBarButtonItem * backItem = [self bt_createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(bt_leftBarClick)];
     UIBarButtonItem * closeItem = [self bt_createItemImg:self.closeImg action:@selector(closeClick)];
     self.navigationItem.leftBarButtonItems = @[backItem,closeItem];
 }
@@ -162,7 +162,7 @@
     [super bt_leftBarClick];
 }
 
-- (void)leftBarClick{
+- (void)bt_leftBarClick{
     if (self.closeImg && self.webView.canGoBack) {
         [self.webView goBack];
     }else{
@@ -295,7 +295,7 @@
     //message.name  方法名
     //message.body  参数值
     if ([message.name isEqualToString:@"back"]) {
-        [self leftBarClick];
+        [self bt_leftBarClick];
     }else{
         if (self.jsFunctionBlock) {
             self.jsFunctionBlock(message.name, message.body);
@@ -445,7 +445,7 @@
 
 
 - (UIBarButtonItem*)bt_initLeftBarStr:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
-    UIBarButtonItem * item = [self bt_createItemStr:title color:color font:font target:self action:@selector(leftBarClick)];
+    UIBarButtonItem * item = [self bt_createItemStr:title color:color font:font target:self action:@selector(bt_leftBarClick)];
     [item setTitleTextAttributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} forState:UIControlStateNormal];
     [item setTitleTextAttributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} forState:UIControlStateSelected];
     self.navigationItem.leftBarButtonItem = item;
@@ -572,59 +572,61 @@
 - (void)bt_setItemPadding:(CGFloat)leftPadding rightPadding:(CGFloat)rightPadding{
     UINavigationBar * navBar=self.navigationController.navigationBar;
     if (@available(iOS 12.0, *)) {
+        UIView * contentView = nil;
         for (UIView * view in navBar.subviews) {
             if ([NSStringFromClass(view.class) isEqualToString:@"_UINavigationBarContentView"]) {
-                for (UILayoutGuide * guide in view.layoutGuides) {
-//                    NSLog(@"%@",guide.identifier);
-                    if ([guide.identifier hasPrefix:@"BackButtonGuide"]) {
-                        NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
-                        for (NSLayoutConstraint * c in array) {
-                            NSString * className = NSStringFromClass([c class]);
-                            if (BTCoreConfig.share.navItemPaddingBlock(c) && [className isEqualToString:@"NSLayoutConstraint"]) {
-//                                NSLog(@"%@",c);
-                                if (c.constant > 0) {
-                                    c.constant=leftPadding;
-                                }else{
-                                    c.constant=-leftPadding;
-                                }
-                                break;
-                            }
-                        }
-                        
-                        break;
-                    }
-                    
-                }
-                
-                if (self.navigationItem.rightBarButtonItem || self.navigationItem.rightBarButtonItems) {
-                    for (UILayoutGuide * guide in view.layoutGuides) {
-//                        NSLog(@"%@",guide.identifier);
-                        if ([guide.identifier hasPrefix:@"TrailingBarGuide"]) {
-                            NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
-                            for (NSLayoutConstraint * c in array) {
-                                
-                                NSString * className = NSStringFromClass([c class]);
-                                if (BTCoreConfig.share.navItemPaddingBlock(c) && [className isEqualToString:@"NSLayoutConstraint"]) {
-//                                    NSLog(@"%@",c);
-                                    if (c.constant > 0) {
-                                        c.constant=rightPadding;
-                                    }else{
-                                        c.constant=-rightPadding;
-                                    }
-                                    break;
-                                }
-                            }
-                            
-                            break;
-                        }
-                        
-                    }
-                }
-                
+                contentView = view;
                 break;
+            }
+        }
+        
+        UILayoutGuide * backButtonGuide = nil;
+        UILayoutGuide * trailingBarGuide = nil;
+        
+        for (UILayoutGuide * guide in contentView.layoutGuides) {
+//            NSLog(@"%@",guide.identifier);
+            if ([guide.identifier hasPrefix:@"BackButtonGuide"]) {
+                backButtonGuide = guide;
+            }
+            
+            if ([guide.identifier hasPrefix:@"TrailingBarGuide"]) {
+                trailingBarGuide = guide;
             }
             
         }
+        
+        if (self.navigationItem.rightBarButtonItem || self.navigationItem.rightBarButtonItems) {
+            NSArray * array = [trailingBarGuide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
+            for (NSLayoutConstraint * c in array) {
+                
+                NSString * className = NSStringFromClass([c class]);
+                if (BTCoreConfig.share.navItemPaddingBlock(c) && [className isEqualToString:@"NSLayoutConstraint"]) {
+//                    NSLog(@"shuai:%@",c);
+                    if (c.constant > 0) {
+                        c.constant=rightPadding;
+                    }else{
+                        c.constant=-rightPadding;
+                    }
+                    break;
+                }
+            }
+        }
+        
+        NSArray * array = [backButtonGuide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
+        for (NSLayoutConstraint * c in array) {
+//                NSLog(@"shuai:%@",c);
+            NSString * className = NSStringFromClass([c class]);
+            if (BTCoreConfig.share.navItemPaddingBlock(c) && [className isEqualToString:@"NSLayoutConstraint"]) {
+                if (c.constant > 0) {
+                    c.constant=leftPadding;
+                }else{
+                    c.constant=-leftPadding;
+                }
+                break;
+            }
+        }
+        
+        
         
         return;
     }
@@ -665,7 +667,7 @@
 
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action{
     [self bt_setItemPaddingDefault];
-    UIBarButtonItem * item = [self bt_createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
+    UIBarButtonItem * item = [self bt_createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(bt_leftBarClick)];
     return item;
 }
 
