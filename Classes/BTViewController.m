@@ -487,7 +487,7 @@
     if (type == NavItemTypeRight) {
         self.navigationItem.rightBarButtonItem = item;
     }else if(type == NavItemTypeLeft){
-        self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.leftBarButtonItem = item;
     }
 }
 
@@ -508,15 +508,16 @@
         }
         index++;
     }
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:parentView];
     if (type == NavItemTypeRight) {
-        self.navigationItem.leftBarButtonItem.customView = parentView;
+        self.navigationItem.rightBarButtonItem = item;
     }else if(type == NavItemTypeLeft){
-        self.navigationItem.rightBarButtonItem.customView = parentView;
+        self.navigationItem.leftBarButtonItem = item;
     }
 }
 
 - (CGSize)customeItemSize:(NavItemType)type{
-    return CGSizeMake(44, 44);
+    return CGSizeMake(36, 44);
 }
 - (CGFloat)customePadding:(NavItemType)type{
     return 0;
