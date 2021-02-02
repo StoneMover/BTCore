@@ -560,7 +560,7 @@
 
 - (void)setItemPadding:(CGFloat)leftPadding rightPadding:(CGFloat)rightPadding{
     UINavigationBar * navBar=self.navigationController.navigationBar;
-    
+    BOOL isHadSet = NO;
     if (@available(iOS 12.0, *)) {
         for (UIView * view in navBar.subviews) {
             if ([NSStringFromClass(view.class) isEqualToString:@"_UINavigationBarContentView"]) {
@@ -569,8 +569,9 @@
                     if ([guide.identifier hasPrefix:@"BackButtonGuide"]) {
                         NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
                         for (NSLayoutConstraint * c in array) {
-//                            NSLog(@"%f",c.constant);
-                            if (BTCoreConfig.share.navItemPaddingBlock(c)) {
+                            NSString * className = NSStringFromClass([c class]);
+                            if (BTCoreConfig.share.navItemPaddingBlock(c) && [className isEqualToString:@"NSLayoutConstraint"]) {
+//                                NSLog(@"%@",c);
                                 if (c.constant > 0) {
                                     c.constant=leftPadding;
                                 }else{
@@ -591,8 +592,10 @@
                         if ([guide.identifier hasPrefix:@"TrailingBarGuide"]) {
                             NSArray * array = [guide constraintsAffectingLayoutForAxis:UILayoutConstraintAxisHorizontal];
                             for (NSLayoutConstraint * c in array) {
-//                                NSLog(@"%f",c.constant);
-                                if (BTCoreConfig.share.navItemPaddingBlock(c)) {
+                                
+                                NSString * className = NSStringFromClass([c class]);
+                                if (BTCoreConfig.share.navItemPaddingBlock(c) && [className isEqualToString:@"NSLayoutConstraint"]) {
+//                                    NSLog(@"%@",c);
                                     if (c.constant > 0) {
                                         c.constant=rightPadding;
                                     }else{
