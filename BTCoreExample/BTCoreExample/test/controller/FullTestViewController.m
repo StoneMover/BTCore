@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTitle:@"横竖屏测试"];
+    [self bt_initTitle:@"横竖屏测试"];
     
     UIButton * btnLand = [[UIButton alloc] init];
     btnLand.translatesAutoresizingMaskIntoConstraints = NO;
@@ -47,7 +47,7 @@
 
 - (void)leftBarClick{
     [self portraitClick];
-    [super leftBarClick];
+    [super bt_leftBarClick];
     
 }
 

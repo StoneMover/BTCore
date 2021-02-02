@@ -18,9 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initLeftBarStr:@"取消"];
-    [self initRightBarStr:@"下一级界面"];
-    [self initTitle:@"半屏导航器"];
+    [self bt_initLeftBarStr:@"取消"];
+    [self bt_initRightBarStr:@"下一级界面"];
+    [self bt_initTitle:@"半屏导航器"];
 }
 
 - (void)leftBarClick{

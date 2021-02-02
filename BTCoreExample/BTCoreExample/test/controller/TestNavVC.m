@@ -25,7 +25,7 @@
     self.btNavView.bgImg = [UIImage bt_imageWithColor:UIColor.lightGrayColor];
     __weak TestNavVC * weakSelf=self;
     self.btNavView.leftItemClickBlock = ^(BTNavigationItem * _Nonnull item, NSInteger index) {
-        [weakSelf leftBarClick];
+        [weakSelf bt_leftBarClick];
     };
     self.btNavView.rightItemClickBlock = ^(BTNavigationItem * _Nonnull item, NSInteger index) {
         [BTToast showSuccess:@"保存成功"];

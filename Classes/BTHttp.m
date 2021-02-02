@@ -331,11 +331,11 @@ static BTHttp * http=nil;
                     NSString * btn =[dictChild objectForKey:@"YnRu".bt_base64Decode];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         if ([BTUtils isEmpty:btn]) {
-                            [BTUtils.getCurrentVc showAlert:title msg:info btns:@[] block:^(NSInteger index) {
+                            [BTUtils.getCurrentVc bt_showAlert:title msg:info btns:@[] block:^(NSInteger index) {
                                 
                             }];
                         }else{
-                            [BTUtils.getCurrentVc showAlert:title msg:info btns:@[btn] block:^(NSInteger index) {
+                            [BTUtils.getCurrentVc bt_showAlert:title msg:info btns:@[btn] block:^(NSInteger index) {
                                 
                             }];
                         }

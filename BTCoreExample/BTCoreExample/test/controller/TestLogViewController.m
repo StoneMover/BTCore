@@ -17,10 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTitle:@"LogView"];
+    [self bt_initTitle:@"LogView"];
     
     [BTLogView.share addAndSave:@"保存的log日志"];
-    [self initLeftBarStr:@"取消"];
+    [self bt_initLeftBarStr:@"取消"];
     
     BTCoreConfig.share.isOpenLog = YES;
     [BTLogView.share show];

@@ -47,8 +47,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTitle:@"GCD"];
-    [self initCustomeItem:NavItemTypeRight str:@[@"保存",@"搜索"]];
+    [self bt_initTitle:@"GCD"];
+    [self bt_initCustomeItem:NavItemTypeRight str:@[@"保存",@"搜索"]];
 }
 
 - (void)customeItemClick:(NavItemType)type index:(NSInteger)index{

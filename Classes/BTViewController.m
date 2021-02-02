@@ -18,7 +18,7 @@
     
     self.isTouceViewEndCloseKeyBoard=YES;
     if (BTCoreConfig.share.defaultNavLineColor) {
-        [self setNavLineColor:BTCoreConfig.share.defaultNavLineColor];
+        [self bt_setNavLineColor:BTCoreConfig.share.defaultNavLineColor];
     }
     
     if (BTCoreConfig.share.defaultVCBgColor) {
@@ -134,10 +134,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColor.whiteColor;
     if (self.webTitle) {
-        [self initTitle:self.webTitle];
+        [self bt_initTitle:self.webTitle];
     }
     [self inileftBarSelf];
-    [self setNavLineColor:self.webNavLineColor ? self.webNavLineColor : [UIColor bt_RGBSame:238]];
+    [self bt_setNavLineColor:self.webNavLineColor ? self.webNavLineColor : [UIColor bt_RGBSame:238]];
     if (self.loadingType == BTWebViewLoadingDefault) {
         [self bt_initLoading];
     }
@@ -153,20 +153,20 @@
         return;
     }
     
-    UIBarButtonItem * backItem = [self createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
-    UIBarButtonItem * closeItem = [self createItemImg:self.closeImg action:@selector(closeClick)];
+    UIBarButtonItem * backItem = [self bt_createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
+    UIBarButtonItem * closeItem = [self bt_createItemImg:self.closeImg action:@selector(closeClick)];
     self.navigationItem.leftBarButtonItems = @[backItem,closeItem];
 }
 
 - (void)closeClick{
-    [super leftBarClick];
+    [super bt_leftBarClick];
 }
 
 - (void)leftBarClick{
     if (self.closeImg && self.webView.canGoBack) {
         [self.webView goBack];
     }else{
-        [super leftBarClick];
+        [super bt_leftBarClick];
     }
     
 }
@@ -220,7 +220,7 @@
     {
         NSLog(@"%@",[object valueForKey:@"title"]);
         if (self.isTitleFollowWeb) {
-            [self initTitle:[object valueForKey:@"title"]];
+            [self bt_initTitle:[object valueForKey:@"title"]];
         }
     }
 }
@@ -267,21 +267,21 @@
 
 #pragma mark WKUIDelegate
 - (void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(void))completionHandler{
-    [self showAlert:@"提示" msg:message btns:@[@"确定"] block:^(NSInteger index) {
+    [self bt_showAlert:@"提示" msg:message btns:@[@"确定"] block:^(NSInteger index) {
         completionHandler();
     }];
 }
 
 
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
-    [self showAlert:@"提示" msg:message btns:@[@"取消",@"确定"] block:^(NSInteger index) {
+    [self bt_showAlert:@"提示" msg:message btns:@[@"取消",@"确定"] block:^(NSInteger index) {
         completionHandler(index==1);
     }];
 }
 
 
 - (void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable))completionHandler{
-    [self showAlertEdit:@"编辑" defaultValue:@"" placeHolder:@"请输入内容" block:^(NSString * _Nullable result) {
+    [self bt_showAlertEdit:@"编辑" defaultValue:@"" placeHolder:@"请输入内容" block:^(NSString * _Nullable result) {
         if (!result) {
             completionHandler(@"");
         }else{
@@ -375,7 +375,7 @@
 
 
 
-- (UIBarButtonItem*)createItemStr:(NSString*)title
+- (UIBarButtonItem*)bt_createItemStr:(NSString*)title
                             color:(UIColor*)color
                              font:(UIFont*)font
                            target:(nullable id)target
@@ -386,88 +386,94 @@
     return item;
 }
 
-- (UIBarButtonItem*)createItemStr:(NSString*)title
+- (UIBarButtonItem*)bt_createItemStr:(NSString*)title
                            target:(nullable id)target
                            action:(nullable SEL)action{
-    return [self createItemStr:title color:BTCoreConfig.share.mainColor font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:target action:action];
+    return [self bt_createItemStr:title color:BTCoreConfig.share.mainColor font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:target action:action];
 }
 
-- (UIBarButtonItem*)createItemStr:(NSString*)title
+- (UIBarButtonItem*)bt_createItemStr:(NSString*)title
                            action:(nullable SEL)action{
-    return [self createItemStr:title color:BTCoreConfig.share.mainColor font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:self action:action];
+    return [self bt_createItemStr:title color:BTCoreConfig.share.mainColor font:[UIFont systemFontOfSize:15 weight:UIFontWeightMedium] target:self action:action];
 }
 
-- (UIBarButtonItem*)createItemImg:(UIImage*)img
+- (UIBarButtonItem*)bt_createItemImg:(UIImage*)img
                            action:(nullable SEL)action{
     return [[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:action];
 }
 
-- (UIBarButtonItem*)createItemImg:(UIImage*)img
+- (UIBarButtonItem*)bt_createItemImg:(UIImage*)img
                            target:(nullable id)target
                            action:(nullable SEL)action{
     return [[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:target action:action];
 }
 
 
-- (void)initTitle:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
+- (void)bt_initTitle:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
     self.title=title;
     self.navigationController.navigationBar.titleTextAttributes=@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} ;
 }
-- (void)initTitle:(NSString *)title color:(UIColor *)color{
-    [self initTitle:title color:color font:[BTCoreConfig share].defaultNavTitleFont];
+- (void)bt_initTitle:(NSString *)title color:(UIColor *)color{
+    [self bt_initTitle:title color:color font:[BTCoreConfig share].defaultNavTitleFont];
 }
-- (void)initTitle:(NSString *)title{
-    [self initTitle:title color:[BTCoreConfig share].defaultNavTitleColor font:[BTCoreConfig share].defaultNavTitleFont];
+- (void)bt_initTitle:(NSString *)title{
+    [self bt_initTitle:title color:[BTCoreConfig share].defaultNavTitleColor font:[BTCoreConfig share].defaultNavTitleFont];
 }
 
 
-- (void)initRightBarStr:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
-    UIBarButtonItem * item=[self createItemStr:title color:color font:font target:self action:@selector(rightBarClick)];
+- (UIBarButtonItem*)bt_initRightBarStr:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
+    UIBarButtonItem * item=[self bt_createItemStr:title color:color font:font target:self action:@selector(bt_rightBarClick)];
     [item setTitleTextAttributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} forState:UIControlStateNormal];
     [item setTitleTextAttributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} forState:UIControlStateSelected];
     self.navigationItem.rightBarButtonItem=item;
-    
+    return item;
 }
-- (void)initRightBarStr:(NSString*)title color:(UIColor*)color{
-    [self initRightBarStr:title color:color font:[BTCoreConfig share].defaultNavRightBarItemFont];
+- (UIBarButtonItem*)bt_initRightBarStr:(NSString*)title color:(UIColor*)color{
+    return [self bt_initRightBarStr:title color:color font:[BTCoreConfig share].defaultNavRightBarItemFont];
 }
-- (void)initRightBarStr:(NSString*)title{
-    [self initRightBarStr:title color:[BTCoreConfig share].defaultNavRightBarItemColor];
+- (UIBarButtonItem*)bt_initRightBarStr:(NSString*)title{
+    return [self bt_initRightBarStr:title color:[BTCoreConfig share].defaultNavRightBarItemColor];
 }
-- (void)initRightBarImg:(UIImage*)img{
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(rightBarClick)];
+- (UIBarButtonItem*)bt_initRightBarImg:(UIImage*)img{
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(bt_rightBarClick)];
+    self.navigationItem.rightBarButtonItem = item;
+    return item;
 }
-- (void)rightBarClick;{
+- (void)bt_rightBarClick;{
     
 }
 
 
-- (void)initLeftBarStr:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
-    UIBarButtonItem * item=[self createItemStr:title color:color font:font target:self action:@selector(leftBarClick)];
+- (UIBarButtonItem*)bt_initLeftBarStr:(NSString*)title color:(UIColor*)color font:(UIFont*)font{
+    UIBarButtonItem * item = [self bt_createItemStr:title color:color font:font target:self action:@selector(leftBarClick)];
     [item setTitleTextAttributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} forState:UIControlStateNormal];
     [item setTitleTextAttributes:@{NSFontAttributeName:font,NSForegroundColorAttributeName:color} forState:UIControlStateSelected];
-    self.navigationItem.leftBarButtonItem=item;
+    self.navigationItem.leftBarButtonItem = item;
+    return item;
 }
-- (void)initLeftBarStr:(NSString*)title color:(UIColor*)color{
-    [self initLeftBarStr:title color:color font:[BTCoreConfig share].defaultNavLeftBarItemFont];
+- (UIBarButtonItem*)bt_initLeftBarStr:(NSString*)title color:(UIColor*)color{
+    return [self bt_initLeftBarStr:title color:color font:[BTCoreConfig share].defaultNavLeftBarItemFont];
 }
-- (void)initLeftBarStr:(NSString*)title{
-    [self initLeftBarStr:title color:[BTCoreConfig share].defaultNavLeftBarItemColor];
+- (UIBarButtonItem*)bt_initLeftBarStr:(NSString*)title{
+    return [self bt_initLeftBarStr:title color:[BTCoreConfig share].defaultNavLeftBarItemColor];
 }
-- (void)initLeftBarImg:(UIImage*)img{
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(leftBarClick)];
+- (UIBarButtonItem*)bt_initLeftBarImg:(UIImage*)img{
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(bt_leftBarClick)];
+    self.navigationItem.leftBarButtonItem = item;
+    return item;
 }
-- (void)leftBarClick{
+- (void)bt_leftBarClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)initCustomeItem:(NavItemType)type str:(NSArray<NSString*>*)strs{
-    CGSize size = [self customeItemSize:type];
-    CGFloat padding = [self customePadding:type];
-    UIFont * font = [self customeFont:type];
-    UIColor * color = [self customeStrColor:type];
+- (NSArray<UIButton*>*)bt_initCustomeItem:(NavItemType)type str:(NSArray<NSString*>*)strs{
+    CGSize size = [self bt_customeItemSize:type];
+    CGFloat padding = [self bt_customePadding:type];
+    UIFont * font = [self bt_customeFont:type];
+    UIColor * color = [self bt_customeStrColor:type];
     UIView * parentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width * strs.count + (strs.count - 1) * padding, size.height)];
     NSInteger index = 0;
+    NSMutableArray * btns = [NSMutableArray new];
     for (NSString * str in strs) {
         UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(index * (size.width + padding), 0, size.width, size.height)];
         [btn setTitle:str forState:UIControlStateNormal];
@@ -476,11 +482,12 @@
         btn.tag = index;
         [parentView addSubview:btn];
         if (type == NavItemTypeRight) {
-            [btn addTarget:self action:@selector(customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addTarget:self action:@selector(bt_customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
         }else if(type == NavItemTypeLeft){
-            [btn addTarget:self action:@selector(customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addTarget:self action:@selector(bt_customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
         }
         index++;
+        [btns addObject:btn];
     }
     
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:parentView];
@@ -489,24 +496,27 @@
     }else if(type == NavItemTypeLeft){
         self.navigationItem.leftBarButtonItem = item;
     }
+    return btns;
 }
 
-- (void)initCustomeItem:(NavItemType)type img:(NSArray<UIImage*>*)imgs{
-    CGSize size = [self customeItemSize:type];
-    CGFloat padding = [self customePadding:type];
+- (NSArray<UIButton*>*)bt_initCustomeItem:(NavItemType)type img:(NSArray<UIImage*>*)imgs{
+    CGSize size = [self bt_customeItemSize:type];
+    CGFloat padding = [self bt_customePadding:type];
     UIView * parentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width * imgs.count + (imgs.count - 1) * padding, size.height)];
     NSInteger index = 0;
+    NSMutableArray * btns = [NSMutableArray new];
     for (UIImage * img in imgs) {
         UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(index * (size.width + padding), 0, size.width, size.height)];
         [btn setImage:img forState:UIControlStateNormal];
         btn.tag = index;
         [parentView addSubview:btn];
         if (type == NavItemTypeRight) {
-            [btn addTarget:self action:@selector(customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addTarget:self action:@selector(bt_customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
         }else if(type == NavItemTypeLeft){
-            [btn addTarget:self action:@selector(customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addTarget:self action:@selector(bt_customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
         }
         index++;
+        [btns addObject:btn];
     }
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:parentView];
     if (type == NavItemTypeRight) {
@@ -514,53 +524,53 @@
     }else if(type == NavItemTypeLeft){
         self.navigationItem.leftBarButtonItem = item;
     }
+    return btns;
 }
 
-- (CGSize)customeItemSize:(NavItemType)type{
+- (CGSize)bt_customeItemSize:(NavItemType)type{
     return CGSizeMake(36, 44);
 }
-- (CGFloat)customePadding:(NavItemType)type{
+- (CGFloat)bt_customePadding:(NavItemType)type{
     return 0;
 }
 
-- (UIFont *)customeFont:(NavItemType)type{
+- (UIFont*)bt_customeFont:(NavItemType)type{
     if (type == NavItemTypeLeft) {
         return BTCoreConfig.share.defaultNavLeftBarItemFont;
     }
     return BTCoreConfig.share.defaultNavRightBarItemFont;
 }
 
-- (UIColor*)customeStrColor:(NavItemType)type{
+- (UIColor*)bt_customeStrColor:(NavItemType)type{
     if (type == NavItemTypeLeft) {
         return BTCoreConfig.share.defaultNavLeftBarItemColor;
     }
     return BTCoreConfig.share.defaultNavRightBarItemColor;
 }
 
-- (void)customeItemLeftClick:(UIButton*)btn{
-    [self customeItemClick:NavItemTypeLeft index:btn.tag];
+- (void)bt_customeItemLeftClick:(UIButton*)btn{
+    [self bt_customeItemClick:NavItemTypeLeft index:btn.tag];
 }
 
-- (void)customeItemRightClick:(UIButton*)btn{
-    [self customeItemClick:NavItemTypeRight index:btn.tag];
+- (void)bt_customeItemRightClick:(UIButton*)btn{
+    [self bt_customeItemClick:NavItemTypeRight index:btn.tag];
 }
 
-- (void)customeItemClick:(NavItemType)type index:(NSInteger)index{
+- (void)bt_customeItemClick:(NavItemType)type index:(NSInteger)index{
     
 }
 
-- (void)setItemPaddingDefault{
-    [self setItemPadding:[self bt_NavItemPadding:NavItemTypeLeft]
+- (void)bt_setItemPaddingDefault{
+    [self bt_setItemPadding:[self bt_NavItemPadding:NavItemTypeLeft]
             rightPadding:[self bt_NavItemPadding:NavItemTypeRight]];
 }
 
-- (void)setItemPadding:(CGFloat)padding{
-    [self setItemPadding:padding rightPadding:padding];
+- (void)bt_setItemPadding:(CGFloat)padding{
+    [self bt_setItemPadding:padding rightPadding:padding];
 }
 
-- (void)setItemPadding:(CGFloat)leftPadding rightPadding:(CGFloat)rightPadding{
+- (void)bt_setItemPadding:(CGFloat)leftPadding rightPadding:(CGFloat)rightPadding{
     UINavigationBar * navBar=self.navigationController.navigationBar;
-    BOOL isHadSet = NO;
     if (@available(iOS 12.0, *)) {
         for (UIView * view in navBar.subviews) {
             if ([NSStringFromClass(view.class) isEqualToString:@"_UINavigationBarContentView"]) {
@@ -633,7 +643,7 @@
     }
 }
 
-- (void)setNavTrans{
+- (void)bt_setNavTrans{
     self.navigationController.navigationBar.translucent = true;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage bt_imageWithColor:UIColor.clearColor] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
@@ -641,21 +651,21 @@
     self.navigationController.navigationBar.backgroundColor=UIColor.clearColor;
 }
 
-- (void)setNavLineHide{
+- (void)bt_setNavLineHide{
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
-- (void)setNavLineColor:(UIColor*)color{
-    [self setNavLineColor:color height:.5];
+- (void)bt_setNavLineColor:(UIColor*)color{
+    [self bt_setNavLineColor:color height:.5];
 }
 
-- (void)setNavLineColor:(UIColor*)color height:(CGFloat)height{
+- (void)bt_setNavLineColor:(UIColor*)color height:(CGFloat)height{
     [self.navigationController.navigationBar setShadowImage:[UIImage bt_imageWithColor:color size:CGSizeMake([UIScreen mainScreen].bounds.size.width, height)]];
 }
 
 - (UIBarButtonItem *)rt_customBackItemWithTarget:(id)target action:(SEL)action{
-    [self setItemPaddingDefault];
-    UIBarButtonItem * item = [self createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
+    [self bt_setItemPaddingDefault];
+    UIBarButtonItem * item = [self bt_createItemImg:[UIImage imageNamed:@"nav_back"] action:@selector(leftBarClick)];
     return item;
 }
 
@@ -673,7 +683,15 @@
 
 @implementation UIViewController (BTDialog)
 
-- (UIAlertController*)createAlert:(NSString*)title
+- (NSDictionary*)bt_createBtnDict:(NSString*)title color:(UIColor*)color{
+    return [self bt_createBtnDict:title color:color style:UIAlertActionStyleDefault];
+}
+
+- (NSDictionary*)bt_createBtnDict:(NSString*)title color:(UIColor*)color style:(UIAlertActionStyle)style{
+    return @{@"title":title,@"color":color,@"style":[NSNumber numberWithInteger:style]};
+}
+
+- (UIAlertController*)bt_createAlert:(NSString*)title
                               msg:(NSString*)msg
                            action:(NSArray*)action
                             style:(UIAlertControllerStyle)style{
@@ -684,7 +702,7 @@
     return alertController;
 }
 
-- (UIAlertAction*)action:(NSString*)str
+- (UIAlertAction*)bt_action:(NSString*)str
                    style:(UIAlertActionStyle)style
                  handler:(void (^ __nullable)(UIAlertAction *action))handler{
     return [UIAlertAction actionWithTitle:str
@@ -692,8 +710,19 @@
                                   handler:handler];
 }
 
+- (UIAlertAction*_Nonnull)bt_action:(NSString*_Nullable)str
+                           style:(UIAlertActionStyle)style
+                              color:(UIColor*)color
+                            handler:(void (^ __nullable)(UIAlertAction * _Nullable action))handler{
+    UIAlertAction * action = [UIAlertAction actionWithTitle:str
+                                                      style:style
+                                                    handler:handler];
+    [action setValue:color forKey:@"titleTextColor"];
+    return action;
+}
 
-- (UIAlertController*_Nonnull)showAlert:(NSString*)title
+
+- (UIAlertController*_Nonnull)bt_showAlert:(NSString*)title
                                     msg:(NSString*)msg
                                    btns:(NSArray*)btns
                                   block:(BTDialogBlock)block{
@@ -703,24 +732,24 @@
         UIAlertAction * action =nil;
         if (btns.count==2) {
             if (i==0) {
-                action=[self action:str style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                action=[self bt_action:str style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                     NSInteger index=[actions indexOfObject:action];
                     block(index);
                 }];
             }else{
-                action=[self action:str style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                action=[self bt_action:str style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     NSInteger index=[actions indexOfObject:action];
                     block(index);
                 }];
             }
         }else{
             if (i==btns.count-1) {
-                action=[self action:str style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                action=[self bt_action:str style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                     NSInteger index=[actions indexOfObject:action];
                     block(index);
                 }];
             }else{
-                action=[self action:str style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                action=[self bt_action:str style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     NSInteger index=[actions indexOfObject:action];
                     block(index);
                 }];
@@ -729,7 +758,32 @@
         }
         [actions addObject:action];
     }
-    UIAlertController * controller=[self createAlert:title msg:msg action:actions style:UIAlertControllerStyleAlert];
+    UIAlertController * controller=[self bt_createAlert:title msg:msg action:actions style:UIAlertControllerStyleAlert];
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:controller animated:YES completion:nil];
+    });
+    return controller;
+}
+
+- (UIAlertController*_Nonnull)bt_showAlert:(NSString*_Nonnull)title
+                                    msg:(NSString*_Nullable)msg
+                                   btnDicts:(NSArray*_Nullable)btnDicts
+                                     block:(BTDialogBlock _Nullable )block{
+    NSMutableArray * actions=[NSMutableArray new];
+    for (int i=0; i<btnDicts.count; i++) {
+        NSDictionary * dict=btnDicts[i];
+        NSString * title = dict[@"title"];
+        UIColor * color = dict[@"color"];
+        NSNumber * style = dict[@"style"];
+        UIAlertAction * action =nil;
+        action=[self bt_action:title style:style.integerValue color: color handler:^(UIAlertAction *action) {
+            NSInteger index=[actions indexOfObject:action];
+            block(index);
+        }];
+        
+        [actions addObject:action];
+    }
+    UIAlertController * controller=[self bt_createAlert:title msg:msg action:actions style:UIAlertControllerStyleAlert];
     dispatch_async(dispatch_get_main_queue(), ^(void){
         [self presentViewController:controller animated:YES completion:nil];
     });
@@ -738,29 +792,29 @@
 
 
 
-- (UIAlertController*_Nonnull)showAlertDefault:(NSString*)title
+- (UIAlertController*_Nonnull)bt_showAlertDefault:(NSString*)title
                                            msg:(NSString*)msg
                                          block:(BTDialogBlock)block{
-    UIAlertAction * actionCancel=[self action:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction * actionCancel=[self bt_action:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         block(0);
     }];
-    UIAlertAction * actionOk=[self action:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction * actionOk=[self bt_action:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         block(1);
     }];
-    UIAlertController * alertController=[self createAlert:title msg:msg action:@[actionCancel,actionOk] style:UIAlertControllerStyleAlert];
+    UIAlertController * alertController=[self bt_createAlert:title msg:msg action:@[actionCancel,actionOk] style:UIAlertControllerStyleAlert];
     dispatch_async(dispatch_get_main_queue(), ^(void){
         [self presentViewController:alertController animated:YES completion:nil];
     });
     return alertController;
 }
 
-- (UIAlertController*_Nonnull)showActionSheet:(NSString*)title
+- (UIAlertController*_Nonnull)bt_showActionSheet:(NSString*)title
                                           msg:(NSString*)msg
                                          btns:(NSArray*)btns
                                         block:(BTDialogBlock)block{
     NSMutableArray * dataArray=[NSMutableArray new];
     for (NSString * btn in btns) {
-        UIAlertAction * action=[self action:btn style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UIAlertAction * action=[self bt_action:btn style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             block([dataArray indexOfObject:action]);
         }];
         if ([BTCoreConfig share].actionColor) {
@@ -770,7 +824,7 @@
         [dataArray addObject:action];
     }
     
-    UIAlertAction * action=[self action:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+    UIAlertAction * action=[self bt_action:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         block(dataArray.count-1);
     }];
     
@@ -779,7 +833,7 @@
     }
     
     [dataArray addObject:action];
-    UIAlertController * alertController=[self createAlert:title msg:msg action:dataArray style:UIAlertControllerStyleActionSheet];
+    UIAlertController * alertController=[self bt_createAlert:title msg:msg action:dataArray style:UIAlertControllerStyleActionSheet];
     
     dispatch_async(dispatch_get_main_queue(), ^(void){
         [self presentViewController:alertController animated:YES completion:nil];
@@ -787,8 +841,30 @@
     return alertController;
 }
 
+- (UIAlertController*_Nonnull)bt_showActionSheet:(NSString*_Nullable)title
+                                          msg:(NSString*_Nullable)msg
+                                        btnDicts:(NSArray*_Nullable)btnDicts
+                                           block:(BTDialogBlock _Nullable )block{
+    NSMutableArray * dataArray=[NSMutableArray new];
+    for (NSDictionary * dict in btnDicts) {
+        NSString * title = dict[@"title"];
+        UIColor * color = dict[@"color"];
+        NSNumber * style = dict[@"style"];
+        UIAlertAction * action=[self bt_action:title style:style.integerValue color:color handler:^(UIAlertAction *action) {
+            block([dataArray indexOfObject:action]);
+        }];
+        [dataArray addObject:action];
+    }
+    
+    UIAlertController * alertController=[self bt_createAlert:title msg:msg action:dataArray style:UIAlertControllerStyleActionSheet];
+    
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
+    return alertController;
+}
 
-- (UIAlertController*_Nonnull)showAlertEdit:(NSString*)title
+- (UIAlertController*_Nonnull)bt_showAlertEdit:(NSString*)title
                                defaultValue:(NSString*)value
                                 placeHolder:(NSString*)placeHolder
                                       block:(void(^)(NSString * result))block{
@@ -818,12 +894,73 @@
     }];
     //    [okAction setValue:BT_MAIN_COLOR forKey:@"_titleTextColor"];
     [alertController addAction:okAction];
-   dispatch_async(dispatch_get_main_queue(), ^(void){
+    dispatch_async(dispatch_get_main_queue(), ^(void){
         [self presentViewController:alertController animated:YES completion:nil];
     });
     return alertController;
 }
 
+
+- (UIAlertController*_Nonnull)bt_showAlertEdit:(NSString*_Nullable)title
+                               defaultValue:(NSString*_Nullable)value
+                                placeHolder:(NSString*_Nullable)placeHolder
+                                      btnDicts:(NSArray*_Nullable)btnDicts
+                                         block:(void(^_Nullable)(NSString * _Nullable result))block{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                             message:@""
+                                                                      preferredStyle:(UIAlertControllerStyleAlert)];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder =placeHolder;
+        textField.returnKeyType=UIReturnKeyDone;
+        textField.text=value;
+        textField.clearButtonMode=UITextFieldViewModeWhileEditing;
+    }];
+    
+    if ([btnDicts.firstObject isKindOfClass:[NSString class]]) {
+        UIAlertAction *cancelAction = [self bt_action:btnDicts.firstObject style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+            
+        }];
+        [alertController addAction:cancelAction];
+    }else{
+        NSDictionary * dict = btnDicts.firstObject;
+        NSString * title = dict[@"title"];
+        UIColor * color = dict[@"color"];
+        NSNumber * style = dict[@"style"];
+        UIAlertAction *cancelAction = [self bt_action:title style:style.integerValue color:color handler:^(UIAlertAction *action) {
+            
+        }];
+
+        [alertController addAction:cancelAction];
+    }
+    
+    if ([btnDicts.lastObject isKindOfClass:[NSString class]]) {
+        UIAlertAction *okAction = [self bt_action:btnDicts.lastObject style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nullable action) {
+            //获得文本框
+            UITextField * field = alertController.textFields.firstObject;
+            NSString * text=field.text;
+            block(text);
+        }];
+        [alertController addAction:okAction];
+    }else{
+        NSDictionary * dict = btnDicts.firstObject;
+        NSString * title = dict[@"title"];
+        UIColor * color = dict[@"color"];
+        NSNumber * style = dict[@"style"];
+        UIAlertAction *okAction = [self bt_action:title style:style.integerValue color:color handler:^(UIAlertAction *action) {
+            //获得文本框
+            UITextField * field = alertController.textFields.firstObject;
+            NSString * text=field.text;
+            block(text);
+        }];
+
+        [alertController addAction:okAction];
+    }
+    dispatch_async(dispatch_get_main_queue(), ^(void){
+        [self presentViewController:alertController animated:YES completion:nil];
+    });
+    return alertController;
+}
 
 @end
 

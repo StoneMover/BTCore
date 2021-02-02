@@ -27,12 +27,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTitle:@"BTCore"];
+    [self bt_initTitle:@"BTCore"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
     [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试",@"GCD",@"横竖屏切换",@"自定义导航器"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
-
+//    NSArray * btnDicts = @[[self bt_createBtnDict:@"取消" color:UIColor.blueColor style:UIAlertActionStyleCancel],
+//                           [self bt_createBtnDict:@"确定" color:UIColor.redColor],
+//                           [self bt_createBtnDict:@"完蛋" color:UIColor.yellowColor]
+//    ];
+//    [self bt_showActionSheet:@"提示" msg:@"你好的" btnDicts:btnDicts block:^(NSInteger index) {
+//        
+//    }];
 }
 
 

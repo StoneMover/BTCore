@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initTitle:@"tableView头部伸缩效果"];
+    [self bt_initTitle:@"tableView头部伸缩效果"];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
     
