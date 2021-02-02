@@ -694,9 +694,9 @@
 }
 
 - (UIAlertController*)bt_createAlert:(NSString*)title
-                              msg:(NSString*)msg
-                           action:(NSArray*)action
-                            style:(UIAlertControllerStyle)style{
+                                 msg:(NSString*)msg
+                              action:(NSArray*)action
+                               style:(UIAlertControllerStyle)style{
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:style];
     for (UIAlertAction * a in action) {
         [alertController addAction:a];
@@ -705,15 +705,15 @@
 }
 
 - (UIAlertAction*)bt_action:(NSString*)str
-                   style:(UIAlertActionStyle)style
-                 handler:(void (^ __nullable)(UIAlertAction *action))handler{
+                      style:(UIAlertActionStyle)style
+                    handler:(void (^ __nullable)(UIAlertAction *action))handler{
     return [UIAlertAction actionWithTitle:str
                                     style:style
                                   handler:handler];
 }
 
 - (UIAlertAction*_Nonnull)bt_action:(NSString*_Nullable)str
-                           style:(UIAlertActionStyle)style
+                              style:(UIAlertActionStyle)style
                               color:(UIColor*)color
                             handler:(void (^ __nullable)(UIAlertAction * _Nullable action))handler{
     UIAlertAction * action = [UIAlertAction actionWithTitle:str
@@ -725,9 +725,9 @@
 
 
 - (UIAlertController*_Nonnull)bt_showAlert:(NSString*)title
-                                    msg:(NSString*)msg
-                                   btns:(NSArray*)btns
-                                  block:(BTDialogBlock)block{
+                                       msg:(NSString*)msg
+                                      btns:(NSArray*)btns
+                                     block:(BTDialogBlock)block{
     NSMutableArray * actions=[NSMutableArray new];
     for (int i=0; i<btns.count; i++) {
         NSString * str=btns[i];
@@ -768,8 +768,8 @@
 }
 
 - (UIAlertController*_Nonnull)bt_showAlert:(NSString*_Nonnull)title
-                                    msg:(NSString*_Nullable)msg
-                                   btnDicts:(NSArray*_Nullable)btnDicts
+                                       msg:(NSString*_Nullable)msg
+                                  btnDicts:(NSArray*_Nullable)btnDicts
                                      block:(BTDialogBlock _Nullable )block{
     NSMutableArray * actions=[NSMutableArray new];
     for (int i=0; i<btnDicts.count; i++) {
@@ -795,8 +795,8 @@
 
 
 - (UIAlertController*_Nonnull)bt_showAlertDefault:(NSString*)title
-                                           msg:(NSString*)msg
-                                         block:(BTDialogBlock)block{
+                                              msg:(NSString*)msg
+                                            block:(BTDialogBlock)block{
     UIAlertAction * actionCancel=[self bt_action:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
         block(0);
     }];
@@ -811,9 +811,9 @@
 }
 
 - (UIAlertController*_Nonnull)bt_showActionSheet:(NSString*)title
-                                          msg:(NSString*)msg
-                                         btns:(NSArray*)btns
-                                        block:(BTDialogBlock)block{
+                                             msg:(NSString*)msg
+                                            btns:(NSArray*)btns
+                                           block:(BTDialogBlock)block{
     NSMutableArray * dataArray=[NSMutableArray new];
     for (NSString * btn in btns) {
         UIAlertAction * action=[self bt_action:btn style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -844,7 +844,7 @@
 }
 
 - (UIAlertController*_Nonnull)bt_showActionSheet:(NSString*_Nullable)title
-                                          msg:(NSString*_Nullable)msg
+                                             msg:(NSString*_Nullable)msg
                                         btnDicts:(NSArray*_Nullable)btnDicts
                                            block:(BTDialogBlock _Nullable )block{
     NSMutableArray * dataArray=[NSMutableArray new];
@@ -867,9 +867,9 @@
 }
 
 - (UIAlertController*_Nonnull)bt_showAlertEdit:(NSString*)title
-                               defaultValue:(NSString*)value
-                                placeHolder:(NSString*)placeHolder
-                                      block:(void(^)(NSString * result))block{
+                                  defaultValue:(NSString*)value
+                                   placeHolder:(NSString*)placeHolder
+                                         block:(void(^)(NSString * result))block{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                              message:@""
                                                                       preferredStyle:(UIAlertControllerStyleAlert)];
@@ -904,8 +904,8 @@
 
 
 - (UIAlertController*_Nonnull)bt_showAlertEdit:(NSString*_Nullable)title
-                               defaultValue:(NSString*_Nullable)value
-                                placeHolder:(NSString*_Nullable)placeHolder
+                                  defaultValue:(NSString*_Nullable)value
+                                   placeHolder:(NSString*_Nullable)placeHolder
                                       btnDicts:(NSArray*_Nullable)btnDicts
                                          block:(void(^_Nullable)(NSString * _Nullable result))block{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
