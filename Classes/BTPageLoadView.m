@@ -58,6 +58,15 @@
 }
 
 - (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib style:(UITableViewStyle)style{
+    NSMutableArray * cellIdArray = [NSMutableArray new];
+    for (NSString * cellName in cellNames) {
+        NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
+        [cellIdArray addObject:cellId];
+    }
+    [self initTableView:cellNames cellIdArray:cellIdArray isRegisgerNib:isRegisgerNib style:style];
+}
+
+- (void)initTableView:(NSArray<NSString*>*)cellNames cellIdArray:(NSArray<NSString*>*)cellIdArray isRegisgerNib:(BOOL)isRegisgerNib style:(UITableViewStyle)style{
     _tableView = [[UITableView alloc] initWithFrame:self.bounds style:style];
     self.tableView.estimatedRowHeight = 0;
     self.tableView.estimatedSectionHeaderHeight = 0;
@@ -68,8 +77,9 @@
     
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _dataArrayCellId=[NSMutableArray new];
-    for (NSString * cellName in cellNames) {
-        NSString * cellId = [NSString stringWithFormat:@"%@Id",cellName];
+    for (int i=0; i<cellNames.count; i++) {
+        NSString * cellName = cellNames[i];
+        NSString * cellId = cellIdArray[i];
         [self.dataArrayCellId addObject:cellId];
         if (isRegisgerNib) {
             UINib * nib = [UINib nibWithNibName:cellName bundle:nil];

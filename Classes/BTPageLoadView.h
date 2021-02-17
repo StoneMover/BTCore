@@ -116,6 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)initTableView:(NSArray<NSString*>*)cellNames;
 - (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib;
 - (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib style:(UITableViewStyle)style;
+- (void)initTableView:(NSArray<NSString*>*)cellNames cellIdArray:(NSArray<NSString*>*)cellIdArray isRegisgerNib:(BOOL)isRegisgerNib style:(UITableViewStyle)style;
 
 - (void)initCollectionView:(NSArray<NSString*>*)cellNames;
 - (void)initCollectionView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib;
