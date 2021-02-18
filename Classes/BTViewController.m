@@ -945,7 +945,7 @@
         }];
         [alertController addAction:okAction];
     }else{
-        NSDictionary * dict = btnDicts.firstObject;
+        NSDictionary * dict = btnDicts.lastObject;
         NSString * title = dict[@"title"];
         UIColor * color = dict[@"color"];
         NSNumber * style = dict[@"style"];
