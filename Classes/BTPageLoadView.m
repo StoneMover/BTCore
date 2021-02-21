@@ -453,8 +453,12 @@
     if (scrollView.contentOffset.y < 0) {
         self.tableViewBoundceHeadImgView.BTTop = 0;
         self.tableViewBoundceHeadImgView.BTHeight = self.tableViewBoundceHeadImgViewOriHeight + fabs(scrollView.contentOffset.y);
-    }else{
+    }else if(scrollView.contentOffset.y > 0){
         self.tableViewBoundceHeadImgView.BTTop = - scrollView.contentOffset.y;
+        self.tableViewBoundceHeadImgView.BTHeight = self.tableViewBoundceHeadImgViewOriHeight;
+    }else{
+        self.tableViewBoundceHeadImgView.BTTop = 0;
+        self.tableViewBoundceHeadImgView.BTHeight = self.tableViewBoundceHeadImgViewOriHeight;
     }
 
 }
