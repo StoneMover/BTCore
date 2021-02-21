@@ -160,14 +160,17 @@ typedef NS_ENUM(NSInteger,NavItemType) {
 
 #pragma mark 多个item的自定义view初始化
 //在item上生成2个或者多个按钮的时候使用该方法
-- (NSArray<UIButton*>*)bt_initCustomeItem:(NavItemType)type str:(NSArray<NSString*>*)strs;
-- (NSArray<UIButton*>*)bt_initCustomeItem:(NavItemType)type img:(NSArray<UIImage*>*)imgs;
+- (NSArray<UIView*>*)bt_initCustomeItem:(NavItemType)type str:(NSArray<NSString*>*)strs;
+- (NSArray<UIView*>*)bt_initCustomeItem:(NavItemType)type img:(NSArray<UIImage*>*)imgs;
+- (NSArray<UIView*>*)bt_initCustomeItem:(NavItemType)type views:(NSArray<UIView*>*)views;
 
 //获取相关的配置
-- (CGSize)bt_customeItemSize:(NavItemType)type;
-- (CGFloat)bt_customePadding:(NavItemType)type;
-- (UIColor*)bt_customeStrColor:(NavItemType)type;
-- (UIFont*)bt_customeFont:(NavItemType)type;
+- (CGSize)bt_customeItemSize:(NavItemType)type index:(NSInteger)index;
+- (CGFloat)bt_customePadding:(NavItemType)type index:(NSInteger)index;
+
+//仅限自定义字符串样式的回调
+- (UIColor*)bt_customeStrColor:(NavItemType)type index:(NSInteger)index;
+- (UIFont*)bt_customeFont:(NavItemType)type index:(NSInteger)index;
 
 //点击后的事件
 - (void)bt_customeItemClick:(NavItemType)type index:(NSInteger)index;

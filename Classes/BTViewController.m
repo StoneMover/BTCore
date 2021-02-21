@@ -466,65 +466,62 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (NSArray<UIButton*>*)bt_initCustomeItem:(NavItemType)type str:(NSArray<NSString*>*)strs{
-    CGSize size = [self bt_customeItemSize:type];
-    CGFloat padding = [self bt_customePadding:type];
-    UIFont * font = [self bt_customeFont:type];
-    UIColor * color = [self bt_customeStrColor:type];
-    UIView * parentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width * strs.count + (strs.count - 1) * padding, size.height)];
-    NSInteger index = 0;
+- (NSArray<UIView*>*)bt_initCustomeItem:(NavItemType)type str:(NSArray<NSString*>*)strs{
     NSMutableArray * btns = [NSMutableArray new];
+    NSInteger index = 0;
     for (NSString * str in strs) {
-        UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(index * (size.width + padding), 0, size.width, size.height)];
+        UIButton * btn = [UIButton new];
+        [btn setTitleColor:[self bt_customeStrColor:type index:index] forState:UIControlStateNormal];
+        btn.titleLabel.font = [self bt_customeFont:type index:index];
         [btn setTitle:str forState:UIControlStateNormal];
-        [btn setTitleColor:color forState:UIControlStateNormal];
-        btn.titleLabel.font = font;
-        btn.tag = index;
-        [parentView addSubview:btn];
-        if (type == NavItemTypeRight) {
-            [btn addTarget:self action:@selector(bt_customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
-        }else if(type == NavItemTypeLeft){
-            [btn addTarget:self action:@selector(bt_customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
-        }
-        index++;
         [btns addObject:btn];
+        index++;
     }
-    
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:parentView];
-    if (type == NavItemTypeRight) {
-        self.navigationItem.rightBarButtonItem = item;
-    }else if(type == NavItemTypeLeft){
-        self.navigationItem.leftBarButtonItem = item;
-    }
-    return btns;
+    return [self bt_initCustomeItem:type views:btns];
 }
 
-- (NSArray<UIButton*>*)bt_initCustomeItem:(NavItemType)type img:(NSArray<UIImage*>*)imgs{
-    CGSize size = [self bt_customeItemSize:type];
-    CGFloat padding = [self bt_customePadding:type];
-    UIView * parentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width * imgs.count + (imgs.count - 1) * padding, size.height)];
-    NSInteger index = 0;
+- (NSArray<UIView*>*)bt_initCustomeItem:(NavItemType)type img:(NSArray<UIImage*>*)imgs{
     NSMutableArray * btns = [NSMutableArray new];
     for (UIImage * img in imgs) {
-        UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(index * (size.width + padding), 0, size.width, size.height)];
+        UIButton * btn = [UIButton new];
         [btn setImage:img forState:UIControlStateNormal];
-        btn.tag = index;
-        [parentView addSubview:btn];
+        [btns addObject:btn];
+    }
+    return [self bt_initCustomeItem:type views:btns];
+}
+
+- (NSArray<UIView*>*)bt_initCustomeItem:(NavItemType)type views:(NSArray<UIView*>*)views{
+    UIView * parentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, BTUtils.NAVCONTENT_HEIGHT)];
+    CGFloat startX = 0;
+    for (int i=0; i<views.count; i++) {
+        UIView * childView = views[i];
+        startX += [self bt_customePadding:type index:i];
+        CGSize size = [self bt_customeItemSize:type index:i];
+        childView.frame = CGRectMake(startX, (BTUtils.NAVCONTENT_HEIGHT - size.height) / 2, size.width, size.height);
+        startX += size.width;
+        [parentView addSubview:childView];
+        UIButton * btn = nil;
+        if ([childView isKindOfClass:[UIButton class]]) {
+            btn = (UIButton*)childView;
+        }else{
+            btn = [[UIButton alloc] initWithFrame:childView.frame];
+            [childView addSubview:btn];
+        }
+        btn.tag = i;
         if (type == NavItemTypeRight) {
             [btn addTarget:self action:@selector(bt_customeItemRightClick:) forControlEvents:UIControlEventTouchUpInside];
         }else if(type == NavItemTypeLeft){
             [btn addTarget:self action:@selector(bt_customeItemLeftClick:) forControlEvents:UIControlEventTouchUpInside];
         }
-        index++;
-        [btns addObject:btn];
     }
+    parentView.BTWidth = startX;
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithCustomView:parentView];
     if (type == NavItemTypeRight) {
         self.navigationItem.rightBarButtonItem = item;
     }else if(type == NavItemTypeLeft){
         self.navigationItem.leftBarButtonItem = item;
     }
-    return btns;
+    return parentView.subviews;
 }
 
 - (CGSize)bt_customeItemSize:(NavItemType)type{
