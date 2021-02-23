@@ -524,21 +524,21 @@
     return parentView.subviews;
 }
 
-- (CGSize)bt_customeItemSize:(NavItemType)type{
+- (CGSize)bt_customeItemSize:(NavItemType)type index:(NSInteger)index{
     return CGSizeMake(36, 44);
 }
-- (CGFloat)bt_customePadding:(NavItemType)type{
+- (CGFloat)bt_customePadding:(NavItemType)type index:(NSInteger)index{
     return 0;
 }
 
-- (UIFont*)bt_customeFont:(NavItemType)type{
+- (UIFont*)bt_customeFont:(NavItemType)type index:(NSInteger)index{
     if (type == NavItemTypeLeft) {
         return BTCoreConfig.share.defaultNavLeftBarItemFont;
     }
     return BTCoreConfig.share.defaultNavRightBarItemFont;
 }
 
-- (UIColor*)bt_customeStrColor:(NavItemType)type{
+- (UIColor*)bt_customeStrColor:(NavItemType)type index:(NSInteger)index{
     if (type == NavItemTypeLeft) {
         return BTCoreConfig.share.defaultNavLeftBarItemColor;
     }
