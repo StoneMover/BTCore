@@ -229,12 +229,7 @@
 - (void)autoLoadNetError:(NSError*)error{
     [self endHeadRefresh];
     [self endFootRefresh];
-    NSString * info=nil;
-    if ([error.userInfo.allKeys containsObject:@"NSLocalizedDescription"]) {
-        info=[error.userInfo objectForKey:@"NSLocalizedDescription"];
-    }else {
-        info=error.domain;
-    }
+    NSString * info = BTCoreConfig.share.netErrorInfoFillterBlock(error);
     _isRefresh=NO;
     if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage&&self.loadingHelp&&!self.isRefresh) {
         //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
