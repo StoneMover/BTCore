@@ -9,11 +9,10 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>BTHttp * request = [BTHttp share];
-NSMutableDictionary * dict = [self defaultPageDict:&lt;#(NSInteger)#&gt;];
+	<string>NSMutableDictionary * dict = [self defaultPageDict:&lt;#(NSInteger)#&gt;];
 [dict setValue:[BTUtils SAFE_STR:&lt;#String#&gt;] forKey:@"&lt;#String#&gt;"];
 NSString * url = [self getUrlFunction:@"&lt;#String#&gt;"];
-[request POST:url parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+[BTHttp.share POST:url parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     if (success) {
         success(responseObject);
     }

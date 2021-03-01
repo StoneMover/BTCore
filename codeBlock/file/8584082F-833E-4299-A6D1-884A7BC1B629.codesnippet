@@ -3,24 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>IDECodeSnippetCompletionPrefix</key>
-	<string>SMNetBlock</string>
+	<string>SMStyle</string>
 	<key>IDECodeSnippetCompletionScopes</key>
 	<array>
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>success:(BTNetSuccessBlock)success fail:(BTNetFailBlock)fail</string>
+	<string>#pragma mark 初始化
+
+#pragma mark 生命周期
+
+#pragma mark 点击事件
+
+#pragma mark 相关方法
+
+#pragma mark 网络请求</string>
 	<key>IDECodeSnippetIdentifier</key>
-	<string>B5B22CC9-F5C0-4CD6-82F3-9F15EF8C4B61</string>
+	<string>8584082F-833E-4299-A6D1-884A7BC1B629</string>
 	<key>IDECodeSnippetLanguage</key>
-	<string>Xcode.SourceCodeLanguage.Generic</string>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
 	<key>IDECodeSnippetSummary</key>
-	<string>网络回调block</string>
+	<string>SMStyle</string>
 	<key>IDECodeSnippetTitle</key>
-	<string>SMNetBlock</string>
+	<string>SMStyle</string>
 	<key>IDECodeSnippetUserSnippet</key>
 	<true/>
 	<key>IDECodeSnippetVersion</key>
-	<integer>2</integer>
+	<integer>0</integer>
 </dict>
 </plist>
