@@ -310,7 +310,9 @@
             if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadIgnoredContentInsetBottom:)]) {
                 result = [self.delegate BTPageLoadIgnoredContentInsetBottom:self];
             }
-            self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=result + self.scrollView.contentInset.bottom;
+//            self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=result + self.scrollView.contentInset.bottom;
+            //不需要自己增加contentInset.bottom，在设置FootView的时候MJ控件已经设置
+            self.scrollView.mj_footer.ignoredScrollViewContentInsetBottom=result;
         }else{
             if (self.scrollView.mj_footer) {
                 self.scrollView.mj_footer.hidden=YES;

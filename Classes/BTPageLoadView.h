@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 //自动化创建model的时候回调,如果你想计算cell的高度则可以实现此代理进行计算即可,会将转换后的model以及字典传回
 - (void)BTPageLoadCreate:(BTPageLoadView*)loadView obj:(NSObject*)obj dict:(NSDictionary*)dict index:(NSInteger)index;
 
-//MJFoot刷新距离底部的距离，适配iphonex,普通手机不会用到
+//MJFoot刷新距离底部的距离，适配iphonex,普通手机不会用到,如果是在tabbarView中则实现该方法返回0
 - (CGFloat)BTPageLoadIgnoredContentInsetBottom:(BTPageLoadView*)loadView;
 
 
