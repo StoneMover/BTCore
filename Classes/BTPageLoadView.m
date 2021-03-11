@@ -47,6 +47,8 @@
 - (void)initSelf{
     self.loadFinishDataNum=[BTCoreConfig share].pageLoadSizePage;
     _pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    self.isToastWhenDataEmpty = YES;
+    self.isNeedClearDataWhenRefresh = YES;
 }
 
 - (void)initTableView:(NSArray<NSString*>*)cellNames{
@@ -174,7 +176,9 @@
     [self endHeadRefresh];
     [self endFootRefresh];
     if (self.isRefresh) {
-        [self.dataArray removeAllObjects];
+        if (self.isNeedClearDataWhenRefresh) {
+            [self.dataArray removeAllObjects];
+        }
         _isRefresh=NO;
     }
     
