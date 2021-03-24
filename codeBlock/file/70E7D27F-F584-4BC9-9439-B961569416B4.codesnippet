@@ -13,7 +13,7 @@
 [dict setValue:[BTUtils SAFE_STR:&lt;#String#&gt;] forKey:@"&lt;#String#&gt;"];
 NSString * url = [self getUrlFunction:@"&lt;#String#&gt;"];
 [BTHttp.share POST:url parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-    [self defaultSuccess:responseObject success:success fail:false];
+    [self defaultSuccess:responseObject success:success fail:fail];
 } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
     [self defaultNetError:error fail:fail];
 }];</string>

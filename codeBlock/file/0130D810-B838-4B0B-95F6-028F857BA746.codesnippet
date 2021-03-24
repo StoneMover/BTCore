@@ -15,7 +15,7 @@ NSMutableDictionary * dict=[self defaultDict];
 NSString * url =[self getUrlFunction:@"&lt;#String#&gt;"];
 [BTHttp.share POST:url parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     [BTProgress hideLoading];
-    [self defaultSuccess:responseObject success:success fail:false];
+    [self defaultSuccess:responseObject success:success fail:fail];
 } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
     [BTProgress hideLoading];
     [self defaultNetError:error fail:fail];
