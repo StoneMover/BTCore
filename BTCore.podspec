@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BTCore"
-  s.version          = "0.4.2"
+  s.version          = "0.4.3"
   s.summary          = "iOS Project Basic"
   s.homepage         = "https://github.com/StoneMover/BTCore"
   s.license          = 'MIT'
