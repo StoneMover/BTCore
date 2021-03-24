@@ -182,7 +182,9 @@ typedef void(^BTNetFailFullBlock)(NSError * _Nullable error,NSInteger code,NSStr
 //获取图片拼接地址的完整url，传入拼接的url，如果不需要拼接则[BTCoreConfig share].imgRootUrl不设置即可
 + (NSURL*)getImgResultUrl:(NSString*_Nullable)url;
 
-
+//统一的成功、失败回调方法
++ (void)defaultSuccess:(id  _Nullable)responseObject success:(BTNetSuccessBlock _Nullable)success fail:(BTNetFailBlock _Nullable)fail;
++ (void)defaultNetError:(NSError * _Nonnull)error fail:(BTNetFailBlock _Nullable)fail;
 
 @end
 

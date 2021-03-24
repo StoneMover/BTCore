@@ -462,7 +462,27 @@ static BTHttp * http=nil;
     return result;
 }
 
++ (void)defaultSuccess:(id  _Nullable)responseObject success:(BTNetSuccessBlock _Nullable)success fail:(BTNetFailBlock _Nullable)fail{
+    if ([self isSuccess:responseObject]) {
+        if (success) {
+            success(responseObject);
+        }
+    }else{
+        if(fail){
+            fail(nil,[self errorInfo:responseObject]);
+        }else{
+            [BTToast showErrorInfo:BTCoreConfig.share.netInfoBlock(responseObject)];
+        }
+    }
+}
 
++ (void)defaultNetError:(NSError * _Nonnull)error fail:(BTNetFailBlock _Nullable)fail{
+    if (fail) {
+        fail(error,nil);
+    }else{
+        [BTToast showErrorInfo:BTCoreConfig.share.netErrorInfoFillterBlock(error)];
+    }
+}
 
 @end
 
