@@ -152,6 +152,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 刷新相关
 - (void)startHeadRefresh;
 
+- (void)startHeadRefreshWithDelayTime:(CGFloat)time;
+
 - (void)endHeadRefresh;
 
 - (void)endFootRefresh;

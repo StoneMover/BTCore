@@ -332,6 +332,12 @@
     }
 }
 
+- (void)startHeadRefreshWithDelayTime:(CGFloat)time{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self startHeadRefresh];
+    });
+}
+
 - (void)endHeadRefresh{
     if (self.scrollView.mj_header) {
         [self.scrollView.mj_header endRefreshing];
