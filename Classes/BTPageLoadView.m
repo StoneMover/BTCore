@@ -332,6 +332,16 @@
     }
 }
 
+- (void)startRefreshNoAction{
+    [self headRefreshLoad];
+}
+
+- (void)startRefreshNoActionWithDelayTime:(CGFloat)time{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self headRefreshLoad];
+    });
+}
+
 - (void)startHeadRefreshWithDelayTime:(CGFloat)time{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self startHeadRefresh];
