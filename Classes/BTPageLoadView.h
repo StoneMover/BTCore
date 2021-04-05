@@ -115,6 +115,9 @@ NS_ASSUME_NONNULL_BEGIN
 //是否需要在刷新请求后调用autoLoadSuccess方法中清空dataArray数组,默认为YES
 @property (nonatomic, assign) BOOL isNeedClearDataWhenRefresh;
 
+//collectionViewCell size
+@property (nonatomic, assign) CGSize collectionViewCellSize;
+
 #pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames;
 - (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib;

@@ -7,7 +7,7 @@
 //
 
 #import "BTPageLoadView.h"
-
+#import <BTHelp/UIColor+BTColor.h>
 
 @interface BTPageLoadView()
 
@@ -93,6 +93,7 @@
     
     [self addSubview:self.tableView];
     self.scrollView=self.tableView;
+    self.tableView.separatorColor = [UIColor bt_RGBSame:221];
 }
 
 
