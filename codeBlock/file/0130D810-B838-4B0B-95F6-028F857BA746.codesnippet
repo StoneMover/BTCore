@@ -15,24 +15,10 @@ NSMutableDictionary * dict=[self defaultDict];
 NSString * url =[self getUrlFunction:@"&lt;#String#&gt;"];
 [BTHttp.share POST:url parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
     [BTProgress hideLoading];
-    if ([self isSuccess:responseObject]) {
-        if (success) {
-            success(responseObject);
-        }
-    }else{
-        if(fail){
-            fail(nil,[self errorInfo:responseObject]);
-        }else{
-            [BTToast showErrorInfo:BTCoreConfig.share.netInfoBlock(responseObject)];
-        }
-    }
+    [self defaultSuccess:responseObject success:success fail:fail];
 } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
     [BTProgress hideLoading];
-    if (fail) {
-        fail(error,nil);
-    }else{
-        [BTToast showErrorInfo:BTCoreConfig.share.netErrorInfoFillterBlock(error)];
-    }
+    [self defaultNetError:error fail:fail];
 }];</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>0130D810-B838-4B0B-95F6-028F857BA746</string>
