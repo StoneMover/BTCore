@@ -1,2 +1,0 @@
-# BTCore
-iOS Project Basic 
