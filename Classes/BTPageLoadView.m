@@ -417,14 +417,19 @@
 }
 
 - (void)resetValueAndGetData{
-    self.isLoadFinish=NO;
-    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
-    [self.dataArray removeAllObjects];
-    [self.loadingHelp showLoading];
+    [self resetValue];
     if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadGetData:)]) {
         [self.delegate BTPageLoadGetData:self];
     }
 }
+
+- (void)resetValue{
+    self.isLoadFinish=NO;
+    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    [self.dataArray removeAllObjects];
+    [self.loadingHelp showLoading];
+}
+
 
 - (void)setRefreshHeadThemeWhite{
     if (self.tableView.mj_header&&[self.tableView.mj_header isKindOfClass:[MJRefreshNormalHeader class]]) {

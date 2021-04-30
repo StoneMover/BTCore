@@ -182,6 +182,8 @@ NS_ASSUME_NONNULL_BEGIN
 //恢复所有值到默认状态，然后请求数据
 - (void)resetValueAndGetData;
 
+- (void)resetValue;
+
 //设置MJ刷新头部的主题颜色为白色
 - (void)setRefreshHeadThemeWhite;
 
