@@ -6,7 +6,7 @@
 //
 
 #import "UIFont+BTFont.h"
-#import <BTHelp/BTScaleHelp.h>
+#import <BTHelp/BTHelp.h>
 #import <objc/runtime.h>
 
 @implementation UIFont (BTFont)
@@ -78,6 +78,10 @@
     return UIFontWeightRegular;
 }
 
+- (CGFloat)autoLineHeight:(CGFloat)lineHeight{
+    return lineHeight - (self.lineHeight - self.pointSize);
+}
+
 @end
 
 
@@ -93,14 +97,12 @@
 - (id)BTFontInitWithCoder:(NSCoder*)aDecode{
     [self BTFontInitWithCoder:aDecode];
     
-    if (self && self.tag == 1024) {
-        UIFont * font = self.titleLabel.font;
-        
-//        NSLog(@"ssss%@",font);
-        UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
-        self.titleLabel.font = resultFont;
-//        NSLog(@"sss%@",resultFont);
+    if (self && self.tag < 0) {
+        return self;
     }
+    UIFont * font = self.titleLabel.font;
+    UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
+    self.titleLabel.font = resultFont;
     return self;
 }
 
@@ -118,15 +120,12 @@
 
 - (id)BTFontInitWithCoder:(NSCoder*)aDecode{
     [self BTFontInitWithCoder:aDecode];
-    
-    if (self && self.tag == 1024) {
-        UIFont * font = self.font;
-        
-//        NSLog(@"ssss%@",font);
-        UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
-        self.font = resultFont;
-//        NSLog(@"sss%@",resultFont);
+    if (self && self.tag < 0) {
+        return self;
     }
+    UIFont * font = self.font;
+    UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
+    self.font = resultFont;
     return self;
 }
 
@@ -144,15 +143,12 @@
 
 - (id)BTFontInitWithCoder:(NSCoder*)aDecode{
     [self BTFontInitWithCoder:aDecode];
-    
-    if (self && self.tag == 1024) {
-        UIFont * font = self.font;
-        
-//        NSLog(@"ssss%@",font);
-        UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
-        self.font = resultFont;
-//        NSLog(@"sss%@",resultFont);
+    if (self && self.tag < 0) {
+        return self;
     }
+    UIFont * font = self.font;
+    UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
+    self.font = resultFont;
     return self;
 }
 
@@ -170,15 +166,12 @@
 
 - (id)BTFontInitWithCoder:(NSCoder*)aDecode{
     [self BTFontInitWithCoder:aDecode];
-    
-    if (self && self.tag == 1024) {
-        UIFont * font = self.font;
-        
-//        NSLog(@"ssss%@",font);
-        UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
-        self.font = resultFont;
-//        NSLog(@"sss%@",resultFont);
+    if (self && self.tag < 0) {
+        return self;
     }
+    UIFont * font = self.font;
+    UIFont * resultFont = [UIFont BTAutoFontWithSize:font.pointSize weight:[UIFont BTGetFontWeight:font]];
+    self.font = resultFont;
     return self;
 }
 
