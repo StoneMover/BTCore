@@ -112,6 +112,9 @@ NS_ASSUME_NONNULL_BEGIN
 //数据为空的时候是否Toast提示
 @property (nonatomic, assign) BOOL isToastWhenDataEmpty;
 
+//空数据Toast是否为当前VC中
+@property (nonatomic, assign) BOOL isEmptyToastInCurrentVc;
+
 //是否需要在刷新请求后调用autoLoadSuccess方法中清空dataArray数组,默认为YES
 @property (nonatomic, assign) BOOL isNeedClearDataWhenRefresh;
 

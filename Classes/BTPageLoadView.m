@@ -457,6 +457,11 @@
         return;
     }
     
+    if (self.isEmptyToastInCurrentVc) {
+        [BTToast showVc:@"暂无数据"];
+        return;
+    }
+    
     [BTToast show:@"暂无数据"];
 }
 
