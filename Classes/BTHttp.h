@@ -5,7 +5,7 @@
 //  Created by whbt_mac on 2016/10/18.
 //  Copyright © 2016年 StoneMover. All rights reserved.
 //  对于AFNetworking的再次封装,避免以后网络请求库的替换操作
-//
+//  如果只需要一个对象使用share方法即可，如果需要多个对象则使用new的方式创建，库会默认使用share方法创建，如果有额外需要请使用new的方式创建
 
 /**
  关于https自签证书的验证
@@ -59,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) NSInteger timeInterval;
 
 @property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> * requestSerializer;
+
+@property (nonatomic, strong) AFHTTPResponseSerializer <AFURLResponseSerialization> * responseSerializer;
 
 +(instancetype)share;
 
@@ -204,6 +206,9 @@ typedef void(^BTNetFailFullBlock)(NSError * _Nullable error,NSInteger code,NSStr
 
 @property (nonatomic, assign) NSInteger type;
 
+@property (nonatomic, strong) NSDictionary * dict;
+
+@property (nonatomic, strong) NSString * url;
 
 
 @end
