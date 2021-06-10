@@ -45,7 +45,9 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.view endEditing:YES];
+    if (self.isTouceViewEndCloseKeyBoard) {
+        [self.view endEditing:YES];
+    }
 }
 
 - (void)viewDidAppearFirst{
