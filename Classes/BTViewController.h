@@ -28,6 +28,14 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
     BTWebViewLoadingProgress
 };
 
+@interface UIViewController (BTCategoryViewController)
+
+- (void)bt_popToViewController:(Class)cla;
+
+- (void)bt_popToViewController:(Class)cla animated:(BOOL)animated;
+
+@end
+
 
 @interface BTViewController : UIViewController
 
@@ -54,6 +62,9 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 
 //重新加载网络数据
 - (void)bt_loadingReload;
+
+//debug模式下会调用该方法
+- (void)debugConfig;
 
 @end
 

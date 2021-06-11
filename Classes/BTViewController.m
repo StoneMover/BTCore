@@ -10,6 +10,24 @@
 #import <WebKit/WebKit.h>
 #import <BTWidgetView/BTProgressView.h>
 
+@implementation UIViewController (BTCategoryViewController)
+
+- (void)bt_popToViewController:(Class)cla{
+    [self bt_popToViewController:cla animated:YES];
+}
+
+- (void)bt_popToViewController:(Class)cla animated:(BOOL)animated{
+    for (UIViewController * childVc in self.navigationController.viewControllers) {
+        if ([childVc isKindOfClass:cla]) {
+            [self.navigationController popToViewController:childVc animated:animated];
+            return;
+            
+        }
+    }
+}
+
+@end
+
 
 @implementation BTViewController
 
@@ -24,6 +42,11 @@
     if (BTCoreConfig.share.defaultVCBgColor) {
         self.view.backgroundColor = BTCoreConfig.share.defaultVCBgColor;
     }
+    
+    if (BTCoreConfig.share.isDebug) {
+        [self debugConfig];
+    }
+    
 }
 
 #pragma mark 生命周期
@@ -64,6 +87,8 @@
     [self getData];
 }
 
+- (void)debugConfig{
+}
 
 
 

@@ -154,6 +154,9 @@ NS_ASSUME_NONNULL_BEGIN
 //导航器返回的按钮距离左边的间距,默认5
 @property (nonatomic, assign) CGFloat navItemPadding;
 
+//是否为调试模式，默认为false
+@property (nonatomic, assign) BOOL isDebug;
+
 + (instancetype)share;
 
 @end
