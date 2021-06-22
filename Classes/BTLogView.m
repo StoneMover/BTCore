@@ -179,6 +179,9 @@ static BTLogView * logView = nil;
 }
 
 - (void)add:(NSString*)str{
+    if (self.isShowControlView) {
+        NSLog(@"%@", str);
+    }
     if (!BTCoreConfig.share.isOpenLog) {
         return;
     }
@@ -188,6 +191,10 @@ static BTLogView * logView = nil;
 }
 
 - (void)addAndSave:(NSString*)str{
+    if (self.isShowControlView) {
+        NSLog(@"%@", str);
+    }
+    
     if (!BTCoreConfig.share.isOpenLog) {
         return;
     }
