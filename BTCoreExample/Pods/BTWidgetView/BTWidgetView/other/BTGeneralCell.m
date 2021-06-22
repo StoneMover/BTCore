@@ -122,6 +122,7 @@
     }
     
     self.fullBtn = [[UIButton alloc] init];
+    self.fullBtn.hidden = YES;
     self.fullBtn.translatesAutoresizingMaskIntoConstraints = false;
     [self addSubview:self.fullBtn];
     [self.fullBtn bt_addToParentWithPadding:BTPaddingMake(0, 0, 0, 0)];
