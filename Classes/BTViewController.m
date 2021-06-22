@@ -26,6 +26,11 @@
     }
 }
 
+- (void)bt_removeNowVcToNextVc:(UIViewController*)vc{
+    [self.navigationController pushViewController:vc animated:YES];
+    [self.rt_navigationController removeViewController:self animated:NO];
+}
+
 @end
 
 

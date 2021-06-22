@@ -34,6 +34,9 @@ typedef NS_ENUM(NSInteger,BTWebViewLoadingType) {
 
 - (void)bt_popToViewController:(Class)cla animated:(BOOL)animated;
 
+//必须在使用RTNav框架才能调用，当需要跳转到下一个界面并且需要移除当前界面的时候调用
+- (void)bt_removeNowVcToNextVc:(UIViewController*)vc;
+
 @end
 
 
