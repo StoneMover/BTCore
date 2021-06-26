@@ -16,12 +16,12 @@
         request.post(url, parameters: dict, success: { (task, response) in
             let dataDict = response as? [AnyHashable : Any]
             if isSuccess(dataDict){
-                successBlock(dataDict!)
+                successBlock?(dataDict!)
             }else{
-                failBlock(nil,errorCode(dataDict),errorInfo(dataDict))
+                failBlock?(nil,errorCode(dataDict),errorInfo(dataDict))
             }
         },failure: { (task, error) in
-            failBlock(error,-1,nil)
+            failBlock?(error,-1,nil)
         })</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>2C54E0C8-436F-41AB-8A65-11F15BF597AE</string>

@@ -9,7 +9,8 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>public static func &lt;#String#&gt;( successBlock:@escaping BTNetSuccessBlcok,failBlock:@escaping BTNetFailFullBlock) -&gt; Void {
+	<string>public static func &lt;#String#&gt;(failBlock: BTNetFail
+                              Block?,successBlock: BTNetSuccessBlock?) -&gt; Void {
         
     }</string>
 	<key>IDECodeSnippetIdentifier</key>

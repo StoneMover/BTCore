@@ -9,7 +9,7 @@
 		<string>All</string>
 	</array>
 	<key>IDECodeSnippetContents</key>
-	<string>successBlock:@escaping BTNetSuccessBlcok, failBlock:@escaping BTNetFailFullBlock</string>
+	<string>successBlock: BTNetSuccessBlcok?, failBlock: BTNetFailBlock?</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>CAC49356-5BFE-4980-8993-608ED9C409CC</string>
 	<key>IDECodeSnippetLanguage</key>

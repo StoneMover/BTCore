@@ -16,15 +16,10 @@
         let url = getUrlFunction("&lt;#String#&gt;")
         request.post(url, parameters: dict, success: { (task, response) in
             BTProgress.hideLoading()
-            let dataDict = response as? [AnyHashable : Any]
-            if isSuccess(dataDict){
-                successBlock(response!)
-            }else{
-                failBlock(nil,errorCode(dataDict),errorInfo(dataDict))
-            }
+            defaultSuccess(response, success: successBlock, fail: failBlock)
         },failure: { (task, error) in
             BTProgress.hideLoading()
-            failBlock(error,-1,nil)
+            defaultNetError(error, fail: failBlock)
         })</string>
 	<key>IDECodeSnippetIdentifier</key>
 	<string>67F16F60-CE4A-4D85-A9F3-8D356E217017</string>
