@@ -65,7 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (MJRefreshFooter*)BTPageLoadRefreshFooter:(BTPageLoadView*)loadView;
 
 //空数据Toast执行方法，需要自定义可重写方法
-- (void)BTPageLoadEmptyDataToast;
+- (void)BTPageLoadEmptyDataToast:(BTPageLoadView*)loadView;
+
+//错误Toast执行方法，需要自定义可重写该方法
+- (void)BTPageLoadErrorToast:(BTPageLoadView*)loadView error:(NSError* _Nullable)error errorInfo:(NSString* _Nullable)errorInfo;
 
 @end
 
@@ -114,6 +117,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 //空数据Toast是否为当前VC中
 @property (nonatomic, assign) BOOL isEmptyToastInCurrentVc;
+
+//是否错误信息Toast在当前VC中显示
+@property (nonatomic, assign) BOOL isErrorToastInCurrentVc;
 
 //是否需要在刷新请求后调用autoLoadSuccess方法中清空dataArray数组,默认为YES
 @property (nonatomic, assign) BOOL isNeedClearDataWhenRefresh;

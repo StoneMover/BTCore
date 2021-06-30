@@ -228,7 +228,16 @@
         return;
     }
     _isRefresh=NO;
-    [BTToast showErrorInfo:errorInfo];
+    if ([self.delegate respondsToSelector:@selector(BTPageLoadErrorToast:error:errorInfo:)]) {
+        [self.delegate BTPageLoadErrorToast:self error:nil errorInfo:errorInfo];
+        return;
+    }
+    
+    if (self.isErrorToastInCurrentVc) {
+        [BTToast showVcErrorInfo:errorInfo];
+    }else{
+        [BTToast showErrorInfo:errorInfo];
+    }
 }
 
 - (void)autoLoadNetError:(NSError*)error{
@@ -242,7 +251,18 @@
         return;
     }
     
-    [BTToast showErrorInfo:info];
+    if ([self.delegate respondsToSelector:@selector(BTPageLoadErrorToast:error:errorInfo:)]) {
+        [self.delegate BTPageLoadErrorToast:self error:error errorInfo:nil];
+        return;
+    }
+    
+    if (self.isErrorToastInCurrentVc) {
+        [BTToast showVcErrorObj:error];
+    }else{
+        [BTToast showErrorInfo:info];
+    }
+    
+    
 }
 
 
@@ -452,8 +472,8 @@
         return;
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadEmptyDataToast)]) {
-        [self.delegate BTPageLoadEmptyDataToast];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadEmptyDataToast:)]) {
+        [self.delegate BTPageLoadEmptyDataToast:self];
         return;
     }
     
