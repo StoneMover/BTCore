@@ -200,6 +200,11 @@ typedef NS_ENUM(NSInteger,NavItemType) {
 //设置导航器背景透明
 - (void)bt_setNavTrans;
 
+//设置导航器背景颜色
+- (void)bt_setNavBgColor:(UIColor*)color;
+
+- (void)bt_setNavBgImg:(UIImage*)bgImg;
+
 //隐藏导航器分割线
 - (void)bt_setNavLineHide;
 

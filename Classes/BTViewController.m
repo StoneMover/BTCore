@@ -675,11 +675,27 @@
 }
 
 - (void)bt_setNavTrans{
-    self.navigationController.navigationBar.translucent = true;
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage bt_imageWithColor:UIColor.clearColor] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setClipsToBounds:YES];
     self.navigationController.navigationBar.backgroundColor=UIColor.clearColor;
+}
+
+- (void)bt_setNavBgColor:(UIColor*)color{
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage bt_imageWithColor:color] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setClipsToBounds:NO];
+    self.navigationController.navigationBar.backgroundColor=color;
+}
+
+- (void)bt_setNavBgImg:(UIImage*)bgImg{
+    self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar setBackgroundImage:bgImg forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setClipsToBounds:NO];
+    
 }
 
 - (void)bt_setNavLineHide{

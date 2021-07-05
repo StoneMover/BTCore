@@ -27,7 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self bt_initTitle:@"BTCore"];
+    [self bt_setNavBgColor:UIColor.greenColor];
+    [self bt_setNavBgImg:[UIImage bt_imageWithColor:UIColor.redColor]];
+    [self bt_initTitle:@"BTCore" color:UIColor.whiteColor];
     [self.pageLoadView initTableView:@[@"UITableViewCell"] isRegisgerNib:NO];
     [self.pageLoadView.dataArray addObjectsFromArray:@[@"tableView头部伸缩效果",@"WebView加载",@"LogView",@"半屏导航器测试",@"GCD",@"横竖屏切换",@"自定义导航器"]];
     [self.pageLoadView setTableViewNoMoreEmptyLine];
