@@ -103,7 +103,7 @@ NSUserDefaults * defaults;
 
 
 -(BOOL)isLogin{
-    if (self.model&&self.model.userId&&self.model.userId.length>0) {
+    if (self.model&&[self.model getUserId]&&[self.model getUserId].length>0) {
         return YES;
     }
     return NO;
@@ -132,6 +132,18 @@ NSUserDefaults * defaults;
 
 -(void)initSelf{
     [super initSelf];
+}
+
+- (NSString * _Nullable)getUserName{
+    return @"";
+}
+
+- (NSString * _Nullable)getUserToken{
+    return @"";
+}
+
+- (NSString * _Nullable)getUserId{
+    return @"";
 }
 
 @end

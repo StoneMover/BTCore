@@ -58,12 +58,12 @@ static BTCoreConfig * config=nil;
         [dict setValue:os forKey:@"os"];
         [dict setValue:osVersion forKey:@"osVersion"];
         if ([BTUserMananger share].isLogin) {
-            if (![BTUtils isEmpty:[BTUserMananger share].model.userId]) {
-                [dict setValue:[BTUserMananger share].model.userId forKey:@"uid"];
+            if (![BTUtils isEmpty:[BTUserMananger.share.model getUserId]]) {
+                [dict setValue:[BTUserMananger.share.model getUserId] forKey:@"uid"];
             }
             
-            if (![BTUtils isEmpty:[BTUserMananger share].model.userToken]) {
-                [dict setValue:[BTUserMananger share].model.userToken forKey:@"token"];
+            if (![BTUtils isEmpty:[BTUserMananger.share.model getUserToken]]) {
+                [dict setValue:[BTUserMananger.share.model getUserToken] forKey:@"token"];
             }
             
         }

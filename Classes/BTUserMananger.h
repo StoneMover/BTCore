@@ -67,12 +67,18 @@ NS_ASSUME_NONNULL_END
 
 @interface BTUserModel : BTModel
 
-@property(nonatomic,strong,nullable) NSString * userName;//用户名
+//@property(nonatomic,strong,nullable) NSString * userName;//用户名
+//
+//@property(nonatomic,strong,nullable) NSString * userToken;//用户token
+//
+//@property(nonatomic,strong,nullable) NSString * userId;//用户id
 
-@property(nonatomic,strong,nullable) NSString * userToken;//用户token
 
-@property(nonatomic,strong,nullable) NSString * userId;//用户id
+- (NSString * _Nullable)getUserName;
 
+- (NSString * _Nullable)getUserToken;
+
+- (NSString * _Nullable)getUserId;
 
 @end
 
