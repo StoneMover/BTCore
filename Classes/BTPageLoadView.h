@@ -127,6 +127,12 @@ NS_ASSUME_NONNULL_BEGIN
 //collectionViewCell size
 @property (nonatomic, assign) CGSize collectionViewCellSize;
 
+//是否在加载完成后延时显示错误界面，0为不延时，主要配合下拉刷新第一次加载没有loading界面的情况下，直接出现empty界面和生硬的问题
+@property (nonatomic, assign) CGFloat delayShowErrorViewTime;
+
+//是否在加载完成收延时显示空界面，0为不延时，主要配合下拉刷新第一次加载没有loading界面的情况下，直接出现empty界面和生硬的问题
+@property (nonatomic, assign) CGFloat delayShowEmptyViewTime;
+
 #pragma mark 初始化相关操作
 - (void)initTableView:(NSArray<NSString*>*)cellNames;
 - (void)initTableView:(NSArray<NSString*>*)cellNames isRegisgerNib:(BOOL)isRegisgerNib;
@@ -142,13 +148,13 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark 自动加载逻辑
 
 //自定解析传入的model数据，dict:最外层的字典数据
-- (void)autoLoad:(NSDictionary*)dict class:(Class)cla;
+- (void)autoLoad:(NSDictionary* _Nullable)dict class:(Class)cla;
 
 //成功传入数据自动解析
-- (void)autoLoadSuccess:(NSArray*)dataDict class:(Class)cls;
+- (void)autoLoadSuccess:(NSArray* _Nullable)dataArrayDict class:(Class)cls;
 
 //成功传入已经解析好的数组
-- (void)autoLoadSuccess:(NSArray *)dataArray;
+- (void)autoLoadSuccess:(NSArray * _Nullable)dataArray;
 
 //服务器错误与网络错误提示，如果error不空则进入autoLoadNetError方法，反之进入autoLoadSeverError方法
 - (void)autoLoadError:(NSError* _Nullable)error errorInfo:(NSString* _Nullable)errorInfo;

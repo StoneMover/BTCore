@@ -45,8 +45,8 @@
 
 
 - (void)initSelf{
-    self.loadFinishDataNum=[BTCoreConfig share].pageLoadSizePage;
-    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    self.loadFinishDataNum=BTCoreConfig.share.pageLoadSizePage;
+    _pageNumber=BTCoreConfig.share.pageLoadStartPage;
     self.isToastWhenDataEmpty = YES;
     self.isNeedClearDataWhenRefresh = YES;
 }
@@ -137,7 +137,11 @@
 }
 
 #pragma mark 自动加载逻辑
-- (void)autoLoad:(NSDictionary*)dict class:(Class)cla{
+- (void)autoLoad:(NSDictionary* _Nullable)dict class:(Class)cla{
+    if (dict == nil || [dict isKindOfClass:[NSNull class]]) {
+        dict = [NSDictionary new];
+    }
+    
     if ([BTNet isSuccess:dict]) {
         NSArray * array = nil;
         if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadData:dataOri:)]) {
@@ -154,14 +158,14 @@
     }
 }
 
-- (void)autoLoadSuccess:(NSArray*)dataDict class:(Class)cls{
-    if (dataDict == nil || [dataDict isKindOfClass:[NSNull class]]) {
-        dataDict = [NSArray new];
+- (void)autoLoadSuccess:(NSArray* _Nullable)dataArrayDict class:(Class)cls{
+    if (dataArrayDict == nil || [dataArrayDict isKindOfClass:[NSNull class]]) {
+        dataArrayDict = [NSArray new];
     }
     
     NSMutableArray * dataArray = [NSMutableArray new];
     NSInteger index=0;
-    for (NSDictionary * dict in dataDict) {
+    for (NSDictionary * dict in dataArrayDict) {
         BTModel * modelChild=[[cls alloc]init];
         [modelChild analisys:dict];
         if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadCreate:obj:dict:index:)]) {
@@ -174,6 +178,9 @@
 }
 
 - (void)autoLoadSuccess:(NSArray *)dataArray{
+    if (dataArray == nil || [dataArray isKindOfClass:[NSNull class]]) {
+        dataArray = [NSArray new];
+    }
     [self endHeadRefresh];
     [self endFootRefresh];
     if (self.isRefresh) {
@@ -184,10 +191,17 @@
     }
     
     [self.dataArray addObjectsFromArray:dataArray];
-    if (self.pageNumber == [BTCoreConfig share].pageLoadStartPage) {
-        if (self.loadingHelp) {
+    if (self.pageNumber == BTCoreConfig.share.pageLoadStartPage) {
+        if (self.loadingHelp.viewEmpty) {
             if(dataArray.count==0){
-                [self.loadingHelp showEmpty];
+                if (self.delayShowEmptyViewTime == 0) {
+                    [self.loadingHelp showEmpty];
+                }else{
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delayShowEmptyViewTime  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self.loadingHelp showEmpty];
+                    });
+                }
+                
                 _pageNumber--;
             }else{
                 [self.loadingHelp dismiss];
@@ -222,9 +236,15 @@
 - (void)autoLoadSeverError:(NSString*)errorInfo{
     [self endHeadRefresh];
     [self endFootRefresh];
-    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage&&self.loadingHelp&&!self.isRefresh) {
-        //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
-        [self.loadingHelp showError:errorInfo];
+    //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
+    if (self.pageNumber==BTCoreConfig.share.pageLoadStartPage&&self.loadingHelp&&!self.isRefresh&&self.loadingHelp.viewError) {
+        if (self.delayShowErrorViewTime == 0) {
+            [self.loadingHelp showError:errorInfo];
+        }else{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delayShowErrorViewTime  * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.loadingHelp showError:errorInfo];
+            });
+        }
         return;
     }
     _isRefresh=NO;
@@ -241,28 +261,8 @@
 }
 
 - (void)autoLoadNetError:(NSError*)error{
-    [self endHeadRefresh];
-    [self endFootRefresh];
     NSString * info = BTCoreConfig.share.netErrorInfoFillterBlock(error);
-    _isRefresh=NO;
-    if (self.pageNumber==[BTCoreConfig share].pageLoadStartPage&&self.loadingHelp&&!self.isRefresh) {
-        //当数据请求为第一页的时候,并且挡板已经初始化,并且不是刷新状态的时候,给出挡板的错误提示
-        [self.loadingHelp showError:info];
-        return;
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(BTPageLoadErrorToast:error:errorInfo:)]) {
-        [self.delegate BTPageLoadErrorToast:self error:error errorInfo:nil];
-        return;
-    }
-    
-    if (self.isErrorToastInCurrentVc) {
-        [BTToast showVcErrorObj:error];
-    }else{
-        [BTToast showErrorInfo:info];
-    }
-    
-    
+    [self autoLoadSeverError:info];
 }
 
 
@@ -382,7 +382,7 @@
 }
 
 - (void)headRefreshLoad{
-    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    _pageNumber=BTCoreConfig.share.pageLoadStartPage;
     self.isLoadFinish=NO;
     _isRefresh=YES;
     if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadGetData:)]) {
@@ -427,8 +427,10 @@
     if (self.dataArray.count==0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             self.isLoadFinish=NO;
-            self->_pageNumber=[BTCoreConfig share].pageLoadStartPage;
-            [self.loadingHelp showLoading];
+            self->_pageNumber=BTCoreConfig.share.pageLoadStartPage;
+            if (self.loadingHelp.viewLoading) {
+                [self.loadingHelp showLoading];
+            }
             if (self.delegate && [self.delegate respondsToSelector:@selector(BTPageLoadGetData:)]) {
                 [self.delegate BTPageLoadGetData:self];
             }
@@ -445,9 +447,12 @@
 
 - (void)resetValue{
     self.isLoadFinish=NO;
-    _pageNumber=[BTCoreConfig share].pageLoadStartPage;
+    _pageNumber=BTCoreConfig.share.pageLoadStartPage;
     [self.dataArray removeAllObjects];
-    [self.loadingHelp showLoading];
+    if (self.loadingHelp.viewLoading) {
+        [self.loadingHelp showLoading];
+    }
+    
 }
 
 

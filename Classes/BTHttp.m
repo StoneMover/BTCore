@@ -98,16 +98,21 @@ static BTHttp * http=nil;
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
                             parameters:(nullable id)parameters
                                headers:(nullable NSDictionary <NSString *, NSString *> *) headers
-                              progress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
-                               success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
-                               failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure{
+                              progress:(nullable BTHttpDefaultProgressBlock) downloadProgress
+                               success:(nullable BTHttpDefaultSuccessBlock)success
+                               failure:(nullable BTHttpDefaultErrorBlock)failure{
     [self autoLogParameters:YES url:URLString parameters:parameters];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dictHead];
     if (headers) {
         [dict addEntriesFromDictionary:dict];
     }
     
-    return [self.mananger GET:URLString parameters:parameters headers:dict progress:downloadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask * task = [self.mananger
+                                   GET:URLString
+                                   parameters:parameters
+                                   headers:dict
+                                   progress:downloadProgress
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([self requestFilter:responseObject]) {
             success(task,responseObject);
         }
@@ -116,13 +121,14 @@ static BTHttp * http=nil;
             failure(task,error);
         }
     }];
+    return task;
 }
 
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
                             parameters:(nullable id)parameters
-                              progress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
-                               success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
-                               failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure{
+                              progress:(nullable BTHttpDefaultProgressBlock) downloadProgress
+                               success:(nullable BTHttpDefaultSuccessBlock)success
+                               failure:(nullable BTHttpDefaultErrorBlock)failure{
     return [self GET:URLString parameters:parameters headers:nil progress:downloadProgress success:success failure:failure];
 }
 
@@ -131,8 +137,8 @@ static BTHttp * http=nil;
 
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
                             parameters:(nullable id)parameters
-                               success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
-                               failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure{
+                               success:(nullable BTHttpDefaultSuccessBlock)success
+                               failure:(nullable BTHttpDefaultErrorBlock)failure{
     return [self GET:URLString parameters:parameters progress:nil success:success failure:failure];
 }
 
@@ -142,16 +148,21 @@ static BTHttp * http=nil;
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
                        headers:(nullable NSDictionary <NSString *, NSString *> *) headers
-                      progress:(void (^)(NSProgress * _Nullable progress))uploadProgress
-                       success:(void (^)(NSURLSessionDataTask * task , id _Nullable responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure
+                      progress:(nullable BTHttpDefaultProgressBlock)uploadProgress
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure
 {
     [self autoLogParameters:NO url:URLString parameters:parameters];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dictHead];
     if (headers) {
         [dict addEntriesFromDictionary:dict];
     }
-    return [self.mananger POST:URLString parameters:parameters headers:dict progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask * task = [self.mananger
+                                   POST:URLString
+                                   parameters:parameters
+                                   headers:dict
+                                   progress:uploadProgress
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([self requestFilter:responseObject]) {
             success(task,responseObject);
         }
@@ -160,22 +171,24 @@ static BTHttp * http=nil;
             failure(task,error);
         }
     }];
+    
+    return task;
 }
 
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-                      progress:(void (^)(NSProgress * _Nullable progress))uploadProgress
-                       success:(void (^)(NSURLSessionDataTask * task , id _Nullable responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure
+                      progress:(nullable BTHttpDefaultProgressBlock)uploadProgress
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure
 {
     return [self POST:URLString parameters:parameters headers:nil progress:uploadProgress success:success failure:failure];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask * task, NSError * error))failure
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure
 {
     return [self POST:URLString parameters:parameters progress:nil success:success failure:failure];
 }
@@ -186,17 +199,23 @@ static BTHttp * http=nil;
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
                        headers:(nullable NSDictionary <NSString *, NSString *> *) headers
-     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                      progress:(nullable void (^)(NSProgress * _Nonnull progress))uploadProgress
-                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+     constructingBodyWithBlock:(nullable BTHttpDefaultFormDataBlock)block
+                      progress:(nullable BTHttpDefaultProgressBlock)uploadProgress
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure
 {
     [self autoLogParameters:NO url:URLString parameters:parameters];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dictHead];
     if (headers) {
         [dict addEntriesFromDictionary:dict];
     }
-    return [self.mananger POST:URLString parameters:parameters headers:dict constructingBodyWithBlock:block progress:uploadProgress success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask * task = [self.mananger
+                                   POST:URLString
+                                   parameters:parameters
+                                   headers:dict
+                                   constructingBodyWithBlock:block
+                                   progress:uploadProgress
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([self requestFilter:responseObject]) {
             success(task,responseObject);
         }
@@ -205,23 +224,25 @@ static BTHttp * http=nil;
             failure(task,error);
         }
     }];
+    
+    return task;
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                      progress:(nullable void (^)(NSProgress * _Nonnull progress))uploadProgress
-                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+     constructingBodyWithBlock:(nullable BTHttpDefaultFormDataBlock)block
+                      progress:(nullable BTHttpDefaultProgressBlock)uploadProgress
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure
 {
     return [self POST:URLString parameters:parameters headers:nil constructingBodyWithBlock:block progress:uploadProgress success:success failure:failure];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+     constructingBodyWithBlock:(nullable BTHttpDefaultFormDataBlock)block
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure
 {
     return [self POST:URLString parameters:parameters constructingBodyWithBlock:block progress:nil success:success failure:failure];
 }
@@ -230,11 +251,15 @@ static BTHttp * http=nil;
 #pragma mark PUT
 - (NSURLSessionDataTask *)PUT:(NSString *)URLString
                     parameters:(id)parameters
-                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
-                      failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure{
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                      failure:(nullable BTHttpDefaultErrorBlock)failure{
     [self autoLogParameters:NO url:URLString parameters:parameters];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dictHead];
-    return [self.mananger PUT:URLString parameters:parameters headers:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask * task = [self.mananger
+                                   PUT:URLString
+                                   parameters:parameters
+                                   headers:dict
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([self requestFilter:responseObject]) {
             success(task,responseObject);
         }
@@ -243,6 +268,7 @@ static BTHttp * http=nil;
             failure(task,error);
         }
     }];
+    return task;
 }
 
 #pragma mark DELETE
@@ -252,7 +278,11 @@ static BTHttp * http=nil;
                       failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure{
     [self autoLogParameters:NO url:URLString parameters:parameters];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithDictionary:self.dictHead];
-    return [self.mananger DELETE:URLString parameters:parameters headers:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    NSURLSessionDataTask * task = [self.mananger
+                                   DELETE:URLString
+                                   parameters:parameters
+                                   headers:dict
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         if ([self requestFilter:responseObject]) {
             success(task,responseObject);
         }
@@ -261,6 +291,8 @@ static BTHttp * http=nil;
             failure(task,error);
         }
     }];
+    
+    return task;
 }
 
 - (BOOL)requestFilter:(NSObject *_Nullable)obj{

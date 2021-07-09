@@ -48,6 +48,15 @@
 #import <BTHelp/BTModel.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^BTHttpDefaultErrorBlock)(NSURLSessionDataTask * _Nullable task, NSError * error);
+
+typedef void (^BTHttpDefaultSuccessBlock)(NSURLSessionDataTask *task, id _Nullable responseObject);
+
+typedef void(^BTHttpDefaultProgressBlock)(NSProgress * _Nullable progress);
+
+typedef void(^BTHttpDefaultFormDataBlock)(id <AFMultipartFormData> formData);
+
 @interface BTHttp : NSObject
 
 @property (nonatomic, strong, readonly) AFHTTPSessionManager * mananger;
@@ -68,56 +77,56 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark GET请求
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
                             parameters:(nullable id)parameters
-                              progress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
-                               success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
-                               failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+                              progress:(nullable BTHttpDefaultProgressBlock) downloadProgress
+                               success:(nullable BTHttpDefaultSuccessBlock)success
+                               failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 - (nullable NSURLSessionDataTask *)GET:(NSString *)URLString
                             parameters:(nullable id)parameters
-                               success:(nullable void (^)(NSURLSessionDataTask *task, id _Nullable responseObject))success
-                               failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure;
+                               success:(nullable BTHttpDefaultSuccessBlock)success
+                               failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 
 #pragma mark POST请求
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-                      progress:(nullable void (^)(NSProgress * _Nullable progress))uploadProgress
-                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error))failure;
+                      progress:(nullable BTHttpDefaultProgressBlock)uploadProgress
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure;
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 
 #pragma mark 数据上传
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                      progress:(nullable void (^)(NSProgress * _Nonnull progress))uploadProgress
-                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+     constructingBodyWithBlock:(nullable BTHttpDefaultFormDataBlock)block
+                      progress:(nullable BTHttpDefaultProgressBlock)uploadProgress
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
-     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
-                       success:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-                       failure:(void (^)(NSURLSessionDataTask *task, NSError *error))failure;
+     constructingBodyWithBlock:(nullable BTHttpDefaultFormDataBlock)block
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                       failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 #pragma mark PUT
 - (NSURLSessionDataTask *)PUT:(NSString *)URLString
                     parameters:(id)parameters
-                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
-                      failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure;
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                      failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 #pragma mark DELETE
 - (NSURLSessionDataTask *)DELETE:(NSString *)URLString
                     parameters:(id)parameters
-                       success:(void (^)(NSURLSessionDataTask * task, id _Nullable responseObject))success
-                         failure:(void (^)(NSURLSessionDataTask * task, NSError * _Nonnull error))failure;
+                       success:(nullable BTHttpDefaultSuccessBlock)success
+                         failure:(nullable BTHttpDefaultErrorBlock)failure;
 
 //添加头信息
 -(void)addHttpHead:(NSString*)key value:(NSString*)value;
@@ -132,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
-typedef void(^BTNetSuccessBlock)(id obj);
+typedef void(^BTNetSuccessBlock)(id _Nullable obj);
 
 typedef void(^BTNetFailBlock)(NSError * _Nullable error,NSString * _Nullable errorInfo);
 
