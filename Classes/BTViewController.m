@@ -9,6 +9,7 @@
 #import "BTViewController.h"
 #import <WebKit/WebKit.h>
 #import <BTWidgetView/BTProgressView.h>
+#import "BTLogView.h"
 
 @implementation UIViewController (BTCategoryViewController)
 
@@ -48,10 +49,6 @@
         self.view.backgroundColor = BTCoreConfig.share.defaultVCBgColor;
     }
     
-    if (BTCoreConfig.share.isDebug) {
-        [self debugConfig];
-    }
-    
 }
 
 #pragma mark 生命周期
@@ -68,6 +65,9 @@
     [super viewDidAppear:animated];
     if (self.viewDidAppearIndex==0) {
         [self viewDidAppearFirst];
+        if (BTCoreConfig.share.isDebug) {
+            [self debugConfig];
+        }
     }
     self.viewDidAppearIndex++;
 }
@@ -93,9 +93,15 @@
 }
 
 - (void)debugConfig{
+    
 }
 
-
+- (void)dealloc{
+    if (BTCoreConfig.share.isDebug) {
+        NSString * name = NSStringFromClass([self class]);
+        [BTLogView.share add:[NSString stringWithFormat:@"%@已经释放",name]];
+    }
+}
 
 @end
 

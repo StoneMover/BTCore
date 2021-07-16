@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 //0:上,1:中,2:底部
 @property (nonatomic, assign, readonly) NSInteger location;
 
-//是否在控制台输出
+//是否在控制台输出,默认YES
 @property (nonatomic, assign) BOOL isShowControlView;
 
 @end
